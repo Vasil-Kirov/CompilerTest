@@ -1,0 +1,78 @@
+main
+
+#import sdl
+#import gl
+#import io
+#import renderer as r
+
+WIDTH   :: @i32 640;
+HEIGHT  :: @i32 480;
+
+main :: fn() -> i32 {
+    if !sdl.Init(sdl.INIT_VIDEO) {
+        io.println("sdl.Init() failed: %s", sdl.GetError());
+        return 1;
+    }
+
+    sdl.GL_SetAttribute(sdl.GLattr.CONTEXT_MAJOR_VERSION, 4);
+    sdl.GL_SetAttribute(sdl.GLattr.CONTEXT_MINOR_VERSION, 3);
+    sdl.GL_SetAttribute(sdl.GLattr.CONTEXT_PROFILE_MASK, sdl.GL_CONTEXT_PROFILE_CORE);
+    sdl.GL_SetAttribute(sdl.GLattr.CONTEXT_FLAGS, sdl.GL_CONTEXT_DEBUG_FLAG);
+
+    maybe_window := sdl.CreateWindow(c"My Window", WIDTH, HEIGHT, sdl.WINDOW_OPENGL | sdl.WINDOW_RESIZABLE);
+    if maybe_window == null {
+        io.println("sdl.CreateWindow() failed: %s", sdl.GetError());
+        return 1;
+    }
+
+    window := ?maybe_window;
+
+    maybe_ctx := sdl.GL_CreateContext(window);
+    if maybe_ctx == null {
+        io.println("sdl.GL_CreateContext() failed: %s", sdl.GetError());
+        return 1;
+    }
+
+    gl_ctx := ?maybe_ctx;
+
+    if gl.load() == false {
+        io.println("gl.load() failed");
+        return 1;
+    }
+
+    renderer := r.create_ctx();
+    running := true;
+
+    sdl.GL_SetSwapInterval(1);
+
+    gl.Viewport(0, 0, WIDTH, HEIGHT);
+    for running {
+        gl.Clear(gl.COLOR_BUFFER_BIT);
+        gl.ClearColor(0.8, 0.3, 0.3, 1.0);
+
+        event: sdl.Event;
+        for sdl.PollEvent(&event) {
+            match event.type {
+                sdl.EventType.QUIT: {
+                    running = false;
+                }
+            };
+        }
+
+        r.draw_verts(&renderer, []r.vec3 {
+            r.vec3 { -0.5, -0.5, 0.0 },
+            r.vec3 {  0.5, -0.5, 0.0 },
+            r.vec3 {  0.0,  0.5, 0.0 },
+        });
+
+
+        sdl.GL_SwapWindow(window);
+    }
+
+
+    return 0;
+}
+
+
+
+

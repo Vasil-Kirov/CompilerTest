@@ -1,0 +1,525 @@
+; ModuleID = 'sdl'
+source_filename = "sdl.rcp"
+target datalayout = "e-m:w-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-pc-windows-msvc"
+
+%slice.65 = type { i64, ptr }
+
+$__sdl_INIT_AUDIO = comdat nodeduplicate
+
+$__sdl_INIT_VIDEO = comdat nodeduplicate
+
+$__sdl_INIT_JOYSTICK = comdat nodeduplicate
+
+$__sdl_INIT_HAPTIC = comdat nodeduplicate
+
+$__sdl_INIT_GAMEPAD = comdat nodeduplicate
+
+$__sdl_INIT_EVENTS = comdat nodeduplicate
+
+$__sdl_INIT_SENSOR = comdat nodeduplicate
+
+$__sdl_INIT_CAMERA = comdat nodeduplicate
+
+$__sdl_WINDOW_FULLSCREEN = comdat nodeduplicate
+
+$__sdl_WINDOW_OPENGL = comdat nodeduplicate
+
+$__sdl_WINDOW_OCCLUDED = comdat nodeduplicate
+
+$__sdl_WINDOW_HIDDEN = comdat nodeduplicate
+
+$__sdl_WINDOW_BORDERLESS = comdat nodeduplicate
+
+$__sdl_WINDOW_RESIZABLE = comdat nodeduplicate
+
+$__sdl_WINDOW_MINIMIZED = comdat nodeduplicate
+
+$__sdl_WINDOW_MAXIMIZED = comdat nodeduplicate
+
+$__sdl_WINDOW_MOUSE_GRABBED = comdat nodeduplicate
+
+$__sdl_WINDOW_INPUT_FOCUS = comdat nodeduplicate
+
+$__sdl_WINDOW_MOUSE_FOCUS = comdat nodeduplicate
+
+$__sdl_WINDOW_EXTERNAL = comdat nodeduplicate
+
+$__sdl_WINDOW_MODAL = comdat nodeduplicate
+
+$__sdl_WINDOW_HIGH_PIXEL_DENSITY = comdat nodeduplicate
+
+$__sdl_WINDOW_MOUSE_CAPTURE = comdat nodeduplicate
+
+$__sdl_WINDOW_MOUSE_RELATIVE_MODE = comdat nodeduplicate
+
+$__sdl_WINDOW_ALWAYS_ON_TOP = comdat nodeduplicate
+
+$__sdl_WINDOW_UTILITY = comdat nodeduplicate
+
+$__sdl_WINDOW_TOOLTIP = comdat nodeduplicate
+
+$__sdl_WINDOW_POPUP_MENU = comdat nodeduplicate
+
+$__sdl_WINDOW_KEYBOARD_GRABBED = comdat nodeduplicate
+
+$__sdl_WINDOW_VULKAN = comdat nodeduplicate
+
+$__sdl_WINDOW_METAL = comdat nodeduplicate
+
+$__sdl_WINDOW_TRANSPARENT = comdat nodeduplicate
+
+$__sdl_WINDOW_NOT_FOCUSABLE = comdat nodeduplicate
+
+@__sdl_INIT_AUDIO = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_INIT_VIDEO = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_INIT_JOYSTICK = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_INIT_HAPTIC = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_INIT_GAMEPAD = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_INIT_EVENTS = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_INIT_SENSOR = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_INIT_CAMERA = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_FULLSCREEN = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_OPENGL = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_OCCLUDED = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_HIDDEN = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_BORDERLESS = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_RESIZABLE = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_MINIMIZED = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_MAXIMIZED = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_MOUSE_GRABBED = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_INPUT_FOCUS = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_MOUSE_FOCUS = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_EXTERNAL = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_MODAL = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_HIGH_PIXEL_DENSITY = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_MOUSE_CAPTURE = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_MOUSE_RELATIVE_MODE = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_ALWAYS_ON_TOP = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_UTILITY = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_TOOLTIP = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_POPUP_MENU = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_KEYBOARD_GRABBED = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_VULKAN = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_METAL = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_TRANSPARENT = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_WINDOW_NOT_FOCUSABLE = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__gl_dll_module = external global ptr
+@__init_INVALID_TYPE = external global i64
+@__init_type_table = external global %slice.65
+@__os_STD_INPUT_HANDLE = external global i32
+@__os_STD_OUTPUT_HANDLE = external global i32
+@__os_STD_ERROR_HANDLE = external global i32
+@__os_INVALID_HANDLE_VALUE = external global ptr
+@__os_CP_UTF7 = external global i32
+@__os_CP_UTF8 = external global i32
+@__os_MEM_COMMIT = external global i32
+@__os_MEM_RESERVE = external global i32
+@__os_MEM_RELEASE = external global i32
+@__os_PAGE_NOACCESS = external global i32
+@__os_PAGE_READONLY = external global i32
+@__os_PAGE_READWRITE = external global i32
+@__os_PAGE_WRITECOPY = external global i32
+@__os_PAGE_EXECUTE = external global i32
+@__os_PAGE_EXECUTE_READ = external global i32
+@__os_PAGE_EXECUTE_READWRITE = external global i32
+@__os_PAGE_EXECUTE_WRITECOPY = external global i32
+@__os_PAGE_GUARD = external global i32
+@__os_PAGE_NOCACHE = external global i32
+@__os_PAGE_WRITECOMBINE = external global i32
+@__str_CONTINUE_BIT = external global i8
+@llvm.used = appending global [1 x ptr] [ptr @asan.module_ctor], section "llvm.metadata"
+@___asan_gen_ = private constant [4 x i8] c"sdl\00", align 1
+@___asan_gen_.2 = private unnamed_addr constant [17 x i8] c"__sdl_INIT_AUDIO\00", align 1
+@__odr_asan_gen___sdl_INIT_AUDIO = global i8 0, align 1
+@___asan_gen_.3 = private unnamed_addr constant [17 x i8] c"__sdl_INIT_VIDEO\00", align 1
+@__odr_asan_gen___sdl_INIT_VIDEO = global i8 0, align 1
+@___asan_gen_.4 = private unnamed_addr constant [20 x i8] c"__sdl_INIT_JOYSTICK\00", align 1
+@__odr_asan_gen___sdl_INIT_JOYSTICK = global i8 0, align 1
+@___asan_gen_.5 = private unnamed_addr constant [18 x i8] c"__sdl_INIT_HAPTIC\00", align 1
+@__odr_asan_gen___sdl_INIT_HAPTIC = global i8 0, align 1
+@___asan_gen_.6 = private unnamed_addr constant [19 x i8] c"__sdl_INIT_GAMEPAD\00", align 1
+@__odr_asan_gen___sdl_INIT_GAMEPAD = global i8 0, align 1
+@___asan_gen_.7 = private unnamed_addr constant [18 x i8] c"__sdl_INIT_EVENTS\00", align 1
+@__odr_asan_gen___sdl_INIT_EVENTS = global i8 0, align 1
+@___asan_gen_.8 = private unnamed_addr constant [18 x i8] c"__sdl_INIT_SENSOR\00", align 1
+@__odr_asan_gen___sdl_INIT_SENSOR = global i8 0, align 1
+@___asan_gen_.9 = private unnamed_addr constant [18 x i8] c"__sdl_INIT_CAMERA\00", align 1
+@__odr_asan_gen___sdl_INIT_CAMERA = global i8 0, align 1
+@___asan_gen_.10 = private unnamed_addr constant [24 x i8] c"__sdl_WINDOW_FULLSCREEN\00", align 1
+@__odr_asan_gen___sdl_WINDOW_FULLSCREEN = global i8 0, align 1
+@___asan_gen_.11 = private unnamed_addr constant [20 x i8] c"__sdl_WINDOW_OPENGL\00", align 1
+@__odr_asan_gen___sdl_WINDOW_OPENGL = global i8 0, align 1
+@___asan_gen_.12 = private unnamed_addr constant [22 x i8] c"__sdl_WINDOW_OCCLUDED\00", align 1
+@__odr_asan_gen___sdl_WINDOW_OCCLUDED = global i8 0, align 1
+@___asan_gen_.13 = private unnamed_addr constant [20 x i8] c"__sdl_WINDOW_HIDDEN\00", align 1
+@__odr_asan_gen___sdl_WINDOW_HIDDEN = global i8 0, align 1
+@___asan_gen_.14 = private unnamed_addr constant [24 x i8] c"__sdl_WINDOW_BORDERLESS\00", align 1
+@__odr_asan_gen___sdl_WINDOW_BORDERLESS = global i8 0, align 1
+@___asan_gen_.15 = private unnamed_addr constant [23 x i8] c"__sdl_WINDOW_RESIZABLE\00", align 1
+@__odr_asan_gen___sdl_WINDOW_RESIZABLE = global i8 0, align 1
+@___asan_gen_.16 = private unnamed_addr constant [23 x i8] c"__sdl_WINDOW_MINIMIZED\00", align 1
+@__odr_asan_gen___sdl_WINDOW_MINIMIZED = global i8 0, align 1
+@___asan_gen_.17 = private unnamed_addr constant [23 x i8] c"__sdl_WINDOW_MAXIMIZED\00", align 1
+@__odr_asan_gen___sdl_WINDOW_MAXIMIZED = global i8 0, align 1
+@___asan_gen_.18 = private unnamed_addr constant [27 x i8] c"__sdl_WINDOW_MOUSE_GRABBED\00", align 1
+@__odr_asan_gen___sdl_WINDOW_MOUSE_GRABBED = global i8 0, align 1
+@___asan_gen_.19 = private unnamed_addr constant [25 x i8] c"__sdl_WINDOW_INPUT_FOCUS\00", align 1
+@__odr_asan_gen___sdl_WINDOW_INPUT_FOCUS = global i8 0, align 1
+@___asan_gen_.20 = private unnamed_addr constant [25 x i8] c"__sdl_WINDOW_MOUSE_FOCUS\00", align 1
+@__odr_asan_gen___sdl_WINDOW_MOUSE_FOCUS = global i8 0, align 1
+@___asan_gen_.21 = private unnamed_addr constant [22 x i8] c"__sdl_WINDOW_EXTERNAL\00", align 1
+@__odr_asan_gen___sdl_WINDOW_EXTERNAL = global i8 0, align 1
+@___asan_gen_.22 = private unnamed_addr constant [19 x i8] c"__sdl_WINDOW_MODAL\00", align 1
+@__odr_asan_gen___sdl_WINDOW_MODAL = global i8 0, align 1
+@___asan_gen_.23 = private unnamed_addr constant [32 x i8] c"__sdl_WINDOW_HIGH_PIXEL_DENSITY\00", align 1
+@__odr_asan_gen___sdl_WINDOW_HIGH_PIXEL_DENSITY = global i8 0, align 1
+@___asan_gen_.24 = private unnamed_addr constant [27 x i8] c"__sdl_WINDOW_MOUSE_CAPTURE\00", align 1
+@__odr_asan_gen___sdl_WINDOW_MOUSE_CAPTURE = global i8 0, align 1
+@___asan_gen_.25 = private unnamed_addr constant [33 x i8] c"__sdl_WINDOW_MOUSE_RELATIVE_MODE\00", align 1
+@__odr_asan_gen___sdl_WINDOW_MOUSE_RELATIVE_MODE = global i8 0, align 1
+@___asan_gen_.26 = private unnamed_addr constant [27 x i8] c"__sdl_WINDOW_ALWAYS_ON_TOP\00", align 1
+@__odr_asan_gen___sdl_WINDOW_ALWAYS_ON_TOP = global i8 0, align 1
+@___asan_gen_.27 = private unnamed_addr constant [21 x i8] c"__sdl_WINDOW_UTILITY\00", align 1
+@__odr_asan_gen___sdl_WINDOW_UTILITY = global i8 0, align 1
+@___asan_gen_.28 = private unnamed_addr constant [21 x i8] c"__sdl_WINDOW_TOOLTIP\00", align 1
+@__odr_asan_gen___sdl_WINDOW_TOOLTIP = global i8 0, align 1
+@___asan_gen_.29 = private unnamed_addr constant [24 x i8] c"__sdl_WINDOW_POPUP_MENU\00", align 1
+@__odr_asan_gen___sdl_WINDOW_POPUP_MENU = global i8 0, align 1
+@___asan_gen_.30 = private unnamed_addr constant [30 x i8] c"__sdl_WINDOW_KEYBOARD_GRABBED\00", align 1
+@__odr_asan_gen___sdl_WINDOW_KEYBOARD_GRABBED = global i8 0, align 1
+@___asan_gen_.31 = private unnamed_addr constant [20 x i8] c"__sdl_WINDOW_VULKAN\00", align 1
+@__odr_asan_gen___sdl_WINDOW_VULKAN = global i8 0, align 1
+@___asan_gen_.32 = private unnamed_addr constant [19 x i8] c"__sdl_WINDOW_METAL\00", align 1
+@__odr_asan_gen___sdl_WINDOW_METAL = global i8 0, align 1
+@___asan_gen_.33 = private unnamed_addr constant [25 x i8] c"__sdl_WINDOW_TRANSPARENT\00", align 1
+@__odr_asan_gen___sdl_WINDOW_TRANSPARENT = global i8 0, align 1
+@___asan_gen_.34 = private unnamed_addr constant [27 x i8] c"__sdl_WINDOW_NOT_FOCUSABLE\00", align 1
+@__odr_asan_gen___sdl_WINDOW_NOT_FOCUSABLE = global i8 0, align 1
+@__asan_global___sdl_INIT_AUDIO = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_INIT_AUDIO to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.2 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_INIT_AUDIO to i64) }, section ".ASAN$GL", comdat($__sdl_INIT_AUDIO), align 64, !associated !0
+@__asan_global___sdl_INIT_VIDEO = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_INIT_VIDEO to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.3 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_INIT_VIDEO to i64) }, section ".ASAN$GL", comdat($__sdl_INIT_VIDEO), align 64, !associated !1
+@__asan_global___sdl_INIT_JOYSTICK = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_INIT_JOYSTICK to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.4 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_INIT_JOYSTICK to i64) }, section ".ASAN$GL", comdat($__sdl_INIT_JOYSTICK), align 64, !associated !2
+@__asan_global___sdl_INIT_HAPTIC = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_INIT_HAPTIC to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.5 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_INIT_HAPTIC to i64) }, section ".ASAN$GL", comdat($__sdl_INIT_HAPTIC), align 64, !associated !3
+@__asan_global___sdl_INIT_GAMEPAD = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_INIT_GAMEPAD to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.6 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_INIT_GAMEPAD to i64) }, section ".ASAN$GL", comdat($__sdl_INIT_GAMEPAD), align 64, !associated !4
+@__asan_global___sdl_INIT_EVENTS = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_INIT_EVENTS to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.7 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_INIT_EVENTS to i64) }, section ".ASAN$GL", comdat($__sdl_INIT_EVENTS), align 64, !associated !5
+@__asan_global___sdl_INIT_SENSOR = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_INIT_SENSOR to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.8 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_INIT_SENSOR to i64) }, section ".ASAN$GL", comdat($__sdl_INIT_SENSOR), align 64, !associated !6
+@__asan_global___sdl_INIT_CAMERA = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_INIT_CAMERA to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.9 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_INIT_CAMERA to i64) }, section ".ASAN$GL", comdat($__sdl_INIT_CAMERA), align 64, !associated !7
+@__asan_global___sdl_WINDOW_FULLSCREEN = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_FULLSCREEN to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.10 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_FULLSCREEN to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_FULLSCREEN), align 64, !associated !8
+@__asan_global___sdl_WINDOW_OPENGL = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_OPENGL to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.11 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_OPENGL to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_OPENGL), align 64, !associated !9
+@__asan_global___sdl_WINDOW_OCCLUDED = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_OCCLUDED to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.12 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_OCCLUDED to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_OCCLUDED), align 64, !associated !10
+@__asan_global___sdl_WINDOW_HIDDEN = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_HIDDEN to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.13 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_HIDDEN to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_HIDDEN), align 64, !associated !11
+@__asan_global___sdl_WINDOW_BORDERLESS = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_BORDERLESS to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.14 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_BORDERLESS to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_BORDERLESS), align 64, !associated !12
+@__asan_global___sdl_WINDOW_RESIZABLE = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_RESIZABLE to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.15 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_RESIZABLE to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_RESIZABLE), align 64, !associated !13
+@__asan_global___sdl_WINDOW_MINIMIZED = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_MINIMIZED to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.16 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_MINIMIZED to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_MINIMIZED), align 64, !associated !14
+@__asan_global___sdl_WINDOW_MAXIMIZED = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_MAXIMIZED to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.17 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_MAXIMIZED to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_MAXIMIZED), align 64, !associated !15
+@__asan_global___sdl_WINDOW_MOUSE_GRABBED = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_MOUSE_GRABBED to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.18 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_MOUSE_GRABBED to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_MOUSE_GRABBED), align 64, !associated !16
+@__asan_global___sdl_WINDOW_INPUT_FOCUS = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_INPUT_FOCUS to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.19 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_INPUT_FOCUS to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_INPUT_FOCUS), align 64, !associated !17
+@__asan_global___sdl_WINDOW_MOUSE_FOCUS = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_MOUSE_FOCUS to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.20 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_MOUSE_FOCUS to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_MOUSE_FOCUS), align 64, !associated !18
+@__asan_global___sdl_WINDOW_EXTERNAL = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_EXTERNAL to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.21 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_EXTERNAL to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_EXTERNAL), align 64, !associated !19
+@__asan_global___sdl_WINDOW_MODAL = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_MODAL to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.22 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_MODAL to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_MODAL), align 64, !associated !20
+@__asan_global___sdl_WINDOW_HIGH_PIXEL_DENSITY = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_HIGH_PIXEL_DENSITY to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.23 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_HIGH_PIXEL_DENSITY to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_HIGH_PIXEL_DENSITY), align 64, !associated !21
+@__asan_global___sdl_WINDOW_MOUSE_CAPTURE = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_MOUSE_CAPTURE to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.24 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_MOUSE_CAPTURE to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_MOUSE_CAPTURE), align 64, !associated !22
+@__asan_global___sdl_WINDOW_MOUSE_RELATIVE_MODE = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_MOUSE_RELATIVE_MODE to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.25 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_MOUSE_RELATIVE_MODE to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_MOUSE_RELATIVE_MODE), align 64, !associated !23
+@__asan_global___sdl_WINDOW_ALWAYS_ON_TOP = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_ALWAYS_ON_TOP to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.26 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_ALWAYS_ON_TOP to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_ALWAYS_ON_TOP), align 64, !associated !24
+@__asan_global___sdl_WINDOW_UTILITY = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_UTILITY to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.27 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_UTILITY to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_UTILITY), align 64, !associated !25
+@__asan_global___sdl_WINDOW_TOOLTIP = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_TOOLTIP to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.28 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_TOOLTIP to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_TOOLTIP), align 64, !associated !26
+@__asan_global___sdl_WINDOW_POPUP_MENU = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_POPUP_MENU to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.29 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_POPUP_MENU to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_POPUP_MENU), align 64, !associated !27
+@__asan_global___sdl_WINDOW_KEYBOARD_GRABBED = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_KEYBOARD_GRABBED to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.30 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_KEYBOARD_GRABBED to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_KEYBOARD_GRABBED), align 64, !associated !28
+@__asan_global___sdl_WINDOW_VULKAN = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_VULKAN to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.31 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_VULKAN to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_VULKAN), align 64, !associated !29
+@__asan_global___sdl_WINDOW_METAL = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_METAL to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.32 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_METAL to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_METAL), align 64, !associated !30
+@__asan_global___sdl_WINDOW_TRANSPARENT = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_TRANSPARENT to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.33 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_TRANSPARENT to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_TRANSPARENT), align 64, !associated !31
+@__asan_global___sdl_WINDOW_NOT_FOCUSABLE = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_NOT_FOCUSABLE to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.34 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_NOT_FOCUSABLE to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_NOT_FOCUSABLE), align 64, !associated !32
+@llvm.compiler.used = appending global [66 x ptr] [ptr @__sdl_INIT_AUDIO, ptr @__sdl_INIT_VIDEO, ptr @__sdl_INIT_JOYSTICK, ptr @__sdl_INIT_HAPTIC, ptr @__sdl_INIT_GAMEPAD, ptr @__sdl_INIT_EVENTS, ptr @__sdl_INIT_SENSOR, ptr @__sdl_INIT_CAMERA, ptr @__sdl_WINDOW_FULLSCREEN, ptr @__sdl_WINDOW_OPENGL, ptr @__sdl_WINDOW_OCCLUDED, ptr @__sdl_WINDOW_HIDDEN, ptr @__sdl_WINDOW_BORDERLESS, ptr @__sdl_WINDOW_RESIZABLE, ptr @__sdl_WINDOW_MINIMIZED, ptr @__sdl_WINDOW_MAXIMIZED, ptr @__sdl_WINDOW_MOUSE_GRABBED, ptr @__sdl_WINDOW_INPUT_FOCUS, ptr @__sdl_WINDOW_MOUSE_FOCUS, ptr @__sdl_WINDOW_EXTERNAL, ptr @__sdl_WINDOW_MODAL, ptr @__sdl_WINDOW_HIGH_PIXEL_DENSITY, ptr @__sdl_WINDOW_MOUSE_CAPTURE, ptr @__sdl_WINDOW_MOUSE_RELATIVE_MODE, ptr @__sdl_WINDOW_ALWAYS_ON_TOP, ptr @__sdl_WINDOW_UTILITY, ptr @__sdl_WINDOW_TOOLTIP, ptr @__sdl_WINDOW_POPUP_MENU, ptr @__sdl_WINDOW_KEYBOARD_GRABBED, ptr @__sdl_WINDOW_VULKAN, ptr @__sdl_WINDOW_METAL, ptr @__sdl_WINDOW_TRANSPARENT, ptr @__sdl_WINDOW_NOT_FOCUSABLE, ptr @__asan_global___sdl_INIT_AUDIO, ptr @__asan_global___sdl_INIT_VIDEO, ptr @__asan_global___sdl_INIT_JOYSTICK, ptr @__asan_global___sdl_INIT_HAPTIC, ptr @__asan_global___sdl_INIT_GAMEPAD, ptr @__asan_global___sdl_INIT_EVENTS, ptr @__asan_global___sdl_INIT_SENSOR, ptr @__asan_global___sdl_INIT_CAMERA, ptr @__asan_global___sdl_WINDOW_FULLSCREEN, ptr @__asan_global___sdl_WINDOW_OPENGL, ptr @__asan_global___sdl_WINDOW_OCCLUDED, ptr @__asan_global___sdl_WINDOW_HIDDEN, ptr @__asan_global___sdl_WINDOW_BORDERLESS, ptr @__asan_global___sdl_WINDOW_RESIZABLE, ptr @__asan_global___sdl_WINDOW_MINIMIZED, ptr @__asan_global___sdl_WINDOW_MAXIMIZED, ptr @__asan_global___sdl_WINDOW_MOUSE_GRABBED, ptr @__asan_global___sdl_WINDOW_INPUT_FOCUS, ptr @__asan_global___sdl_WINDOW_MOUSE_FOCUS, ptr @__asan_global___sdl_WINDOW_EXTERNAL, ptr @__asan_global___sdl_WINDOW_MODAL, ptr @__asan_global___sdl_WINDOW_HIGH_PIXEL_DENSITY, ptr @__asan_global___sdl_WINDOW_MOUSE_CAPTURE, ptr @__asan_global___sdl_WINDOW_MOUSE_RELATIVE_MODE, ptr @__asan_global___sdl_WINDOW_ALWAYS_ON_TOP, ptr @__asan_global___sdl_WINDOW_UTILITY, ptr @__asan_global___sdl_WINDOW_TOOLTIP, ptr @__asan_global___sdl_WINDOW_POPUP_MENU, ptr @__asan_global___sdl_WINDOW_KEYBOARD_GRABBED, ptr @__asan_global___sdl_WINDOW_VULKAN, ptr @__asan_global___sdl_WINDOW_METAL, ptr @__asan_global___sdl_WINDOW_TRANSPARENT, ptr @__asan_global___sdl_WINDOW_NOT_FOCUSABLE], section "llvm.metadata"
+@llvm.global_ctors = appending global [1 x { i32, ptr, ptr }] [{ i32, ptr, ptr } { i32 1, ptr @asan.module_ctor, ptr null }]
+
+define void @__sdl___GlobalInitializerFunction.0() {
+block_0:
+  store i64 16, ptr @__sdl_INIT_AUDIO, align 8
+  store i64 32, ptr @__sdl_INIT_VIDEO, align 8
+  store i64 512, ptr @__sdl_INIT_JOYSTICK, align 8
+  store i64 4096, ptr @__sdl_INIT_HAPTIC, align 8
+  store i64 8192, ptr @__sdl_INIT_GAMEPAD, align 8
+  store i64 16384, ptr @__sdl_INIT_EVENTS, align 8
+  store i64 32768, ptr @__sdl_INIT_SENSOR, align 8
+  store i64 65536, ptr @__sdl_INIT_CAMERA, align 8
+  store i64 1, ptr @__sdl_WINDOW_FULLSCREEN, align 8
+  store i64 2, ptr @__sdl_WINDOW_OPENGL, align 8
+  store i64 4, ptr @__sdl_WINDOW_OCCLUDED, align 8
+  store i64 8, ptr @__sdl_WINDOW_HIDDEN, align 8
+  store i64 16, ptr @__sdl_WINDOW_BORDERLESS, align 8
+  store i64 32, ptr @__sdl_WINDOW_RESIZABLE, align 8
+  store i64 64, ptr @__sdl_WINDOW_MINIMIZED, align 8
+  store i64 128, ptr @__sdl_WINDOW_MAXIMIZED, align 8
+  store i64 256, ptr @__sdl_WINDOW_MOUSE_GRABBED, align 8
+  store i64 512, ptr @__sdl_WINDOW_INPUT_FOCUS, align 8
+  store i64 1024, ptr @__sdl_WINDOW_MOUSE_FOCUS, align 8
+  store i64 2048, ptr @__sdl_WINDOW_EXTERNAL, align 8
+  store i64 4096, ptr @__sdl_WINDOW_MODAL, align 8
+  store i64 8192, ptr @__sdl_WINDOW_HIGH_PIXEL_DENSITY, align 8
+  store i64 16384, ptr @__sdl_WINDOW_MOUSE_CAPTURE, align 8
+  store i64 32768, ptr @__sdl_WINDOW_MOUSE_RELATIVE_MODE, align 8
+  store i64 65536, ptr @__sdl_WINDOW_ALWAYS_ON_TOP, align 8
+  store i64 131072, ptr @__sdl_WINDOW_UTILITY, align 8
+  store i64 262144, ptr @__sdl_WINDOW_TOOLTIP, align 8
+  store i64 524288, ptr @__sdl_WINDOW_POPUP_MENU, align 8
+  store i64 1048576, ptr @__sdl_WINDOW_KEYBOARD_GRABBED, align 8
+  store i64 268435456, ptr @__sdl_WINDOW_VULKAN, align 8
+  store i64 536870912, ptr @__sdl_WINDOW_METAL, align 8
+  store i64 1073741824, ptr @__sdl_WINDOW_TRANSPARENT, align 8
+  store i64 -2147483648, ptr @__sdl_WINDOW_NOT_FOCUSABLE, align 8
+  ret void
+}
+
+declare i32 @__main_main()
+
+declare i1 @SDL_Init(i32)
+
+declare ptr @SDL_CreateWindow(ptr, i32, i32, i64)
+
+declare void @SDL_GL_CreateContext(ptr, ptr)
+
+declare i1 @SDL_GL_SwapWindow(ptr)
+
+declare i1 @SDL_PollEvent(ptr)
+
+declare ptr @SDL_GetError()
+
+declare ptr @wglGetProcAddress(ptr)
+
+declare ptr @GetProcAddress(ptr, ptr)
+
+declare ptr @LoadLibraryA(ptr)
+
+declare ptr @__gl_load_gl_fn(ptr)
+
+declare i1 @__gl_load()
+
+declare void @__init_global_initializers()
+
+declare i64 @__init_get_struct_alignment(i64)
+
+declare i64 @__init_get_type_alignment(i64)
+
+declare i64 @__init_get_basic_type_size(ptr)
+
+declare i64 @__init_get_struct_size(i64)
+
+declare i64 @__init_get_type_size(i64)
+
+declare i64 @__init_get_struct_member_offset(ptr, i64)
+
+declare i32 @__main_main.1()
+
+declare i32 @main()
+
+declare i1 @WriteFile(ptr, ptr, i32, ptr, ptr)
+
+declare ptr @GetStdHandle(i32)
+
+declare void @ExitProcess(i32)
+
+declare i32 @SetConsoleOutputCP(i32)
+
+declare ptr @VirtualAlloc(ptr, i64, i32, i32)
+
+declare i1 @VirtualFree(ptr, i64, i32)
+
+declare void @__os_abort()
+
+declare void @__os_assert(i1, ptr)
+
+declare void @__os_print(ptr, i32)
+
+declare ptr @__os_alloc(i64)
+
+declare void @__os_free(ptr)
+
+declare void @__io_push_string(ptr, ptr)
+
+declare void @__io_format_uint(ptr, i64)
+
+declare void @__io_format_int(ptr, i64)
+
+declare void @__io_print_typetype(ptr, ptr)
+
+declare void @__io_print_type(ptr, ptr)
+
+declare void @__io_builder_to_string(ptr, ptr)
+
+declare void @__io___internal_print(ptr, ptr, ptr)
+
+declare void @__io_print(ptr, ptr)
+
+declare void @__io_println(ptr, ptr)
+
+declare i32 @__io_get_next(ptr)
+
+declare void @"__io_format_float@type_*[]u32_f32_i32_@void"(i64, ptr, float, i32)
+
+declare void @"__io_format_float@type_*[]u32_f64_i32_@void"(i64, ptr, double, i32)
+
+declare ptr @__mem_generic_alloc(i64, ptr)
+
+declare void @__mem_generic_free(ptr, ptr)
+
+declare void @__mem_create_generic_allocator(ptr)
+
+declare ptr @memcpy(ptr, ptr, i64)
+
+declare ptr @memset(ptr, i32, i64)
+
+declare i64 @__str_get_codepoint_size(ptr)
+
+declare ptr @__str_advance(ptr)
+
+declare ptr @__str__it_advance(ptr, i64, i64)
+
+declare i32 @__str_deref(ptr)
+
+declare i32 @__str_index(ptr, i64)
+
+declare void @"__array_add@*[]u32_u32_@void"(ptr, i32)
+
+declare void @"__array_create@type_*__mem_Allocator_@[]u8"(ptr, i64, ptr)
+
+declare void @"__array_add@*[]u8_u8_@void"(ptr, i8)
+
+declare void @"__array_create@type_*__mem_Allocator_@[]u32"(ptr, i64, ptr)
+
+declare void @"__array_free@*[]u32_@void"(ptr)
+
+declare void @"__array_free@*[]u8_@void"(ptr)
+
+declare void @__asan_before_dynamic_init(i64)
+
+declare void @__asan_after_dynamic_init()
+
+declare void @__asan_register_globals(i64, i64)
+
+declare void @__asan_unregister_globals(i64, i64)
+
+declare void @__asan_register_image_globals(i64)
+
+declare void @__asan_unregister_image_globals(i64)
+
+declare void @__asan_register_elf_globals(i64, i64, i64)
+
+declare void @__asan_unregister_elf_globals(i64, i64, i64)
+
+declare void @__asan_init()
+
+; Function Attrs: nounwind
+define internal void @asan.module_ctor() #0 {
+  call void @__asan_init()
+  call void @__asan_version_mismatch_check_v8()
+  ret void
+}
+
+declare void @__asan_version_mismatch_check_v8()
+
+attributes #0 = { nounwind }
+
+!llvm.dbg.cu = !{!33}
+!llvm.module.flags = !{!99, !100}
+
+!0 = !{ptr @__sdl_INIT_AUDIO}
+!1 = !{ptr @__sdl_INIT_VIDEO}
+!2 = !{ptr @__sdl_INIT_JOYSTICK}
+!3 = !{ptr @__sdl_INIT_HAPTIC}
+!4 = !{ptr @__sdl_INIT_GAMEPAD}
+!5 = !{ptr @__sdl_INIT_EVENTS}
+!6 = !{ptr @__sdl_INIT_SENSOR}
+!7 = !{ptr @__sdl_INIT_CAMERA}
+!8 = !{ptr @__sdl_WINDOW_FULLSCREEN}
+!9 = !{ptr @__sdl_WINDOW_OPENGL}
+!10 = !{ptr @__sdl_WINDOW_OCCLUDED}
+!11 = !{ptr @__sdl_WINDOW_HIDDEN}
+!12 = !{ptr @__sdl_WINDOW_BORDERLESS}
+!13 = !{ptr @__sdl_WINDOW_RESIZABLE}
+!14 = !{ptr @__sdl_WINDOW_MINIMIZED}
+!15 = !{ptr @__sdl_WINDOW_MAXIMIZED}
+!16 = !{ptr @__sdl_WINDOW_MOUSE_GRABBED}
+!17 = !{ptr @__sdl_WINDOW_INPUT_FOCUS}
+!18 = !{ptr @__sdl_WINDOW_MOUSE_FOCUS}
+!19 = !{ptr @__sdl_WINDOW_EXTERNAL}
+!20 = !{ptr @__sdl_WINDOW_MODAL}
+!21 = !{ptr @__sdl_WINDOW_HIGH_PIXEL_DENSITY}
+!22 = !{ptr @__sdl_WINDOW_MOUSE_CAPTURE}
+!23 = !{ptr @__sdl_WINDOW_MOUSE_RELATIVE_MODE}
+!24 = !{ptr @__sdl_WINDOW_ALWAYS_ON_TOP}
+!25 = !{ptr @__sdl_WINDOW_UTILITY}
+!26 = !{ptr @__sdl_WINDOW_TOOLTIP}
+!27 = !{ptr @__sdl_WINDOW_POPUP_MENU}
+!28 = !{ptr @__sdl_WINDOW_KEYBOARD_GRABBED}
+!29 = !{ptr @__sdl_WINDOW_VULKAN}
+!30 = !{ptr @__sdl_WINDOW_METAL}
+!31 = !{ptr @__sdl_WINDOW_TRANSPARENT}
+!32 = !{ptr @__sdl_WINDOW_NOT_FOCUSABLE}
+!33 = distinct !DICompileUnit(language: DW_LANG_C99, file: !34, producer: "RCP Compiler", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, enums: !35, splitDebugInlining: false)
+!34 = !DIFile(filename: "sdl.rcp", directory: "E:\\Non_C_Projects\\RCPProjects\\graph\\src")
+!35 = !{!36, !48, !69, !78, !83, !87, !95, !36, !48, !69, !78, !83, !87}
+!36 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_TypeKind", scope: !34, file: !34, size: 64, align: 64, elements: !37)
+!37 = !{!38, !39, !40, !41, !42, !43, !44, !45, !46, !47}
+!38 = !DIEnumerator(name: "Invalid", value: 0, isUnsigned: true)
+!39 = !DIEnumerator(name: "Basic", value: 1, isUnsigned: true)
+!40 = !DIEnumerator(name: "Function", value: 2, isUnsigned: true)
+!41 = !DIEnumerator(name: "Struct", value: 3, isUnsigned: true)
+!42 = !DIEnumerator(name: "Pointer", value: 4, isUnsigned: true)
+!43 = !DIEnumerator(name: "Array", value: 5, isUnsigned: true)
+!44 = !DIEnumerator(name: "Slice", value: 6, isUnsigned: true)
+!45 = !DIEnumerator(name: "Vector", value: 7, isUnsigned: true)
+!46 = !DIEnumerator(name: "Enum", value: 8, isUnsigned: true)
+!47 = !DIEnumerator(name: "Generic", value: 9, isUnsigned: true)
+!48 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_BasicKind", scope: !34, file: !34, size: 64, align: 64, elements: !49)
+!49 = !{!50, !51, !52, !53, !54, !55, !56, !57, !58, !59, !60, !61, !62, !63, !64, !65, !66, !67, !68}
+!50 = !DIEnumerator(name: "Bool", value: 0, isUnsigned: true)
+!51 = !DIEnumerator(name: "String", value: 1, isUnsigned: true)
+!52 = !DIEnumerator(name: "U8", value: 2, isUnsigned: true)
+!53 = !DIEnumerator(name: "U16", value: 3, isUnsigned: true)
+!54 = !DIEnumerator(name: "U32", value: 4, isUnsigned: true)
+!55 = !DIEnumerator(name: "U64", value: 5, isUnsigned: true)
+!56 = !DIEnumerator(name: "I8", value: 6, isUnsigned: true)
+!57 = !DIEnumerator(name: "I16", value: 7, isUnsigned: true)
+!58 = !DIEnumerator(name: "I32", value: 8, isUnsigned: true)
+!59 = !DIEnumerator(name: "I64", value: 9, isUnsigned: true)
+!60 = !DIEnumerator(name: "F32", value: 10, isUnsigned: true)
+!61 = !DIEnumerator(name: "F64", value: 11, isUnsigned: true)
+!62 = !DIEnumerator(name: "untypedInteger", value: 12, isUnsigned: true)
+!63 = !DIEnumerator(name: "untypedFloat", value: 13, isUnsigned: true)
+!64 = !DIEnumerator(name: "Int", value: 14, isUnsigned: true)
+!65 = !DIEnumerator(name: "Uint", value: 15, isUnsigned: true)
+!66 = !DIEnumerator(name: "Type", value: 16, isUnsigned: true)
+!67 = !DIEnumerator(name: "Auto", value: 17, isUnsigned: true)
+!68 = !DIEnumerator(name: "Module", value: 18, isUnsigned: true)
+!69 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_BasicFlag", scope: !34, file: !34, size: 32, align: 32, elements: !70)
+!70 = !{!71, !72, !73, !74, !75, !76, !77}
+!71 = !DIEnumerator(name: "Boolean", value: 1, isUnsigned: true)
+!72 = !DIEnumerator(name: "Integer", value: 2, isUnsigned: true)
+!73 = !DIEnumerator(name: "Float", value: 4, isUnsigned: true)
+!74 = !DIEnumerator(name: "String", value: 8, isUnsigned: true)
+!75 = !DIEnumerator(name: "Untyped", value: 32, isUnsigned: true)
+!76 = !DIEnumerator(name: "Unsigned", value: 64, isUnsigned: true)
+!77 = !DIEnumerator(name: "TypeID", value: 128, isUnsigned: true)
+!78 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_StructFlag", scope: !34, file: !34, size: 32, align: 32, elements: !79)
+!79 = !{!80, !81, !82}
+!80 = !DIEnumerator(name: "Packed", value: 1, isUnsigned: true)
+!81 = !DIEnumerator(name: "Generic", value: 2, isUnsigned: true)
+!82 = !DIEnumerator(name: "Union", value: 4, isUnsigned: true)
+!83 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_VectorKind", scope: !34, file: !34, size: 64, align: 64, elements: !84)
+!84 = !{!85, !86}
+!85 = !DIEnumerator(name: "Float", value: 0, isUnsigned: true)
+!86 = !DIEnumerator(name: "Int", value: 1, isUnsigned: true)
+!87 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__compile_CompileFlag", scope: !34, file: !34, size: 32, align: 32, elements: !88)
+!88 = !{!89, !90, !91, !92, !93, !94}
+!89 = !DIEnumerator(name: "Debug", value: 1, isUnsigned: true)
+!90 = !DIEnumerator(name: "SanAddress", value: 2, isUnsigned: true)
+!91 = !DIEnumerator(name: "SanMemory", value: 4, isUnsigned: true)
+!92 = !DIEnumerator(name: "SanThread", value: 8, isUnsigned: true)
+!93 = !DIEnumerator(name: "SanUndefined", value: 16, isUnsigned: true)
+!94 = !DIEnumerator(name: "NoStdLib", value: 32, isUnsigned: true)
+!95 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__sdl_EventType", scope: !34, file: !34, size: 32, align: 32, elements: !96)
+!96 = !{!97, !98}
+!97 = !DIEnumerator(name: "FIRST", value: 0)
+!98 = !DIEnumerator(name: "QUIT", value: 256, isUnsigned: true)
+!99 = !{i32 2, !"CodeView", i32 1}
+!100 = !{i32 2, !"Debug Info Version", i32 3}

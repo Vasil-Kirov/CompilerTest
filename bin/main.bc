@@ -1,0 +1,365 @@
+; ModuleID = 'main'
+source_filename = "main.rcp"
+target datalayout = "e-m:w-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-f80:128-n8:16:32:64-S128"
+target triple = "x86_64-pc-windows-msvc"
+
+%slice.19 = type { i64, ptr }
+%slice.22 = type { i64, ptr }
+%__init_Arg = type { i64, ptr }
+%string = type { ptr, i64 }
+
+$___asan_gen__anon_global = comdat nodeduplicate
+
+$___asan_gen__anon_global.5 = comdat nodeduplicate
+
+@__sdl_INIT_AUDIO = external global i64
+@__sdl_INIT_VIDEO = external global i64
+@__sdl_INIT_JOYSTICK = external global i64
+@__sdl_INIT_HAPTIC = external global i64
+@__sdl_INIT_GAMEPAD = external global i64
+@__sdl_INIT_EVENTS = external global i64
+@__sdl_INIT_SENSOR = external global i64
+@__sdl_INIT_CAMERA = external global i64
+@__sdl_WINDOW_FULLSCREEN = external global i64
+@__sdl_WINDOW_OPENGL = external global i64
+@__sdl_WINDOW_OCCLUDED = external global i64
+@__sdl_WINDOW_HIDDEN = external global i64
+@__sdl_WINDOW_BORDERLESS = external global i64
+@__sdl_WINDOW_RESIZABLE = external global i64
+@__sdl_WINDOW_MINIMIZED = external global i64
+@__sdl_WINDOW_MAXIMIZED = external global i64
+@__sdl_WINDOW_MOUSE_GRABBED = external global i64
+@__sdl_WINDOW_INPUT_FOCUS = external global i64
+@__sdl_WINDOW_MOUSE_FOCUS = external global i64
+@__sdl_WINDOW_EXTERNAL = external global i64
+@__sdl_WINDOW_MODAL = external global i64
+@__sdl_WINDOW_HIGH_PIXEL_DENSITY = external global i64
+@__sdl_WINDOW_MOUSE_CAPTURE = external global i64
+@__sdl_WINDOW_MOUSE_RELATIVE_MODE = external global i64
+@__sdl_WINDOW_ALWAYS_ON_TOP = external global i64
+@__sdl_WINDOW_UTILITY = external global i64
+@__sdl_WINDOW_TOOLTIP = external global i64
+@__sdl_WINDOW_POPUP_MENU = external global i64
+@__sdl_WINDOW_KEYBOARD_GRABBED = external global i64
+@__sdl_WINDOW_VULKAN = external global i64
+@__sdl_WINDOW_METAL = external global i64
+@__sdl_WINDOW_TRANSPARENT = external global i64
+@__sdl_WINDOW_NOT_FOCUSABLE = external global i64
+@__gl_dll_module = external global ptr
+@__init_INVALID_TYPE = external global i64
+@__init_type_table = external global %slice.19
+@__os_STD_INPUT_HANDLE = external global i32
+@__os_STD_OUTPUT_HANDLE = external global i32
+@__os_STD_ERROR_HANDLE = external global i32
+@__os_INVALID_HANDLE_VALUE = external global ptr
+@__os_CP_UTF7 = external global i32
+@__os_CP_UTF8 = external global i32
+@__os_MEM_COMMIT = external global i32
+@__os_MEM_RESERVE = external global i32
+@__os_MEM_RELEASE = external global i32
+@__os_PAGE_NOACCESS = external global i32
+@__os_PAGE_READONLY = external global i32
+@__os_PAGE_READWRITE = external global i32
+@__os_PAGE_WRITECOPY = external global i32
+@__os_PAGE_EXECUTE = external global i32
+@__os_PAGE_EXECUTE_READ = external global i32
+@__os_PAGE_EXECUTE_READWRITE = external global i32
+@__os_PAGE_EXECUTE_WRITECOPY = external global i32
+@__os_PAGE_GUARD = external global i32
+@__os_PAGE_NOCACHE = external global i32
+@__os_PAGE_WRITECOMBINE = external global i32
+@__str_CONTINUE_BIT = external global i8
+@___asan_gen__anon_global = internal constant { [5 x i8], [27 x i8] } { [5 x i8] c"foo\0A\00", [27 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.5 = internal constant { [3 x i8], [29 x i8] } { [3 x i8] c"%s\00", [29 x i8] zeroinitializer }, comdat, align 32
+@llvm.used = appending global [1 x ptr] [ptr @asan.module_ctor], section "llvm.metadata"
+@___asan_gen_ = private constant [5 x i8] c"main\00", align 1
+@___asan_gen_.2 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.3 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@__asan_global_ = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global to i64), i64 5, i64 32, i64 ptrtoint (ptr @___asan_gen_.2 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global), align 64, !associated !0
+@__asan_global_.4 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.5 to i64), i64 3, i64 32, i64 ptrtoint (ptr @___asan_gen_.3 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.5), align 64, !associated !1
+@llvm.compiler.used = appending global [2 x ptr] [ptr @__asan_global_, ptr @__asan_global_.4], section "llvm.metadata"
+@llvm.global_ctors = appending global [1 x { i32, ptr, ptr }] [{ i32, ptr, ptr } { i32 1, ptr @asan.module_ctor, ptr null }]
+
+define void @__main___GlobalInitializerFunction.0() {
+block_0:
+  ret void
+}
+
+define i32 @__main_main() !dbg !70 {
+block_0:
+  %0 = alloca ptr, align 8
+  %1 = alloca %slice.22, align 8
+  %2 = alloca [1 x %__init_Arg], align 8
+  %3 = alloca %string, align 8
+  %4 = alloca ptr, align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %0, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %1, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %2, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %3, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %4, i8 0, i32 8, i1 false)
+  store ptr @___asan_gen__anon_global, ptr %0, align 8, !dbg !75
+  call void @llvm.dbg.declare(metadata ptr %0, metadata !76, metadata !DIExpression()), !dbg !75
+  %5 = getelementptr inbounds %slice.22, ptr %1, i32 0, i32 0, !dbg !79
+  %6 = getelementptr inbounds %slice.22, ptr %1, i32 0, i32 1, !dbg !79
+  store i64 1, ptr %5, align 8, !dbg !79
+  store ptr %2, ptr %6, align 8, !dbg !79
+  %7 = alloca %string, align 8, !dbg !79
+  %String = getelementptr inbounds %string, ptr %7, i32 0, i32 0, !dbg !79
+  %Size = getelementptr inbounds %string, ptr %7, i32 0, i32 1, !dbg !79
+  store ptr @___asan_gen__anon_global.5, ptr %String, align 8, !dbg !79
+  store i64 2, ptr %Size, align 8, !dbg !79
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %3, ptr align 8 %7, i64 16, i1 false), !dbg !79
+  %8 = load ptr, ptr %0, align 8, !dbg !79
+  store ptr %8, ptr %4, align 8, !dbg !79
+  %9 = getelementptr [1 x %__init_Arg], ptr %2, i64 0, i64 0, !dbg !79
+  %10 = getelementptr inbounds %__init_Arg, ptr %9, i32 0, i32 0, !dbg !79
+  %11 = getelementptr inbounds %__init_Arg, ptr %9, i32 0, i32 1, !dbg !79
+  store i64 81, ptr %10, align 8, !dbg !79
+  store ptr %4, ptr %11, align 8, !dbg !79
+  call void @__io_println(ptr %3, ptr %1), !dbg !79
+  ret i32 0, !dbg !80
+}
+
+declare i1 @SDL_Init(i32)
+
+declare ptr @SDL_CreateWindow(ptr, i32, i32, i64)
+
+declare void @SDL_GL_CreateContext(ptr, ptr)
+
+declare i1 @SDL_GL_SwapWindow(ptr)
+
+declare i1 @SDL_PollEvent(ptr)
+
+declare ptr @SDL_GetError()
+
+declare ptr @wglGetProcAddress(ptr)
+
+declare ptr @GetProcAddress(ptr, ptr)
+
+declare ptr @LoadLibraryA(ptr)
+
+declare ptr @__gl_load_gl_fn(ptr)
+
+declare i1 @__gl_load()
+
+declare void @__init_global_initializers()
+
+declare i64 @__init_get_struct_alignment(i64)
+
+declare i64 @__init_get_type_alignment(i64)
+
+declare i64 @__init_get_basic_type_size(ptr)
+
+declare i64 @__init_get_struct_size(i64)
+
+declare i64 @__init_get_type_size(i64)
+
+declare i64 @__init_get_struct_member_offset(ptr, i64)
+
+declare i32 @__main_main.1()
+
+declare i32 @main()
+
+declare i1 @WriteFile(ptr, ptr, i32, ptr, ptr)
+
+declare ptr @GetStdHandle(i32)
+
+declare void @ExitProcess(i32)
+
+declare i32 @SetConsoleOutputCP(i32)
+
+declare ptr @VirtualAlloc(ptr, i64, i32, i32)
+
+declare i1 @VirtualFree(ptr, i64, i32)
+
+declare void @__os_abort()
+
+declare void @__os_assert(i1, ptr)
+
+declare void @__os_print(ptr, i32)
+
+declare ptr @__os_alloc(i64)
+
+declare void @__os_free(ptr)
+
+declare void @__io_push_string(ptr, ptr)
+
+declare void @__io_format_uint(ptr, i64)
+
+declare void @__io_format_int(ptr, i64)
+
+declare void @__io_print_typetype(ptr, ptr)
+
+declare void @__io_print_type(ptr, ptr)
+
+declare void @__io_builder_to_string(ptr, ptr)
+
+declare void @__io___internal_print(ptr, ptr, ptr)
+
+declare void @__io_print(ptr, ptr)
+
+declare void @__io_println(ptr, ptr)
+
+declare i32 @__io_get_next(ptr)
+
+declare void @"__io_format_float@type_*[]u32_f32_i32_@void"(i64, ptr, float, i32)
+
+declare void @"__io_format_float@type_*[]u32_f64_i32_@void"(i64, ptr, double, i32)
+
+declare ptr @__mem_generic_alloc(i64, ptr)
+
+declare void @__mem_generic_free(ptr, ptr)
+
+declare void @__mem_create_generic_allocator(ptr)
+
+declare ptr @memcpy(ptr, ptr, i64)
+
+declare ptr @memset(ptr, i32, i64)
+
+declare i64 @__str_get_codepoint_size(ptr)
+
+declare ptr @__str_advance(ptr)
+
+declare ptr @__str__it_advance(ptr, i64, i64)
+
+declare i32 @__str_deref(ptr)
+
+declare i32 @__str_index(ptr, i64)
+
+declare void @"__array_add@*[]u32_u32_@void"(ptr, i32)
+
+declare void @"__array_create@type_*__mem_Allocator_@[]u8"(ptr, i64, ptr)
+
+declare void @"__array_add@*[]u8_u8_@void"(ptr, i8)
+
+declare void @"__array_create@type_*__mem_Allocator_@[]u32"(ptr, i64, ptr)
+
+declare void @"__array_free@*[]u32_@void"(ptr)
+
+declare void @"__array_free@*[]u8_@void"(ptr)
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i32(ptr nocapture writeonly, i8, i32, i1 immarg) #0
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #2
+
+declare void @__asan_before_dynamic_init(i64)
+
+declare void @__asan_after_dynamic_init()
+
+declare void @__asan_register_globals(i64, i64)
+
+declare void @__asan_unregister_globals(i64, i64)
+
+declare void @__asan_register_image_globals(i64)
+
+declare void @__asan_unregister_image_globals(i64)
+
+declare void @__asan_register_elf_globals(i64, i64, i64)
+
+declare void @__asan_unregister_elf_globals(i64, i64, i64)
+
+declare void @__asan_init()
+
+; Function Attrs: nounwind
+define internal void @asan.module_ctor() #3 {
+  call void @__asan_init()
+  call void @__asan_version_mismatch_check_v8()
+  ret void
+}
+
+declare void @__asan_version_mismatch_check_v8()
+
+attributes #0 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #1 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #2 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #3 = { nounwind }
+
+!llvm.dbg.cu = !{!2}
+!llvm.module.flags = !{!68, !69}
+
+!0 = !{ptr @___asan_gen__anon_global}
+!1 = !{ptr @___asan_gen__anon_global.5}
+!2 = distinct !DICompileUnit(language: DW_LANG_C99, file: !3, producer: "RCP Compiler", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, enums: !4, splitDebugInlining: false)
+!3 = !DIFile(filename: "main.rcp", directory: "E:\\Non_C_Projects\\RCPProjects\\graph\\src")
+!4 = !{!5, !17, !38, !47, !52, !56, !64, !5, !17, !38, !47, !52, !56}
+!5 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_TypeKind", scope: !3, file: !3, size: 64, align: 64, elements: !6)
+!6 = !{!7, !8, !9, !10, !11, !12, !13, !14, !15, !16}
+!7 = !DIEnumerator(name: "Invalid", value: 0, isUnsigned: true)
+!8 = !DIEnumerator(name: "Basic", value: 1, isUnsigned: true)
+!9 = !DIEnumerator(name: "Function", value: 2, isUnsigned: true)
+!10 = !DIEnumerator(name: "Struct", value: 3, isUnsigned: true)
+!11 = !DIEnumerator(name: "Pointer", value: 4, isUnsigned: true)
+!12 = !DIEnumerator(name: "Array", value: 5, isUnsigned: true)
+!13 = !DIEnumerator(name: "Slice", value: 6, isUnsigned: true)
+!14 = !DIEnumerator(name: "Vector", value: 7, isUnsigned: true)
+!15 = !DIEnumerator(name: "Enum", value: 8, isUnsigned: true)
+!16 = !DIEnumerator(name: "Generic", value: 9, isUnsigned: true)
+!17 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_BasicKind", scope: !3, file: !3, size: 64, align: 64, elements: !18)
+!18 = !{!19, !20, !21, !22, !23, !24, !25, !26, !27, !28, !29, !30, !31, !32, !33, !34, !35, !36, !37}
+!19 = !DIEnumerator(name: "Bool", value: 0, isUnsigned: true)
+!20 = !DIEnumerator(name: "String", value: 1, isUnsigned: true)
+!21 = !DIEnumerator(name: "U8", value: 2, isUnsigned: true)
+!22 = !DIEnumerator(name: "U16", value: 3, isUnsigned: true)
+!23 = !DIEnumerator(name: "U32", value: 4, isUnsigned: true)
+!24 = !DIEnumerator(name: "U64", value: 5, isUnsigned: true)
+!25 = !DIEnumerator(name: "I8", value: 6, isUnsigned: true)
+!26 = !DIEnumerator(name: "I16", value: 7, isUnsigned: true)
+!27 = !DIEnumerator(name: "I32", value: 8, isUnsigned: true)
+!28 = !DIEnumerator(name: "I64", value: 9, isUnsigned: true)
+!29 = !DIEnumerator(name: "F32", value: 10, isUnsigned: true)
+!30 = !DIEnumerator(name: "F64", value: 11, isUnsigned: true)
+!31 = !DIEnumerator(name: "untypedInteger", value: 12, isUnsigned: true)
+!32 = !DIEnumerator(name: "untypedFloat", value: 13, isUnsigned: true)
+!33 = !DIEnumerator(name: "Int", value: 14, isUnsigned: true)
+!34 = !DIEnumerator(name: "Uint", value: 15, isUnsigned: true)
+!35 = !DIEnumerator(name: "Type", value: 16, isUnsigned: true)
+!36 = !DIEnumerator(name: "Auto", value: 17, isUnsigned: true)
+!37 = !DIEnumerator(name: "Module", value: 18, isUnsigned: true)
+!38 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_BasicFlag", scope: !3, file: !3, size: 32, align: 32, elements: !39)
+!39 = !{!40, !41, !42, !43, !44, !45, !46}
+!40 = !DIEnumerator(name: "Boolean", value: 1, isUnsigned: true)
+!41 = !DIEnumerator(name: "Integer", value: 2, isUnsigned: true)
+!42 = !DIEnumerator(name: "Float", value: 4, isUnsigned: true)
+!43 = !DIEnumerator(name: "String", value: 8, isUnsigned: true)
+!44 = !DIEnumerator(name: "Untyped", value: 32, isUnsigned: true)
+!45 = !DIEnumerator(name: "Unsigned", value: 64, isUnsigned: true)
+!46 = !DIEnumerator(name: "TypeID", value: 128, isUnsigned: true)
+!47 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_StructFlag", scope: !3, file: !3, size: 32, align: 32, elements: !48)
+!48 = !{!49, !50, !51}
+!49 = !DIEnumerator(name: "Packed", value: 1, isUnsigned: true)
+!50 = !DIEnumerator(name: "Generic", value: 2, isUnsigned: true)
+!51 = !DIEnumerator(name: "Union", value: 4, isUnsigned: true)
+!52 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_VectorKind", scope: !3, file: !3, size: 64, align: 64, elements: !53)
+!53 = !{!54, !55}
+!54 = !DIEnumerator(name: "Float", value: 0, isUnsigned: true)
+!55 = !DIEnumerator(name: "Int", value: 1, isUnsigned: true)
+!56 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__compile_CompileFlag", scope: !3, file: !3, size: 32, align: 32, elements: !57)
+!57 = !{!58, !59, !60, !61, !62, !63}
+!58 = !DIEnumerator(name: "Debug", value: 1, isUnsigned: true)
+!59 = !DIEnumerator(name: "SanAddress", value: 2, isUnsigned: true)
+!60 = !DIEnumerator(name: "SanMemory", value: 4, isUnsigned: true)
+!61 = !DIEnumerator(name: "SanThread", value: 8, isUnsigned: true)
+!62 = !DIEnumerator(name: "SanUndefined", value: 16, isUnsigned: true)
+!63 = !DIEnumerator(name: "NoStdLib", value: 32, isUnsigned: true)
+!64 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__sdl_EventType", scope: !3, file: !3, size: 32, align: 32, elements: !65)
+!65 = !{!66, !67}
+!66 = !DIEnumerator(name: "FIRST", value: 0)
+!67 = !DIEnumerator(name: "QUIT", value: 256, isUnsigned: true)
+!68 = !{i32 2, !"CodeView", i32 1}
+!69 = !{i32 2, !"Debug Info Version", i32 3}
+!70 = distinct !DISubprogram(name: "main", linkageName: "__main_main", scope: !3, file: !3, line: 7, type: !71, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !74)
+!71 = !DISubroutineType(types: !72)
+!72 = !{!73}
+!73 = !DIBasicType(name: "i32", size: 32, encoding: DW_ATE_signed)
+!74 = !{}
+!75 = !DILocation(line: 8, scope: !70)
+!76 = !DILocalVariable(name: "x", scope: !70, file: !3, line: 8, type: !77)
+!77 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "*u8", baseType: !78, size: 64, align: 64, dwarfAddressSpace: 0)
+!78 = !DIBasicType(name: "u8", size: 8, encoding: DW_ATE_unsigned)
+!79 = !DILocation(line: 10, scope: !70)
+!80 = !DILocation(line: 13, scope: !70)

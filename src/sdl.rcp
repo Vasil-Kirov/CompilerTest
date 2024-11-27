@@ -1,0 +1,110 @@
+sdl
+
+INIT_AUDIO    :: @u32 0x00000010;
+INIT_VIDEO    :: @u32 0x00000020;
+INIT_JOYSTICK :: @u32 0x00000200;
+INIT_HAPTIC   :: @u32 0x00001000;
+INIT_GAMEPAD  :: @u32 0x00002000;
+INIT_EVENTS   :: @u32 0x00004000;
+INIT_SENSOR   :: @u32 0x00008000;
+INIT_CAMERA   :: @u32 0x00010000;
+
+
+WINDOW_FULLSCREEN           :: @u64 0x0000000000000001;   // < window is in fullscreen mode */
+WINDOW_OPENGL               :: @u64 0x0000000000000002;   // < window usable with OpenGL context */
+WINDOW_OCCLUDED             :: @u64 0x0000000000000004;   // < window is occluded */
+WINDOW_HIDDEN               :: @u64 0x0000000000000008;   // < window is neither mapped onto the desktop nor shown in the taskbar/dock/window list; SDL_ShowWindow() is required for it to become visible */
+WINDOW_BORDERLESS           :: @u64 0x0000000000000010;   // < no window decoration */
+WINDOW_RESIZABLE            :: @u64 0x0000000000000020;   // < window can be resized */
+WINDOW_MINIMIZED            :: @u64 0x0000000000000040;   // < window is minimized */
+WINDOW_MAXIMIZED            :: @u64 0x0000000000000080;   // < window is maximized */
+WINDOW_MOUSE_GRABBED        :: @u64 0x0000000000000100;   // < window has grabbed mouse input */
+WINDOW_INPUT_FOCUS          :: @u64 0x0000000000000200;   // < window has input focus */
+WINDOW_MOUSE_FOCUS          :: @u64 0x0000000000000400;   // < window has mouse focus */
+WINDOW_EXTERNAL             :: @u64 0x0000000000000800;   // < window not created by SDL */
+WINDOW_MODAL                :: @u64 0x0000000000001000;   // < window is modal */
+WINDOW_HIGH_PIXEL_DENSITY   :: @u64 0x0000000000002000;   // < window uses high pixel density back buffer if possible */
+WINDOW_MOUSE_CAPTURE        :: @u64 0x0000000000004000;   // < window has mouse captured (unrelated to MOUSE_GRABBED) */
+WINDOW_MOUSE_RELATIVE_MODE  :: @u64 0x0000000000008000;   // < window has relative mode enabled */
+WINDOW_ALWAYS_ON_TOP        :: @u64 0x0000000000010000;   // < window should always be above others */
+WINDOW_UTILITY              :: @u64 0x0000000000020000;   // < window should be treated as a utility window, not showing in the task bar and window list */
+WINDOW_TOOLTIP              :: @u64 0x0000000000040000;   // < window should be treated as a tooltip and does not get mouse or keyboard focus, requires a parent window */
+WINDOW_POPUP_MENU           :: @u64 0x0000000000080000;   // < window should be treated as a popup menu, requires a parent window */
+WINDOW_KEYBOARD_GRABBED     :: @u64 0x0000000000100000;   // < window has grabbed keyboard input */
+WINDOW_VULKAN               :: @u64 0x0000000010000000;   // < window usable for Vulkan surface */
+WINDOW_METAL                :: @u64 0x0000000020000000;   // < window usable for Metal view */
+WINDOW_TRANSPARENT          :: @u64 0x0000000040000000;   // < window with transparent buffer */
+WINDOW_NOT_FOCUSABLE        :: @u64 0x0000000080000000;   // < window should not be focusable */
+
+Init :: fn #link="SDL_Init"(flags: u32) -> bool;
+CreateWindow :: fn #link="SDL_CreateWindow"(title: *u8, w: i32, h: i32, flags: u64) -> ?*Window;
+GL_CreateContext :: fn #link="SDL_GL_CreateContext"(window: *Window) -> ?*GLContext;
+GL_SwapWindow :: fn #link="SDL_GL_SwapWindow"(window: *Window) -> bool;
+GL_SetAttribute :: fn #link="SDL_GL_SetAttribute"(attr: GLattr, value: i32) -> bool;
+PollEvent :: fn #link="SDL_PollEvent"(event: *Event) -> bool;
+GetError :: fn #link="SDL_GetError"() -> *u8;
+GL_SetSwapInterval :: fn #link="SDL_GL_SetSwapInterval"(interval: i32) -> bool;
+
+
+struct Window {}
+struct GLContext {}
+
+struct QuitEvent {
+    type: EventType, //*< SDL_EVENT_QUIT */
+    reserved: u32,
+    timestamp: u64, //*< In nanoseconds, populated using SDL_GetTicksNS() */
+}
+
+union Event {
+    type: EventType,
+    quit: QuitEvent,
+    padding: [128]u8,
+}
+
+enum EventType: u32
+{
+    FIRST     = 0,
+    QUIT      = 0x100, //**< User-requested quit */
+}
+
+enum GLattr: u32 {
+    RED_SIZE,                    
+    GREEN_SIZE,                  
+    BLUE_SIZE,                   
+    ALPHA_SIZE,                  
+    BUFFER_SIZE,                 
+    DOUBLEBUFFER,                
+    DEPTH_SIZE,                  
+    STENCIL_SIZE,                
+    ACCUM_RED_SIZE,              
+    ACCUM_GREEN_SIZE,            
+    ACCUM_BLUE_SIZE,             
+    ACCUM_ALPHA_SIZE,            
+    STEREO,                      
+    MULTISAMPLEBUFFERS,          
+    MULTISAMPLESAMPLES,          
+    ACCELERATED_VISUAL,          
+    RETAINED_BACKING,            
+    CONTEXT_MAJOR_VERSION,       
+    CONTEXT_MINOR_VERSION,       
+    CONTEXT_FLAGS,               
+    CONTEXT_PROFILE_MASK,        
+    SHARE_WITH_CURRENT_CONTEXT,  
+    FRAMEBUFFER_SRGB_CAPABLE,    
+    CONTEXT_RELEASE_BEHAVIOR,    
+    CONTEXT_RESET_NOTIFICATION,  
+    CONTEXT_NO_ERROR,
+    FLOATBUFFERS,
+    EGL_PLATFORM
+}
+
+
+GL_CONTEXT_PROFILE_CORE          :: @i32 0x0001;
+GL_CONTEXT_PROFILE_COMPATIBILITY :: @i32 0x0002;
+GL_CONTEXT_PROFILE_ES            :: @i32 0x0004;
+
+GL_CONTEXT_DEBUG_FLAG               :: @i32 0x0001;
+GL_CONTEXT_FORWARD_COMPATIBLE_FLAG  :: @i32 0x0002;
+GL_CONTEXT_ROBUST_ACCESS_FLAG       :: @i32 0x0004;
+GL_CONTEXT_RESET_ISOLATION_FLAG     :: @i32 0x0008;
+

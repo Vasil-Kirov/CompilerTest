@@ -1,0 +1,89 @@
+renderer
+#import gl
+#import io
+#import os
+
+vert_shader := #embed_bin "../src/shaders/main.vert";
+frag_shader := #embed_bin "../src/shaders/main.frag";
+
+struct ctx {
+    vao: u32,
+    vbo: u32,
+    program: u32,
+}
+
+struct vec3 {
+    x: f32,
+    y: f32,
+    z: f32,
+}
+
+struct ivec3 {
+    x: i32,
+    y: i32,
+    z: i32,
+}
+
+compile_shader :: fn (shader: u32, src: **u8, name: string) {
+    gl.ShaderSource(shader, 1, src, null);
+    gl.CompileShader(shader);
+
+    success := @i32 0;
+    gl.GetShaderiv(shader, gl.COMPILE_STATUS, &success);
+    if success == 0 {
+        info_log := [512]u8 {};
+        gl.GetShaderInfoLog(shader, 512, null, &info_log[0]);
+        io.println("Error compiling % shader\n%s", name, &info_log[0]);
+        os.abort();
+    }
+}
+
+gl_callback :: fn(src: u32, t: u32, id: u32, severity: u32, len: u32, msg: *u8, user: ?*) {
+    io.println("GL Message: %s", msg);
+}
+
+create_ctx :: fn() -> ctx {
+    result := ctx {};
+    gl.GenVertexArrays(1, &result.vao);
+    gl.GenBuffers(1, &result.vbo);
+    vert_shader_gl := gl.CreateShader(gl.VERTEX_SHADER);
+    frag_shader_gl := gl.CreateShader(gl.FRAGMENT_SHADER);
+    compile_shader(vert_shader_gl, &vert_shader, "vertex");
+    compile_shader(frag_shader_gl, &frag_shader, "fragment");
+
+    result.program = gl.CreateProgram();
+    gl.AttachShader(result.program, vert_shader_gl);
+    gl.AttachShader(result.program, frag_shader_gl);
+    gl.LinkProgram(result.program);
+    gl.Disable(gl.DEPTH_TEST);
+
+    gl.Enable(gl.DEBUG_OUTPUT);
+    gl.Enable(gl.DEBUG_OUTPUT_SYNCHRONOUS);
+    gl.DebugMessageCallback(gl_callback, null);
+    gl.DebugMessageControl(gl.DONT_CARE, gl.DONT_CARE, gl.DEBUG_SEVERITY_MEDIUM, 0, null, true);
+
+    success := @i32 0;
+    gl.GetProgramiv(result.program, gl.LINK_STATUS, &success);
+    if success == 0 {
+        info_log := [512]u8 {};
+        gl.GetProgramInfoLog(result.program, 512, null, &info_log[0]);
+        io.println("Error linking shader\n%s", &info_log[0]);
+        os.abort();
+    }
+    gl.DeleteShader(vert_shader_gl);
+    gl.DeleteShader(frag_shader_gl);
+
+    return result;
+}
+
+draw_verts :: fn(c: *ctx, verts: []vec3) {
+    offset := 0;
+    gl.BindVertexArray(c.vao);
+    gl.VertexAttribPointer(0, 3, gl.FLOAT, false, @i32 size_of vec3, @*u8 offset);
+    gl.EnableVertexAttribArray(0);
+    gl.BindBuffer(gl.ARRAY_BUFFER, c.vbo);
+    gl.BufferData(gl.ARRAY_BUFFER, @uint verts.count * @uint size_of vec3, verts.data, gl.STATIC_DRAW);
+    gl.UseProgram(c.program);
+    gl.DrawArrays(gl.TRIANGLES, 0, @i32 verts.count);
+}
+
