@@ -9,8 +9,6 @@ wglGetProcAddress :: fn #foreign(name: *u8) -> ?*;
 GetProcAddress :: fn #foreign(module: *, name: *u8) -> ?*;
 LoadLibraryA :: fn #foreign(name: *u8) -> ?*;
 
-
-
 dll_module: *;
 
 load_gl_fn :: fn(name: *u8) -> * {
@@ -56,14 +54,17 @@ UseProgram: *fn(program: u32);
 CreateProgram: *fn() -> u32;
 DeleteProgram: *fn(program: u32);
 GetUniformLocation: *fn(program: u32, name: *u8) -> i32;
-Uniform1f: *fn(location: i32, v0: f32);
 Uniform1i: *fn(location: i32, v0: i32);
+Uniform1f: *fn(location: i32, v0: f32);
+Uniform2f: *fn(location: i32, v0: f32, v1: f32);
+Uniform3f: *fn(location: i32, v0: f32, v1: f32, v2: f32);
 UniformMatrix4fv: *fn(location: i32, count: i32, transpose: bool, value: *f32);
 DrawArrays: *fn(mode: u32, first: i32, count: i32);
 DrawElements: *fn(mode: u32, count: i32, type: u32, indices: *);
 Viewport: *fn(x: i32, y: i32, width: i32, height: i32);
 DebugMessageCallback: *fn(callback: *fn(src: u32, t: u32, id: u32, severity: u32, len: u32, msg: *u8, user: ?*), user: ?*);
 DebugMessageControl: *fn(src: u32, t: u32, severity: u32, count: u32, ids: ?*u32, enabled: bool);
+LineWidth: *fn(w: f32);
 
 load :: fn () -> bool {
     maybe_module := LoadLibraryA(c"opengl32.dll");
@@ -107,6 +108,9 @@ load :: fn () -> bool {
     Viewport = load_gl_fn(c"glViewport");
     DebugMessageCallback = load_gl_fn(c"glDebugMessageCallback");
     DebugMessageControl = load_gl_fn(c"glDebugMessageControl");
+    LineWidth = load_gl_fn(c"glLineWidth");
+    Uniform2f = load_gl_fn(c"glUniform2f");
+    Uniform3f = load_gl_fn(c"glUniform3f");
 
     return true;
 }

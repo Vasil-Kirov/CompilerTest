@@ -3,23 +3,39 @@ source_filename = "main.rcp"
 target datalayout = "e-m:w-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-windows-msvc"
 
-%slice.19 = type { i64, ptr }
 %slice.22 = type { i64, ptr }
+%slice.25 = type { i64, ptr }
 %__init_Arg = type { i64, ptr }
 %string = type { ptr, i64 }
+%__renderer_ctx = type { i32, i32, i32 }
+%__sdl_Event = type { [128 x i8] }
+%slice.20 = type { i64, ptr }
+%__renderer_vec3 = type { float, float, float }
+
+$__main_WIDTH = comdat nodeduplicate
+
+$__main_HEIGHT = comdat nodeduplicate
 
 $___asan_gen__anon_global = comdat nodeduplicate
 
-$___asan_gen__anon_global.5 = comdat nodeduplicate
+$___asan_gen__anon_global.10 = comdat nodeduplicate
 
-@__sdl_INIT_AUDIO = external global i64
-@__sdl_INIT_VIDEO = external global i64
-@__sdl_INIT_JOYSTICK = external global i64
-@__sdl_INIT_HAPTIC = external global i64
-@__sdl_INIT_GAMEPAD = external global i64
-@__sdl_INIT_EVENTS = external global i64
-@__sdl_INIT_SENSOR = external global i64
-@__sdl_INIT_CAMERA = external global i64
+$___asan_gen__anon_global.12 = comdat nodeduplicate
+
+$___asan_gen__anon_global.14 = comdat nodeduplicate
+
+$___asan_gen__anon_global.16 = comdat nodeduplicate
+
+@__main_WIDTH = global { i32, [28 x i8] } zeroinitializer, comdat, align 32
+@__main_HEIGHT = global { i32, [28 x i8] } zeroinitializer, comdat, align 32
+@__sdl_INIT_AUDIO = external global i32
+@__sdl_INIT_VIDEO = external global i32
+@__sdl_INIT_JOYSTICK = external global i32
+@__sdl_INIT_HAPTIC = external global i32
+@__sdl_INIT_GAMEPAD = external global i32
+@__sdl_INIT_EVENTS = external global i32
+@__sdl_INIT_SENSOR = external global i32
+@__sdl_INIT_CAMERA = external global i32
 @__sdl_WINDOW_FULLSCREEN = external global i64
 @__sdl_WINDOW_OPENGL = external global i64
 @__sdl_WINDOW_OCCLUDED = external global i64
@@ -45,9 +61,731 @@ $___asan_gen__anon_global.5 = comdat nodeduplicate
 @__sdl_WINDOW_METAL = external global i64
 @__sdl_WINDOW_TRANSPARENT = external global i64
 @__sdl_WINDOW_NOT_FOCUSABLE = external global i64
+@__sdl_GL_CONTEXT_PROFILE_CORE = external global i32
+@__sdl_GL_CONTEXT_PROFILE_COMPATIBILITY = external global i32
+@__sdl_GL_CONTEXT_PROFILE_ES = external global i32
+@__sdl_GL_CONTEXT_DEBUG_FLAG = external global i32
+@__sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG = external global i32
+@__sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG = external global i32
+@__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG = external global i32
 @__gl_dll_module = external global ptr
+@__gl_ClearColor = external global ptr
+@__gl_Clear = external global ptr
+@__gl_GenVertexArrays = external global ptr
+@__gl_GenBuffers = external global ptr
+@__gl_BindBuffer = external global ptr
+@__gl_BufferData = external global ptr
+@__gl_BufferSubData = external global ptr
+@__gl_DeleteBuffers = external global ptr
+@__gl_DeleteVertexArrays = external global ptr
+@__gl_BindVertexArray = external global ptr
+@__gl_Enable = external global ptr
+@__gl_Disable = external global ptr
+@__gl_EnableVertexAttribArray = external global ptr
+@__gl_DisableVertexAttribArray = external global ptr
+@__gl_VertexAttribPointer = external global ptr
+@__gl_CreateShader = external global ptr
+@__gl_ShaderSource = external global ptr
+@__gl_CompileShader = external global ptr
+@__gl_GetShaderiv = external global ptr
+@__gl_GetProgramiv = external global ptr
+@__gl_GetShaderInfoLog = external global ptr
+@__gl_GetProgramInfoLog = external global ptr
+@__gl_DeleteShader = external global ptr
+@__gl_AttachShader = external global ptr
+@__gl_LinkProgram = external global ptr
+@__gl_UseProgram = external global ptr
+@__gl_CreateProgram = external global ptr
+@__gl_DeleteProgram = external global ptr
+@__gl_GetUniformLocation = external global ptr
+@__gl_Uniform1f = external global ptr
+@__gl_Uniform1i = external global ptr
+@__gl_UniformMatrix4fv = external global ptr
+@__gl_DrawArrays = external global ptr
+@__gl_DrawElements = external global ptr
+@__gl_Viewport = external global ptr
+@__gl_DebugMessageCallback = external global ptr
+@__gl_DebugMessageControl = external global ptr
+@__gl_VERSION_ES_CL_1_0 = external global i32
+@__gl_VERSION_ES_CM_1_1 = external global i32
+@__gl_VERSION_ES_CL_1_1 = external global i32
+@__gl_DEPTH_BUFFER_BIT = external global i32
+@__gl_STENCIL_BUFFER_BIT = external global i32
+@__gl_COLOR_BUFFER_BIT = external global i32
+@__gl_FALSE = external global i32
+@__gl_TRUE = external global i32
+@__gl_POINTS = external global i32
+@__gl_LINES = external global i32
+@__gl_LINE_LOOP = external global i32
+@__gl_LINE_STRIP = external global i32
+@__gl_TRIANGLES = external global i32
+@__gl_TRIANGLE_STRIP = external global i32
+@__gl_TRIANGLE_FAN = external global i32
+@__gl_NEVER = external global i32
+@__gl_LESS = external global i32
+@__gl_EQUAL = external global i32
+@__gl_LEQUAL = external global i32
+@__gl_GREATER = external global i32
+@__gl_NOTEQUAL = external global i32
+@__gl_GEQUAL = external global i32
+@__gl_ALWAYS = external global i32
+@__gl_ZERO = external global i32
+@__gl_ONE = external global i32
+@__gl_SRC_COLOR = external global i32
+@__gl_ONE_MINUS_SRC_COLOR = external global i32
+@__gl_SRC_ALPHA = external global i32
+@__gl_ONE_MINUS_SRC_ALPHA = external global i32
+@__gl_DST_ALPHA = external global i32
+@__gl_ONE_MINUS_DST_ALPHA = external global i32
+@__gl_DST_COLOR = external global i32
+@__gl_ONE_MINUS_DST_COLOR = external global i32
+@__gl_SRC_ALPHA_SATURATE = external global i32
+@__gl_CLIP_PLANE0 = external global i32
+@__gl_CLIP_PLANE1 = external global i32
+@__gl_CLIP_PLANE2 = external global i32
+@__gl_CLIP_PLANE3 = external global i32
+@__gl_CLIP_PLANE4 = external global i32
+@__gl_CLIP_PLANE5 = external global i32
+@__gl_FRONT = external global i32
+@__gl_BACK = external global i32
+@__gl_FRONT_AND_BACK = external global i32
+@__gl_FOG = external global i32
+@__gl_LIGHTING = external global i32
+@__gl_TEXTURE_2D = external global i32
+@__gl_CULL_FACE = external global i32
+@__gl_ALPHA_TEST = external global i32
+@__gl_BLEND = external global i32
+@__gl_COLOR_LOGIC_OP = external global i32
+@__gl_DITHER = external global i32
+@__gl_STENCIL_TEST = external global i32
+@__gl_DEPTH_TEST = external global i32
+@__gl_POINT_SMOOTH = external global i32
+@__gl_LINE_SMOOTH = external global i32
+@__gl_SCISSOR_TEST = external global i32
+@__gl_COLOR_MATERIAL = external global i32
+@__gl_NORMALIZE = external global i32
+@__gl_RESCALE_NORMAL = external global i32
+@__gl_VERTEX_ARRAY = external global i32
+@__gl_NORMAL_ARRAY = external global i32
+@__gl_COLOR_ARRAY = external global i32
+@__gl_TEXTURE_COORD_ARRAY = external global i32
+@__gl_MULTISAMPLE = external global i32
+@__gl_SAMPLE_ALPHA_TO_COVERAGE = external global i32
+@__gl_SAMPLE_ALPHA_TO_ONE = external global i32
+@__gl_SAMPLE_COVERAGE = external global i32
+@__gl_NO_ERROR = external global i32
+@__gl_INVALID_ENUM = external global i32
+@__gl_INVALID_VALUE = external global i32
+@__gl_INVALID_OPERATION = external global i32
+@__gl_STACK_OVERFLOW = external global i32
+@__gl_STACK_UNDERFLOW = external global i32
+@__gl_OUT_OF_MEMORY = external global i32
+@__gl_EXP = external global i32
+@__gl_EXP2 = external global i32
+@__gl_FOG_DENSITY = external global i32
+@__gl_FOG_START = external global i32
+@__gl_FOG_END = external global i32
+@__gl_FOG_MODE = external global i32
+@__gl_FOG_COLOR = external global i32
+@__gl_CW = external global i32
+@__gl_CCW = external global i32
+@__gl_CURRENT_COLOR = external global i32
+@__gl_CURRENT_NORMAL = external global i32
+@__gl_CURRENT_TEXTURE_COORDS = external global i32
+@__gl_POINT_SIZE = external global i32
+@__gl_POINT_SIZE_MIN = external global i32
+@__gl_POINT_SIZE_MAX = external global i32
+@__gl_POINT_FADE_THRESHOLD_SIZE = external global i32
+@__gl_POINT_DISTANCE_ATTENUATION = external global i32
+@__gl_SMOOTH_POINT_SIZE_RANGE = external global i32
+@__gl_LINE_WIDTH = external global i32
+@__gl_SMOOTH_LINE_WIDTH_RANGE = external global i32
+@__gl_ALIASED_POINT_SIZE_RANGE = external global i32
+@__gl_ALIASED_LINE_WIDTH_RANGE = external global i32
+@__gl_CULL_FACE_MODE = external global i32
+@__gl_FRONT_FACE = external global i32
+@__gl_SHADE_MODEL = external global i32
+@__gl_DEPTH_RANGE = external global i32
+@__gl_DEPTH_WRITEMASK = external global i32
+@__gl_DEPTH_CLEAR_VALUE = external global i32
+@__gl_DEPTH_FUNC = external global i32
+@__gl_STENCIL_CLEAR_VALUE = external global i32
+@__gl_STENCIL_FUNC = external global i32
+@__gl_STENCIL_VALUE_MASK = external global i32
+@__gl_STENCIL_FAIL = external global i32
+@__gl_STENCIL_PASS_DEPTH_FAIL = external global i32
+@__gl_STENCIL_PASS_DEPTH_PASS = external global i32
+@__gl_STENCIL_REF = external global i32
+@__gl_STENCIL_WRITEMASK = external global i32
+@__gl_MATRIX_MODE = external global i32
+@__gl_VIEWPORT = external global i32
+@__gl_MODELVIEW_STACK_DEPTH = external global i32
+@__gl_PROJECTION_STACK_DEPTH = external global i32
+@__gl_TEXTURE_STACK_DEPTH = external global i32
+@__gl_MODELVIEW_MATRIX = external global i32
+@__gl_PROJECTION_MATRIX = external global i32
+@__gl_TEXTURE_MATRIX = external global i32
+@__gl_ALPHA_TEST_FUNC = external global i32
+@__gl_ALPHA_TEST_REF = external global i32
+@__gl_BLEND_DST = external global i32
+@__gl_BLEND_SRC = external global i32
+@__gl_LOGIC_OP_MODE = external global i32
+@__gl_SCISSOR_BOX = external global i32
+@__gl_COLOR_CLEAR_VALUE = external global i32
+@__gl_COLOR_WRITEMASK = external global i32
+@__gl_MAX_LIGHTS = external global i32
+@__gl_MAX_CLIP_PLANES = external global i32
+@__gl_MAX_TEXTURE_SIZE = external global i32
+@__gl_MAX_MODELVIEW_STACK_DEPTH = external global i32
+@__gl_MAX_PROJECTION_STACK_DEPTH = external global i32
+@__gl_MAX_TEXTURE_STACK_DEPTH = external global i32
+@__gl_MAX_VIEWPORT_DIMS = external global i32
+@__gl_MAX_TEXTURE_UNITS = external global i32
+@__gl_SUBPIXEL_BITS = external global i32
+@__gl_RED_BITS = external global i32
+@__gl_GREEN_BITS = external global i32
+@__gl_BLUE_BITS = external global i32
+@__gl_ALPHA_BITS = external global i32
+@__gl_DEPTH_BITS = external global i32
+@__gl_STENCIL_BITS = external global i32
+@__gl_POLYGON_OFFSET_UNITS = external global i32
+@__gl_POLYGON_OFFSET_FILL = external global i32
+@__gl_POLYGON_OFFSET_FACTOR = external global i32
+@__gl_TEXTURE_BINDING_2D = external global i32
+@__gl_VERTEX_ARRAY_SIZE = external global i32
+@__gl_VERTEX_ARRAY_TYPE = external global i32
+@__gl_VERTEX_ARRAY_STRIDE = external global i32
+@__gl_NORMAL_ARRAY_TYPE = external global i32
+@__gl_NORMAL_ARRAY_STRIDE = external global i32
+@__gl_COLOR_ARRAY_SIZE = external global i32
+@__gl_COLOR_ARRAY_TYPE = external global i32
+@__gl_COLOR_ARRAY_STRIDE = external global i32
+@__gl_TEXTURE_COORD_ARRAY_SIZE = external global i32
+@__gl_TEXTURE_COORD_ARRAY_TYPE = external global i32
+@__gl_TEXTURE_COORD_ARRAY_STRIDE = external global i32
+@__gl_VERTEX_ARRAY_POINTER = external global i32
+@__gl_NORMAL_ARRAY_POINTER = external global i32
+@__gl_COLOR_ARRAY_POINTER = external global i32
+@__gl_TEXTURE_COORD_ARRAY_POINTER = external global i32
+@__gl_SAMPLE_BUFFERS = external global i32
+@__gl_SAMPLES = external global i32
+@__gl_SAMPLE_COVERAGE_VALUE = external global i32
+@__gl_SAMPLE_COVERAGE_INVERT = external global i32
+@__gl_NUM_COMPRESSED_TEXTURE_FORMATS = external global i32
+@__gl_COMPRESSED_TEXTURE_FORMATS = external global i32
+@__gl_DONT_CARE = external global i32
+@__gl_FASTEST = external global i32
+@__gl_NICEST = external global i32
+@__gl_PERSPECTIVE_CORRECTION_HINT = external global i32
+@__gl_POINT_SMOOTH_HINT = external global i32
+@__gl_LINE_SMOOTH_HINT = external global i32
+@__gl_FOG_HINT = external global i32
+@__gl_GENERATE_MIPMAP_HINT = external global i32
+@__gl_LIGHT_MODEL_AMBIENT = external global i32
+@__gl_LIGHT_MODEL_TWO_SIDE = external global i32
+@__gl_AMBIENT = external global i32
+@__gl_DIFFUSE = external global i32
+@__gl_SPECULAR = external global i32
+@__gl_POSITION = external global i32
+@__gl_SPOT_DIRECTION = external global i32
+@__gl_SPOT_EXPONENT = external global i32
+@__gl_SPOT_CUTOFF = external global i32
+@__gl_CONSTANT_ATTENUATION = external global i32
+@__gl_LINEAR_ATTENUATION = external global i32
+@__gl_QUADRATIC_ATTENUATION = external global i32
+@__gl_BYTE = external global i32
+@__gl_UNSIGNED_BYTE = external global i32
+@__gl_SHORT = external global i32
+@__gl_UNSIGNED_SHORT = external global i32
+@__gl_FLOAT = external global i32
+@__gl_FIXED = external global i32
+@__gl_CLEAR = external global i32
+@__gl_AND = external global i32
+@__gl_AND_REVERSE = external global i32
+@__gl_COPY = external global i32
+@__gl_AND_INVERTED = external global i32
+@__gl_NOOP = external global i32
+@__gl_XOR = external global i32
+@__gl_OR = external global i32
+@__gl_NOR = external global i32
+@__gl_EQUIV = external global i32
+@__gl_INVERT = external global i32
+@__gl_OR_REVERSE = external global i32
+@__gl_COPY_INVERTED = external global i32
+@__gl_OR_INVERTED = external global i32
+@__gl_NAND = external global i32
+@__gl_SET = external global i32
+@__gl_EMISSION = external global i32
+@__gl_SHININESS = external global i32
+@__gl_AMBIENT_AND_DIFFUSE = external global i32
+@__gl_MODELVIEW = external global i32
+@__gl_PROJECTION = external global i32
+@__gl_TEXTURE = external global i32
+@__gl_ALPHA = external global i32
+@__gl_RGB = external global i32
+@__gl_RGBA = external global i32
+@__gl_LUMINANCE = external global i32
+@__gl_LUMINANCE_ALPHA = external global i32
+@__gl_UNPACK_ALIGNMENT = external global i32
+@__gl_PACK_ALIGNMENT = external global i32
+@__gl_UNSIGNED_SHORT_4_4_4_4 = external global i32
+@__gl_UNSIGNED_SHORT_5_5_5_1 = external global i32
+@__gl_UNSIGNED_SHORT_5_6_5 = external global i32
+@__gl_FLAT = external global i32
+@__gl_SMOOTH = external global i32
+@__gl_KEEP = external global i32
+@__gl_REPLACE = external global i32
+@__gl_INCR = external global i32
+@__gl_DECR = external global i32
+@__gl_VENDOR = external global i32
+@__gl_RENDERER = external global i32
+@__gl_VERSION = external global i32
+@__gl_EXTENSIONS = external global i32
+@__gl_MODULATE = external global i32
+@__gl_DECAL = external global i32
+@__gl_ADD = external global i32
+@__gl_TEXTURE_ENV_MODE = external global i32
+@__gl_TEXTURE_ENV_COLOR = external global i32
+@__gl_TEXTURE_ENV = external global i32
+@__gl_NEAREST = external global i32
+@__gl_LINEAR = external global i32
+@__gl_NEAREST_MIPMAP_NEAREST = external global i32
+@__gl_LINEAR_MIPMAP_NEAREST = external global i32
+@__gl_NEAREST_MIPMAP_LINEAR = external global i32
+@__gl_LINEAR_MIPMAP_LINEAR = external global i32
+@__gl_TEXTURE_MAG_FILTER = external global i32
+@__gl_TEXTURE_MIN_FILTER = external global i32
+@__gl_TEXTURE_WRAP_S = external global i32
+@__gl_TEXTURE_WRAP_T = external global i32
+@__gl_GENERATE_MIPMAP = external global i32
+@__gl_TEXTURE0 = external global i32
+@__gl_TEXTURE1 = external global i32
+@__gl_TEXTURE2 = external global i32
+@__gl_TEXTURE3 = external global i32
+@__gl_TEXTURE4 = external global i32
+@__gl_TEXTURE5 = external global i32
+@__gl_TEXTURE6 = external global i32
+@__gl_TEXTURE7 = external global i32
+@__gl_TEXTURE8 = external global i32
+@__gl_TEXTURE9 = external global i32
+@__gl_TEXTURE10 = external global i32
+@__gl_TEXTURE11 = external global i32
+@__gl_TEXTURE12 = external global i32
+@__gl_TEXTURE13 = external global i32
+@__gl_TEXTURE14 = external global i32
+@__gl_TEXTURE15 = external global i32
+@__gl_TEXTURE16 = external global i32
+@__gl_TEXTURE17 = external global i32
+@__gl_TEXTURE18 = external global i32
+@__gl_TEXTURE19 = external global i32
+@__gl_TEXTURE20 = external global i32
+@__gl_TEXTURE21 = external global i32
+@__gl_TEXTURE22 = external global i32
+@__gl_TEXTURE23 = external global i32
+@__gl_TEXTURE24 = external global i32
+@__gl_TEXTURE25 = external global i32
+@__gl_TEXTURE26 = external global i32
+@__gl_TEXTURE27 = external global i32
+@__gl_TEXTURE28 = external global i32
+@__gl_TEXTURE29 = external global i32
+@__gl_TEXTURE30 = external global i32
+@__gl_TEXTURE31 = external global i32
+@__gl_ACTIVE_TEXTURE = external global i32
+@__gl_CLIENT_ACTIVE_TEXTURE = external global i32
+@__gl_REPEAT = external global i32
+@__gl_CLAMP_TO_EDGE = external global i32
+@__gl_LIGHT0 = external global i32
+@__gl_LIGHT1 = external global i32
+@__gl_LIGHT2 = external global i32
+@__gl_LIGHT3 = external global i32
+@__gl_LIGHT4 = external global i32
+@__gl_LIGHT5 = external global i32
+@__gl_LIGHT6 = external global i32
+@__gl_LIGHT7 = external global i32
+@__gl_ARRAY_BUFFER = external global i32
+@__gl_ELEMENT_ARRAY_BUFFER = external global i32
+@__gl_ARRAY_BUFFER_BINDING = external global i32
+@__gl_ELEMENT_ARRAY_BUFFER_BINDING = external global i32
+@__gl_VERTEX_ARRAY_BUFFER_BINDING = external global i32
+@__gl_NORMAL_ARRAY_BUFFER_BINDING = external global i32
+@__gl_COLOR_ARRAY_BUFFER_BINDING = external global i32
+@__gl_TEXTURE_COORD_ARRAY_BUFFER_BIDING = external global i32
+@__gl_STATIC_DRAW = external global i32
+@__gl_DYNAMIC_DRAW = external global i32
+@__gl_BUFFER_SIZE = external global i32
+@__gl_BUFFER_USAGE = external global i32
+@__gl_SUBTRACT = external global i32
+@__gl_COMBINE = external global i32
+@__gl_COMBINE_RGB = external global i32
+@__gl_COMBINE_ALPHA = external global i32
+@__gl_RGB_SCALE = external global i32
+@__gl_ADD_SIGNED = external global i32
+@__gl_INTERPOLATE = external global i32
+@__gl_CONSTANT = external global i32
+@__gl_PRIMARY_COLOR = external global i32
+@__gl_PREVIOUS = external global i32
+@__gl_OPERAND0_RGB = external global i32
+@__gl_OPERAND1_RGB = external global i32
+@__gl_OPERAND2_RGB = external global i32
+@__gl_OPERAND0_ALPHA = external global i32
+@__gl_OPERAND1_ALPHA = external global i32
+@__gl_OPERAND2_ALPHA = external global i32
+@__gl_ALPHA_SCALE = external global i32
+@__gl_SRC0_RGB = external global i32
+@__gl_SRC1_RGB = external global i32
+@__gl_SRC2_RGB = external global i32
+@__gl_SRC0_ALPHA = external global i32
+@__gl_SRC1_ALPHA = external global i32
+@__gl_SRC2_ALPHA = external global i32
+@__gl_DOT3_RGB = external global i32
+@__gl_DOT3_RGBA = external global i32
+@__gl_BLEND_EQUATION_RGB = external global i32
+@__gl_VERTEX_ATTRIB_ARRAY_ENABLED = external global i32
+@__gl_VERTEX_ATTRIB_ARRAY_SIZE = external global i32
+@__gl_VERTEX_ATTRIB_ARRAY_STRIDE = external global i32
+@__gl_VERTEX_ATTRIB_ARRAY_TYPE = external global i32
+@__gl_CURRENT_VERTEX_ATTRIB = external global i32
+@__gl_VERTEX_PROGRAM_POINT_SIZE = external global i32
+@__gl_VERTEX_ATTRIB_ARRAY_POINTER = external global i32
+@__gl_STENCIL_BACK_FUNC = external global i32
+@__gl_STENCIL_BACK_FAIL = external global i32
+@__gl_STENCIL_BACK_PASS_DEPTH_FAIL = external global i32
+@__gl_STENCIL_BACK_PASS_DEPTH_PASS = external global i32
+@__gl_MAX_DRAW_BUFFERS = external global i32
+@__gl_DRAW_BUFFER0 = external global i32
+@__gl_DRAW_BUFFER1 = external global i32
+@__gl_DRAW_BUFFER2 = external global i32
+@__gl_DRAW_BUFFER3 = external global i32
+@__gl_DRAW_BUFFER4 = external global i32
+@__gl_DRAW_BUFFER5 = external global i32
+@__gl_DRAW_BUFFER6 = external global i32
+@__gl_DRAW_BUFFER7 = external global i32
+@__gl_DRAW_BUFFER8 = external global i32
+@__gl_DRAW_BUFFER9 = external global i32
+@__gl_DRAW_BUFFER10 = external global i32
+@__gl_DRAW_BUFFER11 = external global i32
+@__gl_DRAW_BUFFER12 = external global i32
+@__gl_DRAW_BUFFER13 = external global i32
+@__gl_DRAW_BUFFER14 = external global i32
+@__gl_DRAW_BUFFER15 = external global i32
+@__gl_BLEND_EQUATION_ALPHA = external global i32
+@__gl_MAX_VERTEX_ATTRIBS = external global i32
+@__gl_VERTEX_ATTRIB_ARRAY_NORMALIZED = external global i32
+@__gl_MAX_TEXTURE_IMAGE_UNITS = external global i32
+@__gl_FRAGMENT_SHADER = external global i32
+@__gl_VERTEX_SHADER = external global i32
+@__gl_MAX_FRAGMENT_UNIFORM_COMPONENTS = external global i32
+@__gl_MAX_VERTEX_UNIFORM_COMPONENTS = external global i32
+@__gl_MAX_VARYING_FLOATS = external global i32
+@__gl_MAX_VERTEX_TEXTURE_IMAGE_UNITS = external global i32
+@__gl_MAX_COMBINED_TEXTURE_IMAGE_UNITS = external global i32
+@__gl_SHADER_TYPE = external global i32
+@__gl_FLOAT_VEC2 = external global i32
+@__gl_FLOAT_VEC3 = external global i32
+@__gl_FLOAT_VEC4 = external global i32
+@__gl_INT_VEC2 = external global i32
+@__gl_INT_VEC3 = external global i32
+@__gl_INT_VEC4 = external global i32
+@__gl_BOOL = external global i32
+@__gl_BOOL_VEC2 = external global i32
+@__gl_BOOL_VEC3 = external global i32
+@__gl_BOOL_VEC4 = external global i32
+@__gl_FLOAT_MAT2 = external global i32
+@__gl_FLOAT_MAT3 = external global i32
+@__gl_FLOAT_MAT4 = external global i32
+@__gl_SAMPLER_1D = external global i32
+@__gl_SAMPLER_2D = external global i32
+@__gl_SAMPLER_3D = external global i32
+@__gl_SAMPLER_CUBE = external global i32
+@__gl_SAMPLER_1D_SHADOW = external global i32
+@__gl_SAMPLER_2D_SHADOW = external global i32
+@__gl_DELETE_STATUS = external global i32
+@__gl_COMPILE_STATUS = external global i32
+@__gl_LINK_STATUS = external global i32
+@__gl_VALIDATE_STATUS = external global i32
+@__gl_INFO_LOG_LENGTH = external global i32
+@__gl_ATTACHED_SHADERS = external global i32
+@__gl_ACTIVE_UNIFORMS = external global i32
+@__gl_ACTIVE_UNIFORM_MAX_LENGTH = external global i32
+@__gl_SHADER_SOURCE_LENGTH = external global i32
+@__gl_ACTIVE_ATTRIBUTES = external global i32
+@__gl_ACTIVE_ATTRIBUTE_MAX_LENGTH = external global i32
+@__gl_FRAGMENT_SHADER_DERIVATIVE_HINT = external global i32
+@__gl_SHADING_LANGUAGE_VERSION = external global i32
+@__gl_CURRENT_PROGRAM = external global i32
+@__gl_POINT_SPRITE_COORD_ORIGIN = external global i32
+@__gl_LOWER_LEFT = external global i32
+@__gl_UPPER_LEFT = external global i32
+@__gl_STENCIL_BACK_REF = external global i32
+@__gl_STENCIL_BACK_VALUE_MASK = external global i32
+@__gl_STENCIL_BACK_WRITEMASK = external global i32
+@__gl_VERTEX_PROGRAM_TWO_SIDE = external global i32
+@__gl_POINT_SPRITE = external global i32
+@__gl_COORD_REPLACE = external global i32
+@__gl_MAX_TEXTURE_COORDS = external global i32
+@__gl_NUM_SHADING_LANGUAGE_VERSIONS = external global i32
+@__gl_VERTEX_ATTRIB_ARRAY_LONG = external global i32
+@__gl_COMPRESSED_RGB8_ETC2 = external global i32
+@__gl_COMPRESSED_SRGB8_ETC2 = external global i32
+@__gl_COMPRESSED_RGB8_PUNCHTHROUGH_ALPHA1_ETC2 = external global i32
+@__gl_COMPRESSED_SRGB8_PUNCHTHROUGH_ALPHA1_ETC2 = external global i32
+@__gl_COMPRESSED_RGBA8_ETC2_EAC = external global i32
+@__gl_COMPRESSED_SRGB8_ALPHA8_ETC2_EAC = external global i32
+@__gl_COMPRESSED_R11_EAC = external global i32
+@__gl_COMPRESSED_SIGNED_R11_EAC = external global i32
+@__gl_COMPRESSED_RG11_EAC = external global i32
+@__gl_COMPRESSED_SIGNED_RG11_EAC = external global i32
+@__gl_PRIMITIVE_RESTART_FIXED_INDEX = external global i32
+@__gl_ANY_SAMPLES_PASSED_CONSERVATIVE = external global i32
+@__gl_MAX_ELEMENT_INDEX = external global i32
+@__gl_COMPUTE_SHADER = external global i32
+@__gl_MAX_COMPUTE_UNIFORM_BLOCKS = external global i32
+@__gl_MAX_COMPUTE_TEXTURE_IMAGE_UNITS = external global i32
+@__gl_MAX_COMPUTE_IMAGE_UNIFORMS = external global i32
+@__gl_MAX_COMPUTE_SHARED_MEMORY_SIZE = external global i32
+@__gl_MAX_COMPUTE_UNIFORM_COMPONENTS = external global i32
+@__gl_MAX_COMPUTE_ATOMIC_COUNTER_BUFFERS = external global i32
+@__gl_MAX_COMPUTE_ATOMIC_COUNTERS = external global i32
+@__gl_MAX_COMBINED_COMPUTE_UNIFORM_COMPONENTS = external global i32
+@__gl_MAX_COMPUTE_WORK_GROUP_INVOCATIONS = external global i32
+@__gl_MAX_COMPUTE_WORK_GROUP_COUNT = external global i32
+@__gl_MAX_COMPUTE_WORK_GROUP_SIZE = external global i32
+@__gl_COMPUTE_WORK_GROUP_SIZE = external global i32
+@__gl_UNIFORM_BLOCK_REFERENCED_BY_COMPUTE_SHADER = external global i32
+@__gl_ATOMIC_COUNTER_BUFFER_REFERENCED_BY_COMPUTE_SHADER = external global i32
+@__gl_DISPATCH_INDIRECT_BUFFER = external global i32
+@__gl_DISPATCH_INDIRECT_BUFFER_BINDING = external global i32
+@__gl_COMPUTE_SHADER_BIT = external global i32
+@__gl_DEBUG_OUTPUT_SYNCHRONOUS = external global i32
+@__gl_DEBUG_NEXT_LOGGED_MESSAGE_LENGTH = external global i32
+@__gl_DEBUG_CALLBACK_FUNCTION = external global i32
+@__gl_DEBUG_CALLBACK_USER_PARAM = external global i32
+@__gl_DEBUG_SOURCE_API = external global i32
+@__gl_DEBUG_SOURCE_WINDOW_SYSTEM = external global i32
+@__gl_DEBUG_SOURCE_SHADER_COMPILER = external global i32
+@__gl_DEBUG_SOURCE_THIRD_PARTY = external global i32
+@__gl_DEBUG_SOURCE_APPLICATION = external global i32
+@__gl_DEBUG_SOURCE_OTHER = external global i32
+@__gl_DEBUG_TYPE_ERROR = external global i32
+@__gl_DEBUG_TYPE_DEPRECATED_BEHAVIOR = external global i32
+@__gl_DEBUG_TYPE_UNDEFINED_BEHAVIOR = external global i32
+@__gl_DEBUG_TYPE_PORTABILITY = external global i32
+@__gl_DEBUG_TYPE_PERFORMANCE = external global i32
+@__gl_DEBUG_TYPE_OTHER = external global i32
+@__gl_MAX_DEBUG_MESSAGE_LENGTH = external global i32
+@__gl_MAX_DEBUG_LOGGED_MESSAGES = external global i32
+@__gl_DEBUG_LOGGED_MESSAGES = external global i32
+@__gl_DEBUG_SEVERITY_HIGH = external global i32
+@__gl_DEBUG_SEVERITY_MEDIUM = external global i32
+@__gl_DEBUG_SEVERITY_LOW = external global i32
+@__gl_DEBUG_TYPE_MARKER = external global i32
+@__gl_DEBUG_TYPE_PUSH_GROUP = external global i32
+@__gl_DEBUG_TYPE_POP_GROUP = external global i32
+@__gl_DEBUG_SEVERITY_NOTIFICATION = external global i32
+@__gl_MAX_DEBUG_GROUP_STACK_DEPTH = external global i32
+@__gl_DEBUG_GROUP_STACK_DEPTH = external global i32
+@__gl_BUFFER = external global i32
+@__gl_SHADER = external global i32
+@__gl_PROGRAM = external global i32
+@__gl_QUERY = external global i32
+@__gl_PROGRAM_PIPELINE = external global i32
+@__gl_SAMPLER = external global i32
+@__gl_MAX_LABEL_LENGTH = external global i32
+@__gl_DEBUG_OUTPUT = external global i32
+@__gl_CONTEXT_FLAG_DEBUG_BIT = external global i32
+@__gl_MAX_UNIFORM_LOCATIONS = external global i32
+@__gl_FRAMEBUFFER_DEFAULT_WIDTH = external global i32
+@__gl_FRAMEBUFFER_DEFAULT_HEIGHT = external global i32
+@__gl_FRAMEBUFFER_DEFAULT_LAYERS = external global i32
+@__gl_FRAMEBUFFER_DEFAULT_SAMPLES = external global i32
+@__gl_FRAMEBUFFER_DEFAULT_FIXED_SAMPLE_LOCATIONS = external global i32
+@__gl_MAX_FRAMEBUFFER_WIDTH = external global i32
+@__gl_MAX_FRAMEBUFFER_HEIGHT = external global i32
+@__gl_MAX_FRAMEBUFFER_LAYERS = external global i32
+@__gl_MAX_FRAMEBUFFER_SAMPLES = external global i32
+@__gl_INTERNALFORMAT_SUPPORTED = external global i32
+@__gl_INTERNALFORMAT_PREFERRED = external global i32
+@__gl_INTERNALFORMAT_RED_SIZE = external global i32
+@__gl_INTERNALFORMAT_GREEN_SIZE = external global i32
+@__gl_INTERNALFORMAT_BLUE_SIZE = external global i32
+@__gl_INTERNALFORMAT_ALPHA_SIZE = external global i32
+@__gl_INTERNALFORMAT_DEPTH_SIZE = external global i32
+@__gl_INTERNALFORMAT_STENCIL_SIZE = external global i32
+@__gl_INTERNALFORMAT_SHARED_SIZE = external global i32
+@__gl_INTERNALFORMAT_RED_TYPE = external global i32
+@__gl_INTERNALFORMAT_GREEN_TYPE = external global i32
+@__gl_INTERNALFORMAT_BLUE_TYPE = external global i32
+@__gl_INTERNALFORMAT_ALPHA_TYPE = external global i32
+@__gl_INTERNALFORMAT_DEPTH_TYPE = external global i32
+@__gl_INTERNALFORMAT_STENCIL_TYPE = external global i32
+@__gl_MAX_WIDTH = external global i32
+@__gl_MAX_HEIGHT = external global i32
+@__gl_MAX_DEPTH = external global i32
+@__gl_MAX_LAYERS = external global i32
+@__gl_MAX_COMBINED_DIMENSIONS = external global i32
+@__gl_COLOR_COMPONENTS = external global i32
+@__gl_DEPTH_COMPONENTS = external global i32
+@__gl_STENCIL_COMPONENTS = external global i32
+@__gl_COLOR_RENDERABLE = external global i32
+@__gl_DEPTH_RENDERABLE = external global i32
+@__gl_STENCIL_RENDERABLE = external global i32
+@__gl_FRAMEBUFFER_RENDERABLE = external global i32
+@__gl_FRAMEBUFFER_RENDERABLE_LAYERED = external global i32
+@__gl_FRAMEBUFFER_BLEND = external global i32
+@__gl_READ_PIXELS = external global i32
+@__gl_READ_PIXELS_FORMAT = external global i32
+@__gl_READ_PIXELS_TYPE = external global i32
+@__gl_TEXTURE_IMAGE_FORMAT = external global i32
+@__gl_TEXTURE_IMAGE_TYPE = external global i32
+@__gl_GET_TEXTURE_IMAGE_FORMAT = external global i32
+@__gl_GET_TEXTURE_IMAGE_TYPE = external global i32
+@__gl_MIPMAP = external global i32
+@__gl_MANUAL_GENERATE_MIPMAP = external global i32
+@__gl_AUTO_GENERATE_MIPMAP = external global i32
+@__gl_COLOR_ENCODING = external global i32
+@__gl_SRGB_READ = external global i32
+@__gl_SRGB_WRITE = external global i32
+@__gl_FILTER = external global i32
+@__gl_VERTEX_TEXTURE = external global i32
+@__gl_TESS_CONTROL_TEXTURE = external global i32
+@__gl_TESS_EVALUATION_TEXTURE = external global i32
+@__gl_GEOMETRY_TEXTURE = external global i32
+@__gl_FRAGMENT_TEXTURE = external global i32
+@__gl_COMPUTE_TEXTURE = external global i32
+@__gl_TEXTURE_SHADOW = external global i32
+@__gl_TEXTURE_GATHER = external global i32
+@__gl_TEXTURE_GATHER_SHADOW = external global i32
+@__gl_SHADER_IMAGE_LOAD = external global i32
+@__gl_SHADER_IMAGE_STORE = external global i32
+@__gl_SHADER_IMAGE_ATOMIC = external global i32
+@__gl_IMAGE_TEXEL_SIZE = external global i32
+@__gl_IMAGE_COMPATIBILITY_CLASS = external global i32
+@__gl_IMAGE_PIXEL_FORMAT = external global i32
+@__gl_IMAGE_PIXEL_TYPE = external global i32
+@__gl_SIMULTANEOUS_TEXTURE_AND_DEPTH_TEST = external global i32
+@__gl_SIMULTANEOUS_TEXTURE_AND_STENCIL_TEST = external global i32
+@__gl_SIMULTANEOUS_TEXTURE_AND_DEPTH_WRITE = external global i32
+@__gl_SIMULTANEOUS_TEXTURE_AND_STENCIL_WRITE = external global i32
+@__gl_TEXTURE_COMPRESSED_BLOCK_WIDTH = external global i32
+@__gl_TEXTURE_COMPRESSED_BLOCK_HEIGHT = external global i32
+@__gl_TEXTURE_COMPRESSED_BLOCK_SIZE = external global i32
+@__gl_CLEAR_BUFFER = external global i32
+@__gl_TEXTURE_VIEW = external global i32
+@__gl_VIEW_COMPATIBILITY_CLASS = external global i32
+@__gl_FULL_SUPPORT = external global i32
+@__gl_CAVEAT_SUPPORT = external global i32
+@__gl_IMAGE_CLASS_4_X_32 = external global i32
+@__gl_IMAGE_CLASS_2_X_32 = external global i32
+@__gl_IMAGE_CLASS_1_X_32 = external global i32
+@__gl_IMAGE_CLASS_4_X_16 = external global i32
+@__gl_IMAGE_CLASS_2_X_16 = external global i32
+@__gl_IMAGE_CLASS_1_X_16 = external global i32
+@__gl_IMAGE_CLASS_4_X_8 = external global i32
+@__gl_IMAGE_CLASS_2_X_8 = external global i32
+@__gl_IMAGE_CLASS_1_X_8 = external global i32
+@__gl_IMAGE_CLASS_11_11_10 = external global i32
+@__gl_IMAGE_CLASS_10_10_10_2 = external global i32
+@__gl_VIEW_CLASS_128_BITS = external global i32
+@__gl_VIEW_CLASS_96_BITS = external global i32
+@__gl_VIEW_CLASS_64_BITS = external global i32
+@__gl_VIEW_CLASS_48_BITS = external global i32
+@__gl_VIEW_CLASS_32_BITS = external global i32
+@__gl_VIEW_CLASS_24_BITS = external global i32
+@__gl_VIEW_CLASS_16_BITS = external global i32
+@__gl_VIEW_CLASS_8_BITS = external global i32
+@__gl_VIEW_CLASS_S3TC_DXT1_RGB = external global i32
+@__gl_VIEW_CLASS_S3TC_DXT1_RGBA = external global i32
+@__gl_VIEW_CLASS_S3TC_DXT3_RGBA = external global i32
+@__gl_VIEW_CLASS_S3TC_DXT5_RGBA = external global i32
+@__gl_VIEW_CLASS_RGTC1_RED = external global i32
+@__gl_VIEW_CLASS_RGTC2_RG = external global i32
+@__gl_VIEW_CLASS_BPTC_UNORM = external global i32
+@__gl_VIEW_CLASS_BPTC_FLOAT = external global i32
+@__gl_UNIFORM = external global i32
+@__gl_UNIFORM_BLOCK = external global i32
+@__gl_PROGRAM_INPUT = external global i32
+@__gl_PROGRAM_OUTPUT = external global i32
+@__gl_BUFFER_VARIABLE = external global i32
+@__gl_SHADER_STORAGE_BLOCK = external global i32
+@__gl_VERTEX_SUBROUTINE = external global i32
+@__gl_TESS_CONTROL_SUBROUTINE = external global i32
+@__gl_TESS_EVALUATION_SUBROUTINE = external global i32
+@__gl_GEOMETRY_SUBROUTINE = external global i32
+@__gl_FRAGMENT_SUBROUTINE = external global i32
+@__gl_COMPUTE_SUBROUTINE = external global i32
+@__gl_VERTEX_SUBROUTINE_UNIFORM = external global i32
+@__gl_TESS_CONTROL_SUBROUTINE_UNIFORM = external global i32
+@__gl_TESS_EVALUATION_SUBROUTINE_UNIFORM = external global i32
+@__gl_GEOMETRY_SUBROUTINE_UNIFORM = external global i32
+@__gl_FRAGMENT_SUBROUTINE_UNIFORM = external global i32
+@__gl_COMPUTE_SUBROUTINE_UNIFORM = external global i32
+@__gl_TRANSFORM_FEEDBACK_VARYING = external global i32
+@__gl_ACTIVE_RESOURCES = external global i32
+@__gl_MAX_NAME_LENGTH = external global i32
+@__gl_MAX_NUM_ACTIVE_VARIABLES = external global i32
+@__gl_MAX_NUM_COMPATIBLE_SUBROUTINES = external global i32
+@__gl_NAME_LENGTH = external global i32
+@__gl_TYPE = external global i32
+@__gl_ARRAY_SIZE = external global i32
+@__gl_OFFSET = external global i32
+@__gl_BLOCK_INDEX = external global i32
+@__gl_ARRAY_STRIDE = external global i32
+@__gl_MATRIX_STRIDE = external global i32
+@__gl_IS_ROW_MAJOR = external global i32
+@__gl_ATOMIC_COUNTER_BUFFER_INDEX = external global i32
+@__gl_BUFFER_BINDING = external global i32
+@__gl_BUFFER_DATA_SIZE = external global i32
+@__gl_NUM_ACTIVE_VARIABLES = external global i32
+@__gl_ACTIVE_VARIABLES = external global i32
+@__gl_REFERENCED_BY_VERTEX_SHADER = external global i32
+@__gl_REFERENCED_BY_TESS_CONTROL_SHADER = external global i32
+@__gl_REFERENCED_BY_TESS_EVALUATION_SHADER = external global i32
+@__gl_REFERENCED_BY_GEOMETRY_SHADER = external global i32
+@__gl_REFERENCED_BY_FRAGMENT_SHADER = external global i32
+@__gl_REFERENCED_BY_COMPUTE_SHADER = external global i32
+@__gl_TOP_LEVEL_ARRAY_SIZE = external global i32
+@__gl_TOP_LEVEL_ARRAY_STRIDE = external global i32
+@__gl_LOCATION = external global i32
+@__gl_LOCATION_INDEX = external global i32
+@__gl_IS_PER_PATCH = external global i32
+@__gl_SHADER_STORAGE_BUFFER = external global i32
+@__gl_SHADER_STORAGE_BUFFER_BINDING = external global i32
+@__gl_SHADER_STORAGE_BUFFER_START = external global i32
+@__gl_SHADER_STORAGE_BUFFER_SIZE = external global i32
+@__gl_MAX_VERTEX_SHADER_STORAGE_BLOCKS = external global i32
+@__gl_MAX_GEOMETRY_SHADER_STORAGE_BLOCKS = external global i32
+@__gl_MAX_TESS_CONTROL_SHADER_STORAGE_BLOCKS = external global i32
+@__gl_MAX_TESS_EVALUATION_SHADER_STORAGE_BLOCKS = external global i32
+@__gl_MAX_FRAGMENT_SHADER_STORAGE_BLOCKS = external global i32
+@__gl_MAX_COMPUTE_SHADER_STORAGE_BLOCKS = external global i32
+@__gl_MAX_COMBINED_SHADER_STORAGE_BLOCKS = external global i32
+@__gl_MAX_SHADER_STORAGE_BUFFER_BINDINGS = external global i32
+@__gl_MAX_SHADER_STORAGE_BLOCK_SIZE = external global i32
+@__gl_SHADER_STORAGE_BUFFER_OFFSET_ALIGNMENT = external global i32
+@__gl_SHADER_STORAGE_BARRIER_BIT = external global i32
+@__gl_MAX_COMBINED_SHADER_OUTPUT_RESOURCES = external global i32
+@__gl_DEPTH_STENCIL_TEXTURE_MODE = external global i32
+@__gl_TEXTURE_BUFFER_OFFSET = external global i32
+@__gl_TEXTURE_BUFFER_SIZE = external global i32
+@__gl_TEXTURE_BUFFER_OFFSET_ALIGNMENT = external global i32
+@__gl_TEXTURE_VIEW_MIN_LEVEL = external global i32
+@__gl_TEXTURE_VIEW_NUM_LEVELS = external global i32
+@__gl_TEXTURE_VIEW_MIN_LAYER = external global i32
+@__gl_TEXTURE_VIEW_NUM_LAYERS = external global i32
+@__gl_TEXTURE_IMMUTABLE_LEVELS = external global i32
+@__gl_VERTEX_ATTRIB_BINDING = external global i32
+@__gl_VERTEX_ATTRIB_RELATIVE_OFFSET = external global i32
+@__gl_VERTEX_BINDING_DIVISOR = external global i32
+@__gl_VERTEX_BINDING_OFFSET = external global i32
+@__gl_VERTEX_BINDING_STRIDE = external global i32
+@__gl_MAX_VERTEX_ATTRIB_RELATIVE_OFFSET = external global i32
+@__gl_MAX_VERTEX_ATTRIB_BINDINGS = external global i32
+@__gl_VERTEX_BINDING_BUFFER = external global i32
+@__gl_DISPLAY_LIST = external global i32
+@__renderer_vert_shader = external global ptr
+@__renderer_frag_shader = external global ptr
 @__init_INVALID_TYPE = external global i64
-@__init_type_table = external global %slice.19
+@__init_type_table = external global %slice.22
 @__os_STD_INPUT_HANDLE = external global i32
 @__os_STD_OUTPUT_HANDLE = external global i32
 @__os_STD_ERROR_HANDLE = external global i32
@@ -69,68 +807,326 @@ $___asan_gen__anon_global.5 = comdat nodeduplicate
 @__os_PAGE_NOCACHE = external global i32
 @__os_PAGE_WRITECOMBINE = external global i32
 @__str_CONTINUE_BIT = external global i8
-@___asan_gen__anon_global = internal constant { [5 x i8], [27 x i8] } { [5 x i8] c"foo\0A\00", [27 x i8] zeroinitializer }, comdat, align 32
-@___asan_gen__anon_global.5 = internal constant { [3 x i8], [29 x i8] } { [3 x i8] c"%s\00", [29 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global = internal constant { [22 x i8], [42 x i8] } { [22 x i8] c"sdl.Init() failed: %s\00", [42 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.10 = internal constant { [10 x i8], [22 x i8] } { [10 x i8] c"My Window\00", [22 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.12 = internal constant { [30 x i8], [34 x i8] } { [30 x i8] c"sdl.CreateWindow() failed: %s\00", [34 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.14 = internal constant { [34 x i8], [62 x i8] } { [34 x i8] c"sdl.GL_CreateContext() failed: %s\00", [62 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.16 = internal constant { [17 x i8], [47 x i8] } { [17 x i8] c"gl.load() failed\00", [47 x i8] zeroinitializer }, comdat, align 32
 @llvm.used = appending global [1 x ptr] [ptr @asan.module_ctor], section "llvm.metadata"
 @___asan_gen_ = private constant [5 x i8] c"main\00", align 1
-@___asan_gen_.2 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
-@___asan_gen_.3 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
-@__asan_global_ = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global to i64), i64 5, i64 32, i64 ptrtoint (ptr @___asan_gen_.2 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global), align 64, !associated !0
-@__asan_global_.4 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.5 to i64), i64 3, i64 32, i64 ptrtoint (ptr @___asan_gen_.3 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.5), align 64, !associated !1
-@llvm.compiler.used = appending global [2 x ptr] [ptr @__asan_global_, ptr @__asan_global_.4], section "llvm.metadata"
+@___asan_gen_.2 = private unnamed_addr constant [13 x i8] c"__main_WIDTH\00", align 1
+@__odr_asan_gen___main_WIDTH = global i8 0, align 1
+@___asan_gen_.3 = private unnamed_addr constant [14 x i8] c"__main_HEIGHT\00", align 1
+@__odr_asan_gen___main_HEIGHT = global i8 0, align 1
+@___asan_gen_.4 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.5 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.6 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.7 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.8 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@__asan_global___main_WIDTH = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__main_WIDTH to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.2 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___main_WIDTH to i64) }, section ".ASAN$GL", comdat($__main_WIDTH), align 64, !associated !0
+@__asan_global___main_HEIGHT = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__main_HEIGHT to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.3 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___main_HEIGHT to i64) }, section ".ASAN$GL", comdat($__main_HEIGHT), align 64, !associated !1
+@__asan_global_ = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global to i64), i64 22, i64 64, i64 ptrtoint (ptr @___asan_gen_.4 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global), align 64, !associated !2
+@__asan_global_.9 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.10 to i64), i64 10, i64 32, i64 ptrtoint (ptr @___asan_gen_.5 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.10), align 64, !associated !3
+@__asan_global_.11 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.12 to i64), i64 30, i64 64, i64 ptrtoint (ptr @___asan_gen_.6 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.12), align 64, !associated !4
+@__asan_global_.13 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.14 to i64), i64 34, i64 96, i64 ptrtoint (ptr @___asan_gen_.7 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.14), align 64, !associated !5
+@__asan_global_.15 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.16 to i64), i64 17, i64 64, i64 ptrtoint (ptr @___asan_gen_.8 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.16), align 64, !associated !6
+@llvm.compiler.used = appending global [9 x ptr] [ptr @__main_WIDTH, ptr @__main_HEIGHT, ptr @__asan_global___main_WIDTH, ptr @__asan_global___main_HEIGHT, ptr @__asan_global_, ptr @__asan_global_.9, ptr @__asan_global_.11, ptr @__asan_global_.13, ptr @__asan_global_.15], section "llvm.metadata"
 @llvm.global_ctors = appending global [1 x { i32, ptr, ptr }] [{ i32, ptr, ptr } { i32 1, ptr @asan.module_ctor, ptr null }]
 
 define void @__main___GlobalInitializerFunction.0() {
 block_0:
+  store i32 640, ptr @__main_WIDTH, align 4
+  store i32 480, ptr @__main_HEIGHT, align 4
   ret void
 }
 
-define i32 @__main_main() !dbg !70 {
+define i32 @__main_main() !dbg !105 {
 block_0:
-  %0 = alloca ptr, align 8
-  %1 = alloca %slice.22, align 8
-  %2 = alloca [1 x %__init_Arg], align 8
-  %3 = alloca %string, align 8
-  %4 = alloca ptr, align 8
-  call void @llvm.memset.p0.i32(ptr align 8 %0, i8 0, i32 8, i1 false)
+  %0 = alloca %slice.25, align 8
+  %1 = alloca [1 x %__init_Arg], align 8
+  %2 = alloca %string, align 8
+  %3 = alloca ptr, align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %0, i8 0, i32 16, i1 false)
   call void @llvm.memset.p0.i32(ptr align 8 %1, i8 0, i32 16, i1 false)
   call void @llvm.memset.p0.i32(ptr align 8 %2, i8 0, i32 16, i1 false)
-  call void @llvm.memset.p0.i32(ptr align 8 %3, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %3, i8 0, i32 8, i1 false)
+  %4 = alloca ptr, align 8
   call void @llvm.memset.p0.i32(ptr align 8 %4, i8 0, i32 8, i1 false)
-  store ptr @___asan_gen__anon_global, ptr %0, align 8, !dbg !75
-  call void @llvm.dbg.declare(metadata ptr %0, metadata !76, metadata !DIExpression()), !dbg !75
-  %5 = getelementptr inbounds %slice.22, ptr %1, i32 0, i32 0, !dbg !79
-  %6 = getelementptr inbounds %slice.22, ptr %1, i32 0, i32 1, !dbg !79
-  store i64 1, ptr %5, align 8, !dbg !79
-  store ptr %2, ptr %6, align 8, !dbg !79
-  %7 = alloca %string, align 8, !dbg !79
-  %String = getelementptr inbounds %string, ptr %7, i32 0, i32 0, !dbg !79
-  %Size = getelementptr inbounds %string, ptr %7, i32 0, i32 1, !dbg !79
-  store ptr @___asan_gen__anon_global.5, ptr %String, align 8, !dbg !79
-  store i64 2, ptr %Size, align 8, !dbg !79
-  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %3, ptr align 8 %7, i64 16, i1 false), !dbg !79
-  %8 = load ptr, ptr %0, align 8, !dbg !79
-  store ptr %8, ptr %4, align 8, !dbg !79
-  %9 = getelementptr [1 x %__init_Arg], ptr %2, i64 0, i64 0, !dbg !79
-  %10 = getelementptr inbounds %__init_Arg, ptr %9, i32 0, i32 0, !dbg !79
-  %11 = getelementptr inbounds %__init_Arg, ptr %9, i32 0, i32 1, !dbg !79
-  store i64 81, ptr %10, align 8, !dbg !79
-  store ptr %4, ptr %11, align 8, !dbg !79
-  call void @__io_println(ptr %3, ptr %1), !dbg !79
-  ret i32 0, !dbg !80
+  %5 = alloca %slice.25, align 8
+  %6 = alloca [1 x %__init_Arg], align 8
+  %7 = alloca %string, align 8
+  %8 = alloca ptr, align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %5, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %6, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %7, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %8, i8 0, i32 8, i1 false)
+  %9 = alloca ptr, align 8
+  %10 = alloca ptr, align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %9, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %10, i8 0, i32 8, i1 false)
+  %11 = alloca %slice.25, align 8
+  %12 = alloca [1 x %__init_Arg], align 8
+  %13 = alloca %string, align 8
+  %14 = alloca ptr, align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %11, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %12, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %13, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %14, i8 0, i32 8, i1 false)
+  %15 = alloca ptr, align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %15, i8 0, i32 8, i1 false)
+  %16 = alloca %slice.25, align 8
+  %17 = alloca [0 x %__init_Arg], align 8
+  %18 = alloca %string, align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %16, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %17, i8 0, i32 0, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %18, i8 0, i32 16, i1 false)
+  %19 = alloca %__renderer_ctx, align 8
+  %20 = alloca %__renderer_ctx, align 8
+  %21 = alloca i1, align 1
+  call void @llvm.memset.p0.i32(ptr align 8 %19, i8 0, i32 12, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %20, i8 0, i32 12, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 1 %21, i8 0, i32 1, i1 false)
+  %22 = alloca %__sdl_Event, align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %22, i8 0, i32 128, i1 false)
+  %23 = alloca %slice.20, align 8
+  %24 = alloca %__renderer_vec3, align 8
+  %25 = alloca %__renderer_vec3, align 8
+  %26 = alloca %__renderer_vec3, align 8
+  %27 = alloca [3 x %__renderer_vec3], align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %23, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %24, i8 0, i32 12, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %25, i8 0, i32 12, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %26, i8 0, i32 12, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %27, i8 0, i32 36, i1 false)
+  %28 = load i32, ptr @__sdl_INIT_VIDEO, align 4, !dbg !110
+  %29 = call i1 @SDL_Init(i32 %28), !dbg !110
+  %30 = icmp eq i1 %29, false, !dbg !110
+  br i1 %30, label %block_1, label %block_2, !dbg !110
+
+block_1:                                          ; preds = %block_0
+  %31 = getelementptr inbounds %slice.25, ptr %0, i32 0, i32 0, !dbg !111
+  %32 = getelementptr inbounds %slice.25, ptr %0, i32 0, i32 1, !dbg !111
+  store i64 1, ptr %31, align 8, !dbg !111
+  store ptr %1, ptr %32, align 8, !dbg !111
+  %33 = alloca %string, align 8, !dbg !111
+  %String = getelementptr inbounds %string, ptr %33, i32 0, i32 0, !dbg !111
+  %Size = getelementptr inbounds %string, ptr %33, i32 0, i32 1, !dbg !111
+  store ptr @___asan_gen__anon_global, ptr %String, align 8, !dbg !111
+  store i64 21, ptr %Size, align 8, !dbg !111
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %2, ptr align 8 %33, i64 16, i1 false), !dbg !111
+  %34 = call ptr @SDL_GetError(), !dbg !111
+  store ptr %34, ptr %3, align 8, !dbg !111
+  %35 = getelementptr [1 x %__init_Arg], ptr %1, i64 0, i64 0, !dbg !111
+  %36 = getelementptr inbounds %__init_Arg, ptr %35, i32 0, i32 0, !dbg !111
+  %37 = getelementptr inbounds %__init_Arg, ptr %35, i32 0, i32 1, !dbg !111
+  store i64 59, ptr %36, align 8, !dbg !111
+  store ptr %3, ptr %37, align 8, !dbg !111
+  call void @__io_println(ptr %2, ptr %0), !dbg !111
+  ret i32 1, !dbg !112
+
+block_2:                                          ; preds = %block_0
+  br label %block_3, !dbg !112
+
+block_3:                                          ; preds = %block_2
+  %38 = call i1 @SDL_GL_SetAttribute(i32 17, i32 4), !dbg !113
+  %39 = call i1 @SDL_GL_SetAttribute(i32 18, i32 3), !dbg !114
+  %40 = load i32, ptr @__sdl_GL_CONTEXT_PROFILE_CORE, align 4, !dbg !115
+  %41 = call i1 @SDL_GL_SetAttribute(i32 20, i32 %40), !dbg !115
+  %42 = load i32, ptr @__sdl_GL_CONTEXT_DEBUG_FLAG, align 4, !dbg !116
+  %43 = call i1 @SDL_GL_SetAttribute(i32 19, i32 %42), !dbg !116
+  %44 = load i32, ptr @__main_WIDTH, align 4, !dbg !117
+  %45 = load i32, ptr @__main_HEIGHT, align 4, !dbg !117
+  %46 = load i64, ptr @__sdl_WINDOW_OPENGL, align 8, !dbg !117
+  %47 = load i64, ptr @__sdl_WINDOW_RESIZABLE, align 8, !dbg !117
+  %48 = or i64 %46, %47, !dbg !117
+  %49 = call ptr @SDL_CreateWindow(ptr @___asan_gen__anon_global.10, i32 %44, i32 %45, i64 %48), !dbg !117
+  store ptr %49, ptr %4, align 8, !dbg !117
+  call void @llvm.dbg.declare(metadata ptr %4, metadata !118, metadata !DIExpression()), !dbg !117
+  %50 = load ptr, ptr %4, align 8, !dbg !121
+  %51 = icmp eq ptr %50, null, !dbg !121
+  br i1 %51, label %block_4, label %block_5, !dbg !121
+
+block_4:                                          ; preds = %block_3
+  %52 = getelementptr inbounds %slice.25, ptr %5, i32 0, i32 0, !dbg !122
+  %53 = getelementptr inbounds %slice.25, ptr %5, i32 0, i32 1, !dbg !122
+  store i64 1, ptr %52, align 8, !dbg !122
+  store ptr %6, ptr %53, align 8, !dbg !122
+  %54 = alloca %string, align 8, !dbg !122
+  %String1 = getelementptr inbounds %string, ptr %54, i32 0, i32 0, !dbg !122
+  %Size2 = getelementptr inbounds %string, ptr %54, i32 0, i32 1, !dbg !122
+  store ptr @___asan_gen__anon_global.12, ptr %String1, align 8, !dbg !122
+  store i64 29, ptr %Size2, align 8, !dbg !122
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %7, ptr align 8 %54, i64 16, i1 false), !dbg !122
+  %55 = call ptr @SDL_GetError(), !dbg !122
+  store ptr %55, ptr %8, align 8, !dbg !122
+  %56 = getelementptr [1 x %__init_Arg], ptr %6, i64 0, i64 0, !dbg !122
+  %57 = getelementptr inbounds %__init_Arg, ptr %56, i32 0, i32 0, !dbg !122
+  %58 = getelementptr inbounds %__init_Arg, ptr %56, i32 0, i32 1, !dbg !122
+  store i64 59, ptr %57, align 8, !dbg !122
+  store ptr %8, ptr %58, align 8, !dbg !122
+  call void @__io_println(ptr %7, ptr %5), !dbg !122
+  ret i32 1, !dbg !123
+
+block_5:                                          ; preds = %block_3
+  br label %block_6, !dbg !123
+
+block_6:                                          ; preds = %block_5
+  %59 = load ptr, ptr %4, align 8, !dbg !124
+  store ptr %59, ptr %9, align 8, !dbg !124
+  call void @llvm.dbg.declare(metadata ptr %9, metadata !125, metadata !DIExpression()), !dbg !124
+  %60 = load ptr, ptr %9, align 8, !dbg !127
+  %61 = call ptr @SDL_GL_CreateContext(ptr %60), !dbg !127
+  store ptr %61, ptr %10, align 8, !dbg !127
+  call void @llvm.dbg.declare(metadata ptr %10, metadata !128, metadata !DIExpression()), !dbg !127
+  %62 = load ptr, ptr %10, align 8, !dbg !131
+  %63 = icmp eq ptr %62, null, !dbg !131
+  br i1 %63, label %block_7, label %block_8, !dbg !131
+
+block_7:                                          ; preds = %block_6
+  %64 = getelementptr inbounds %slice.25, ptr %11, i32 0, i32 0, !dbg !132
+  %65 = getelementptr inbounds %slice.25, ptr %11, i32 0, i32 1, !dbg !132
+  store i64 1, ptr %64, align 8, !dbg !132
+  store ptr %12, ptr %65, align 8, !dbg !132
+  %66 = alloca %string, align 8, !dbg !132
+  %String3 = getelementptr inbounds %string, ptr %66, i32 0, i32 0, !dbg !132
+  %Size4 = getelementptr inbounds %string, ptr %66, i32 0, i32 1, !dbg !132
+  store ptr @___asan_gen__anon_global.14, ptr %String3, align 8, !dbg !132
+  store i64 33, ptr %Size4, align 8, !dbg !132
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %13, ptr align 8 %66, i64 16, i1 false), !dbg !132
+  %67 = call ptr @SDL_GetError(), !dbg !132
+  store ptr %67, ptr %14, align 8, !dbg !132
+  %68 = getelementptr [1 x %__init_Arg], ptr %12, i64 0, i64 0, !dbg !132
+  %69 = getelementptr inbounds %__init_Arg, ptr %68, i32 0, i32 0, !dbg !132
+  %70 = getelementptr inbounds %__init_Arg, ptr %68, i32 0, i32 1, !dbg !132
+  store i64 59, ptr %69, align 8, !dbg !132
+  store ptr %14, ptr %70, align 8, !dbg !132
+  call void @__io_println(ptr %13, ptr %11), !dbg !132
+  ret i32 1, !dbg !133
+
+block_8:                                          ; preds = %block_6
+  br label %block_9, !dbg !133
+
+block_9:                                          ; preds = %block_8
+  %71 = load ptr, ptr %10, align 8, !dbg !134
+  store ptr %71, ptr %15, align 8, !dbg !134
+  call void @llvm.dbg.declare(metadata ptr %15, metadata !135, metadata !DIExpression()), !dbg !134
+  %72 = call i1 @__gl_load(), !dbg !137
+  %73 = icmp eq i1 %72, false, !dbg !137
+  br i1 %73, label %block_10, label %block_11, !dbg !137
+
+block_10:                                         ; preds = %block_9
+  %74 = getelementptr inbounds %slice.25, ptr %16, i32 0, i32 0, !dbg !138
+  %75 = getelementptr inbounds %slice.25, ptr %16, i32 0, i32 1, !dbg !138
+  store i64 0, ptr %74, align 8, !dbg !138
+  store ptr %17, ptr %75, align 8, !dbg !138
+  %76 = alloca %string, align 8, !dbg !138
+  %String5 = getelementptr inbounds %string, ptr %76, i32 0, i32 0, !dbg !138
+  %Size6 = getelementptr inbounds %string, ptr %76, i32 0, i32 1, !dbg !138
+  store ptr @___asan_gen__anon_global.16, ptr %String5, align 8, !dbg !138
+  store i64 16, ptr %Size6, align 8, !dbg !138
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %18, ptr align 8 %76, i64 16, i1 false), !dbg !138
+  call void @__io_println(ptr %18, ptr %16), !dbg !138
+  ret i32 1, !dbg !139
+
+block_11:                                         ; preds = %block_9
+  br label %block_12, !dbg !139
+
+block_12:                                         ; preds = %block_11
+  call void @__renderer_create_ctx(ptr %19), !dbg !140
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %20, ptr align 4 %19, i64 12, i1 false), !dbg !140
+  call void @llvm.dbg.declare(metadata ptr %20, metadata !141, metadata !DIExpression()), !dbg !140
+  store i1 true, ptr %21, align 1, !dbg !148
+  call void @llvm.dbg.declare(metadata ptr %21, metadata !149, metadata !DIExpression()), !dbg !148
+  %77 = call i1 @SDL_GL_SetSwapInterval(i32 1), !dbg !151
+  %78 = load ptr, ptr @__gl_Viewport, align 8, !dbg !152
+  %79 = load i32, ptr @__main_WIDTH, align 4, !dbg !152
+  %80 = load i32, ptr @__main_HEIGHT, align 4, !dbg !152
+  call void %78(i32 0, i32 0, i32 %79, i32 %80), !dbg !152
+  br label %block_13, !dbg !153
+
+block_13:                                         ; preds = %block_18, %block_12
+  %81 = load i1, ptr %21, align 1, !dbg !153
+  br i1 %81, label %block_14, label %block_15, !dbg !153
+
+block_14:                                         ; preds = %block_13
+  %82 = load ptr, ptr @__gl_Clear, align 8, !dbg !154
+  %83 = load i32, ptr @__gl_COLOR_BUFFER_BIT, align 4, !dbg !154
+  call void %82(i32 %83), !dbg !154
+  %84 = load ptr, ptr @__gl_ClearColor, align 8, !dbg !155
+  call void %84(float 0x3FE99999A0000000, float 0x3FD3333340000000, float 0x3FD3333340000000, float 1.000000e+00), !dbg !155
+  call void @llvm.dbg.declare(metadata ptr %22, metadata !156, metadata !DIExpression()), !dbg !171
+  br label %block_16, !dbg !172
+
+block_16:                                         ; preds = %block_19, %block_14
+  %85 = call i1 @SDL_PollEvent(ptr %22), !dbg !172
+  br i1 %85, label %block_17, label %block_18, !dbg !172
+
+block_17:                                         ; preds = %block_16
+  %86 = load i32, ptr %22, align 4, !dbg !173
+  switch i32 %86, label %block_19 [
+    i32 256, label %block_20
+  ], !dbg !173
+
+block_20:                                         ; preds = %block_17
+  store i1 false, ptr %21, align 1, !dbg !174
+  br label %block_19, !dbg !174
+
+block_19:                                         ; preds = %block_20, %block_17
+  br label %block_16, !dbg !174
+
+block_18:                                         ; preds = %block_16
+  %87 = getelementptr inbounds %__renderer_vec3, ptr %24, i32 0, i32 0, !dbg !175
+  store float -5.000000e-01, ptr %87, align 4, !dbg !175
+  %88 = getelementptr inbounds %__renderer_vec3, ptr %24, i32 0, i32 1, !dbg !175
+  store float -5.000000e-01, ptr %88, align 4, !dbg !175
+  %89 = getelementptr inbounds %__renderer_vec3, ptr %24, i32 0, i32 2, !dbg !175
+  store float 0.000000e+00, ptr %89, align 4, !dbg !175
+  %90 = getelementptr inbounds %__renderer_vec3, ptr %25, i32 0, i32 0, !dbg !175
+  store float 5.000000e-01, ptr %90, align 4, !dbg !175
+  %91 = getelementptr inbounds %__renderer_vec3, ptr %25, i32 0, i32 1, !dbg !175
+  store float -5.000000e-01, ptr %91, align 4, !dbg !175
+  %92 = getelementptr inbounds %__renderer_vec3, ptr %25, i32 0, i32 2, !dbg !175
+  store float 0.000000e+00, ptr %92, align 4, !dbg !175
+  %93 = getelementptr inbounds %__renderer_vec3, ptr %26, i32 0, i32 0, !dbg !175
+  store float 0.000000e+00, ptr %93, align 4, !dbg !175
+  %94 = getelementptr inbounds %__renderer_vec3, ptr %26, i32 0, i32 1, !dbg !175
+  store float 5.000000e-01, ptr %94, align 4, !dbg !175
+  %95 = getelementptr inbounds %__renderer_vec3, ptr %26, i32 0, i32 2, !dbg !175
+  store float 0.000000e+00, ptr %95, align 4, !dbg !175
+  %96 = getelementptr [3 x %__renderer_vec3], ptr %27, i64 0, i64 0, !dbg !175
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %96, ptr align 4 %24, i64 12, i1 false), !dbg !175
+  %97 = getelementptr [3 x %__renderer_vec3], ptr %27, i64 0, i64 1, !dbg !175
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %97, ptr align 4 %25, i64 12, i1 false), !dbg !175
+  %98 = getelementptr [3 x %__renderer_vec3], ptr %27, i64 0, i64 2, !dbg !175
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %98, ptr align 4 %26, i64 12, i1 false), !dbg !175
+  %99 = getelementptr inbounds %slice.20, ptr %23, i32 0, i32 0, !dbg !175
+  %100 = getelementptr inbounds %slice.20, ptr %23, i32 0, i32 1, !dbg !175
+  store i64 3, ptr %99, align 8, !dbg !175
+  store ptr %27, ptr %100, align 8, !dbg !175
+  call void @__renderer_draw_verts(ptr %20, ptr %23), !dbg !175
+  %101 = load ptr, ptr %9, align 8, !dbg !176
+  %102 = call i1 @SDL_GL_SwapWindow(ptr %101), !dbg !176
+  br label %block_13, !dbg !176
+
+block_15:                                         ; preds = %block_13
+  ret i32 0, !dbg !177
 }
 
 declare i1 @SDL_Init(i32)
 
 declare ptr @SDL_CreateWindow(ptr, i32, i32, i64)
 
-declare void @SDL_GL_CreateContext(ptr, ptr)
+declare ptr @SDL_GL_CreateContext(ptr)
 
 declare i1 @SDL_GL_SwapWindow(ptr)
+
+declare i1 @SDL_GL_SetAttribute(i32, i32)
 
 declare i1 @SDL_PollEvent(ptr)
 
 declare ptr @SDL_GetError()
+
+declare i1 @SDL_GL_SetSwapInterval(i32)
 
 declare ptr @wglGetProcAddress(ptr)
 
@@ -141,6 +1137,18 @@ declare ptr @LoadLibraryA(ptr)
 declare ptr @__gl_load_gl_fn(ptr)
 
 declare i1 @__gl_load()
+
+declare void @__renderer_compile_shader(i32, ptr, ptr)
+
+declare void @__renderer_gl_callback(i32, i32, i32, i32, i32, ptr, ptr)
+
+declare void @__renderer_create_ctx(ptr)
+
+declare void @__renderer_draw_verts(ptr, ptr)
+
+declare void @__graph_draw_line(i64, i64, ptr)
+
+declare void @__graph_draw_graph(ptr, float, float, float, float)
 
 declare void @__init_global_initializers()
 
@@ -194,6 +1202,8 @@ declare void @__io_print_type(ptr, ptr)
 
 declare void @__io_builder_to_string(ptr, ptr)
 
+declare void @__io_print_type_with_formatter(ptr, i32, ptr)
+
 declare void @__io___internal_print(ptr, ptr, ptr)
 
 declare void @__io_print(ptr, ptr)
@@ -211,6 +1221,14 @@ declare ptr @__mem_generic_alloc(i64, ptr)
 declare void @__mem_generic_free(ptr, ptr)
 
 declare void @__mem_create_generic_allocator(ptr)
+
+declare ptr @__mem_arena_alloc(i64, ptr)
+
+declare void @__mem_no_free(ptr, ptr)
+
+declare void @__mem_create_scratch(ptr, i64)
+
+declare void @__mem_destroy_scratch(ptr)
 
 declare ptr @memcpy(ptr, ptr, i64)
 
@@ -241,11 +1259,11 @@ declare void @"__array_free@*[]u8_@void"(ptr)
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
 declare void @llvm.memset.p0.i32(ptr nocapture writeonly, i8, i32, i1 immarg) #0
 
-; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
-declare void @llvm.dbg.declare(metadata, metadata, metadata) #1
-
 ; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: readwrite)
-declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #2
+declare void @llvm.memcpy.p0.p0.i64(ptr noalias nocapture writeonly, ptr noalias nocapture readonly, i64, i1 immarg) #1
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare void @llvm.dbg.declare(metadata, metadata, metadata) #2
 
 declare void @__asan_before_dynamic_init(i64)
 
@@ -275,91 +1293,188 @@ define internal void @asan.module_ctor() #3 {
 declare void @__asan_version_mismatch_check_v8()
 
 attributes #0 = { nocallback nofree nounwind willreturn memory(argmem: write) }
-attributes #1 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
-attributes #2 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #1 = { nocallback nofree nounwind willreturn memory(argmem: readwrite) }
+attributes #2 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #3 = { nounwind }
 
-!llvm.dbg.cu = !{!2}
-!llvm.module.flags = !{!68, !69}
+!llvm.dbg.cu = !{!7}
+!llvm.module.flags = !{!103, !104}
 
-!0 = !{ptr @___asan_gen__anon_global}
-!1 = !{ptr @___asan_gen__anon_global.5}
-!2 = distinct !DICompileUnit(language: DW_LANG_C99, file: !3, producer: "RCP Compiler", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, enums: !4, splitDebugInlining: false)
-!3 = !DIFile(filename: "main.rcp", directory: "E:\\Non_C_Projects\\RCPProjects\\graph\\src")
-!4 = !{!5, !17, !38, !47, !52, !56, !64, !5, !17, !38, !47, !52, !56}
-!5 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_TypeKind", scope: !3, file: !3, size: 64, align: 64, elements: !6)
-!6 = !{!7, !8, !9, !10, !11, !12, !13, !14, !15, !16}
-!7 = !DIEnumerator(name: "Invalid", value: 0, isUnsigned: true)
-!8 = !DIEnumerator(name: "Basic", value: 1, isUnsigned: true)
-!9 = !DIEnumerator(name: "Function", value: 2, isUnsigned: true)
-!10 = !DIEnumerator(name: "Struct", value: 3, isUnsigned: true)
-!11 = !DIEnumerator(name: "Pointer", value: 4, isUnsigned: true)
-!12 = !DIEnumerator(name: "Array", value: 5, isUnsigned: true)
-!13 = !DIEnumerator(name: "Slice", value: 6, isUnsigned: true)
-!14 = !DIEnumerator(name: "Vector", value: 7, isUnsigned: true)
-!15 = !DIEnumerator(name: "Enum", value: 8, isUnsigned: true)
-!16 = !DIEnumerator(name: "Generic", value: 9, isUnsigned: true)
-!17 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_BasicKind", scope: !3, file: !3, size: 64, align: 64, elements: !18)
-!18 = !{!19, !20, !21, !22, !23, !24, !25, !26, !27, !28, !29, !30, !31, !32, !33, !34, !35, !36, !37}
-!19 = !DIEnumerator(name: "Bool", value: 0, isUnsigned: true)
-!20 = !DIEnumerator(name: "String", value: 1, isUnsigned: true)
-!21 = !DIEnumerator(name: "U8", value: 2, isUnsigned: true)
-!22 = !DIEnumerator(name: "U16", value: 3, isUnsigned: true)
-!23 = !DIEnumerator(name: "U32", value: 4, isUnsigned: true)
-!24 = !DIEnumerator(name: "U64", value: 5, isUnsigned: true)
-!25 = !DIEnumerator(name: "I8", value: 6, isUnsigned: true)
-!26 = !DIEnumerator(name: "I16", value: 7, isUnsigned: true)
-!27 = !DIEnumerator(name: "I32", value: 8, isUnsigned: true)
-!28 = !DIEnumerator(name: "I64", value: 9, isUnsigned: true)
-!29 = !DIEnumerator(name: "F32", value: 10, isUnsigned: true)
-!30 = !DIEnumerator(name: "F64", value: 11, isUnsigned: true)
-!31 = !DIEnumerator(name: "untypedInteger", value: 12, isUnsigned: true)
-!32 = !DIEnumerator(name: "untypedFloat", value: 13, isUnsigned: true)
-!33 = !DIEnumerator(name: "Int", value: 14, isUnsigned: true)
-!34 = !DIEnumerator(name: "Uint", value: 15, isUnsigned: true)
-!35 = !DIEnumerator(name: "Type", value: 16, isUnsigned: true)
-!36 = !DIEnumerator(name: "Auto", value: 17, isUnsigned: true)
-!37 = !DIEnumerator(name: "Module", value: 18, isUnsigned: true)
-!38 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_BasicFlag", scope: !3, file: !3, size: 32, align: 32, elements: !39)
-!39 = !{!40, !41, !42, !43, !44, !45, !46}
-!40 = !DIEnumerator(name: "Boolean", value: 1, isUnsigned: true)
-!41 = !DIEnumerator(name: "Integer", value: 2, isUnsigned: true)
-!42 = !DIEnumerator(name: "Float", value: 4, isUnsigned: true)
-!43 = !DIEnumerator(name: "String", value: 8, isUnsigned: true)
-!44 = !DIEnumerator(name: "Untyped", value: 32, isUnsigned: true)
-!45 = !DIEnumerator(name: "Unsigned", value: 64, isUnsigned: true)
-!46 = !DIEnumerator(name: "TypeID", value: 128, isUnsigned: true)
-!47 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_StructFlag", scope: !3, file: !3, size: 32, align: 32, elements: !48)
-!48 = !{!49, !50, !51}
-!49 = !DIEnumerator(name: "Packed", value: 1, isUnsigned: true)
-!50 = !DIEnumerator(name: "Generic", value: 2, isUnsigned: true)
-!51 = !DIEnumerator(name: "Union", value: 4, isUnsigned: true)
-!52 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_VectorKind", scope: !3, file: !3, size: 64, align: 64, elements: !53)
-!53 = !{!54, !55}
-!54 = !DIEnumerator(name: "Float", value: 0, isUnsigned: true)
-!55 = !DIEnumerator(name: "Int", value: 1, isUnsigned: true)
-!56 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__compile_CompileFlag", scope: !3, file: !3, size: 32, align: 32, elements: !57)
-!57 = !{!58, !59, !60, !61, !62, !63}
-!58 = !DIEnumerator(name: "Debug", value: 1, isUnsigned: true)
-!59 = !DIEnumerator(name: "SanAddress", value: 2, isUnsigned: true)
-!60 = !DIEnumerator(name: "SanMemory", value: 4, isUnsigned: true)
-!61 = !DIEnumerator(name: "SanThread", value: 8, isUnsigned: true)
-!62 = !DIEnumerator(name: "SanUndefined", value: 16, isUnsigned: true)
-!63 = !DIEnumerator(name: "NoStdLib", value: 32, isUnsigned: true)
-!64 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__sdl_EventType", scope: !3, file: !3, size: 32, align: 32, elements: !65)
-!65 = !{!66, !67}
-!66 = !DIEnumerator(name: "FIRST", value: 0)
-!67 = !DIEnumerator(name: "QUIT", value: 256, isUnsigned: true)
-!68 = !{i32 2, !"CodeView", i32 1}
-!69 = !{i32 2, !"Debug Info Version", i32 3}
-!70 = distinct !DISubprogram(name: "main", linkageName: "__main_main", scope: !3, file: !3, line: 7, type: !71, spFlags: DISPFlagDefinition, unit: !2, retainedNodes: !74)
-!71 = !DISubroutineType(types: !72)
-!72 = !{!73}
-!73 = !DIBasicType(name: "i32", size: 32, encoding: DW_ATE_signed)
-!74 = !{}
-!75 = !DILocation(line: 8, scope: !70)
-!76 = !DILocalVariable(name: "x", scope: !70, file: !3, line: 8, type: !77)
-!77 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "*u8", baseType: !78, size: 64, align: 64, dwarfAddressSpace: 0)
-!78 = !DIBasicType(name: "u8", size: 8, encoding: DW_ATE_unsigned)
-!79 = !DILocation(line: 10, scope: !70)
-!80 = !DILocation(line: 13, scope: !70)
+!0 = !{ptr @__main_WIDTH}
+!1 = !{ptr @__main_HEIGHT}
+!2 = !{ptr @___asan_gen__anon_global}
+!3 = !{ptr @___asan_gen__anon_global.10}
+!4 = !{ptr @___asan_gen__anon_global.12}
+!5 = !{ptr @___asan_gen__anon_global.14}
+!6 = !{ptr @___asan_gen__anon_global.16}
+!7 = distinct !DICompileUnit(language: DW_LANG_C99, file: !8, producer: "RCP Compiler", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, enums: !9, splitDebugInlining: false)
+!8 = !DIFile(filename: "main.rcp", directory: "E:\\Non_C_Projects\\RCPProjects\\graph\\src")
+!9 = !{!10, !22, !43, !52, !57, !61, !69, !73, !10, !22, !43, !52, !57, !61}
+!10 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_TypeKind", scope: !8, file: !8, size: 64, align: 64, elements: !11)
+!11 = !{!12, !13, !14, !15, !16, !17, !18, !19, !20, !21}
+!12 = !DIEnumerator(name: "Invalid", value: 0, isUnsigned: true)
+!13 = !DIEnumerator(name: "Basic", value: 1, isUnsigned: true)
+!14 = !DIEnumerator(name: "Function", value: 2, isUnsigned: true)
+!15 = !DIEnumerator(name: "Struct", value: 3, isUnsigned: true)
+!16 = !DIEnumerator(name: "Pointer", value: 4, isUnsigned: true)
+!17 = !DIEnumerator(name: "Array", value: 5, isUnsigned: true)
+!18 = !DIEnumerator(name: "Slice", value: 6, isUnsigned: true)
+!19 = !DIEnumerator(name: "Vector", value: 7, isUnsigned: true)
+!20 = !DIEnumerator(name: "Enum", value: 8, isUnsigned: true)
+!21 = !DIEnumerator(name: "Generic", value: 9, isUnsigned: true)
+!22 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_BasicKind", scope: !8, file: !8, size: 64, align: 64, elements: !23)
+!23 = !{!24, !25, !26, !27, !28, !29, !30, !31, !32, !33, !34, !35, !36, !37, !38, !39, !40, !41, !42}
+!24 = !DIEnumerator(name: "Bool", value: 0, isUnsigned: true)
+!25 = !DIEnumerator(name: "String", value: 1, isUnsigned: true)
+!26 = !DIEnumerator(name: "U8", value: 2, isUnsigned: true)
+!27 = !DIEnumerator(name: "U16", value: 3, isUnsigned: true)
+!28 = !DIEnumerator(name: "U32", value: 4, isUnsigned: true)
+!29 = !DIEnumerator(name: "U64", value: 5, isUnsigned: true)
+!30 = !DIEnumerator(name: "I8", value: 6, isUnsigned: true)
+!31 = !DIEnumerator(name: "I16", value: 7, isUnsigned: true)
+!32 = !DIEnumerator(name: "I32", value: 8, isUnsigned: true)
+!33 = !DIEnumerator(name: "I64", value: 9, isUnsigned: true)
+!34 = !DIEnumerator(name: "F32", value: 10, isUnsigned: true)
+!35 = !DIEnumerator(name: "F64", value: 11, isUnsigned: true)
+!36 = !DIEnumerator(name: "untypedInteger", value: 12, isUnsigned: true)
+!37 = !DIEnumerator(name: "untypedFloat", value: 13, isUnsigned: true)
+!38 = !DIEnumerator(name: "Int", value: 14, isUnsigned: true)
+!39 = !DIEnumerator(name: "Uint", value: 15, isUnsigned: true)
+!40 = !DIEnumerator(name: "Type", value: 16, isUnsigned: true)
+!41 = !DIEnumerator(name: "Auto", value: 17, isUnsigned: true)
+!42 = !DIEnumerator(name: "Module", value: 18, isUnsigned: true)
+!43 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_BasicFlag", scope: !8, file: !8, size: 32, align: 32, elements: !44)
+!44 = !{!45, !46, !47, !48, !49, !50, !51}
+!45 = !DIEnumerator(name: "Boolean", value: 1, isUnsigned: true)
+!46 = !DIEnumerator(name: "Integer", value: 2, isUnsigned: true)
+!47 = !DIEnumerator(name: "Float", value: 4, isUnsigned: true)
+!48 = !DIEnumerator(name: "String", value: 8, isUnsigned: true)
+!49 = !DIEnumerator(name: "Untyped", value: 32, isUnsigned: true)
+!50 = !DIEnumerator(name: "Unsigned", value: 64, isUnsigned: true)
+!51 = !DIEnumerator(name: "TypeID", value: 128, isUnsigned: true)
+!52 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_StructFlag", scope: !8, file: !8, size: 32, align: 32, elements: !53)
+!53 = !{!54, !55, !56}
+!54 = !DIEnumerator(name: "Packed", value: 1, isUnsigned: true)
+!55 = !DIEnumerator(name: "Generic", value: 2, isUnsigned: true)
+!56 = !DIEnumerator(name: "Union", value: 4, isUnsigned: true)
+!57 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_VectorKind", scope: !8, file: !8, size: 64, align: 64, elements: !58)
+!58 = !{!59, !60}
+!59 = !DIEnumerator(name: "Float", value: 0, isUnsigned: true)
+!60 = !DIEnumerator(name: "Int", value: 1, isUnsigned: true)
+!61 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__compile_CompileFlag", scope: !8, file: !8, size: 32, align: 32, elements: !62)
+!62 = !{!63, !64, !65, !66, !67, !68}
+!63 = !DIEnumerator(name: "Debug", value: 1, isUnsigned: true)
+!64 = !DIEnumerator(name: "SanAddress", value: 2, isUnsigned: true)
+!65 = !DIEnumerator(name: "SanMemory", value: 4, isUnsigned: true)
+!66 = !DIEnumerator(name: "SanThread", value: 8, isUnsigned: true)
+!67 = !DIEnumerator(name: "SanUndefined", value: 16, isUnsigned: true)
+!68 = !DIEnumerator(name: "NoStdLib", value: 32, isUnsigned: true)
+!69 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__sdl_EventType", scope: !8, file: !8, size: 32, align: 32, elements: !70)
+!70 = !{!71, !72}
+!71 = !DIEnumerator(name: "FIRST", value: 0)
+!72 = !DIEnumerator(name: "QUIT", value: 256, isUnsigned: true)
+!73 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__sdl_GLattr", scope: !8, file: !8, size: 32, align: 32, elements: !74)
+!74 = !{!75, !76, !77, !78, !79, !80, !81, !82, !83, !84, !85, !86, !87, !88, !89, !90, !91, !92, !93, !94, !95, !96, !97, !98, !99, !100, !101, !102}
+!75 = !DIEnumerator(name: "RED_SIZE", value: 0, isUnsigned: true)
+!76 = !DIEnumerator(name: "GREEN_SIZE", value: 1, isUnsigned: true)
+!77 = !DIEnumerator(name: "BLUE_SIZE", value: 2, isUnsigned: true)
+!78 = !DIEnumerator(name: "ALPHA_SIZE", value: 3, isUnsigned: true)
+!79 = !DIEnumerator(name: "BUFFER_SIZE", value: 4, isUnsigned: true)
+!80 = !DIEnumerator(name: "DOUBLEBUFFER", value: 5, isUnsigned: true)
+!81 = !DIEnumerator(name: "DEPTH_SIZE", value: 6, isUnsigned: true)
+!82 = !DIEnumerator(name: "STENCIL_SIZE", value: 7, isUnsigned: true)
+!83 = !DIEnumerator(name: "ACCUM_RED_SIZE", value: 8, isUnsigned: true)
+!84 = !DIEnumerator(name: "ACCUM_GREEN_SIZE", value: 9, isUnsigned: true)
+!85 = !DIEnumerator(name: "ACCUM_BLUE_SIZE", value: 10, isUnsigned: true)
+!86 = !DIEnumerator(name: "ACCUM_ALPHA_SIZE", value: 11, isUnsigned: true)
+!87 = !DIEnumerator(name: "STEREO", value: 12, isUnsigned: true)
+!88 = !DIEnumerator(name: "MULTISAMPLEBUFFERS", value: 13, isUnsigned: true)
+!89 = !DIEnumerator(name: "MULTISAMPLESAMPLES", value: 14, isUnsigned: true)
+!90 = !DIEnumerator(name: "ACCELERATED_VISUAL", value: 15, isUnsigned: true)
+!91 = !DIEnumerator(name: "RETAINED_BACKING", value: 16, isUnsigned: true)
+!92 = !DIEnumerator(name: "CONTEXT_MAJOR_VERSION", value: 17, isUnsigned: true)
+!93 = !DIEnumerator(name: "CONTEXT_MINOR_VERSION", value: 18, isUnsigned: true)
+!94 = !DIEnumerator(name: "CONTEXT_FLAGS", value: 19, isUnsigned: true)
+!95 = !DIEnumerator(name: "CONTEXT_PROFILE_MASK", value: 20, isUnsigned: true)
+!96 = !DIEnumerator(name: "SHARE_WITH_CURRENT_CONTEXT", value: 21, isUnsigned: true)
+!97 = !DIEnumerator(name: "FRAMEBUFFER_SRGB_CAPABLE", value: 22, isUnsigned: true)
+!98 = !DIEnumerator(name: "CONTEXT_RELEASE_BEHAVIOR", value: 23, isUnsigned: true)
+!99 = !DIEnumerator(name: "CONTEXT_RESET_NOTIFICATION", value: 24, isUnsigned: true)
+!100 = !DIEnumerator(name: "CONTEXT_NO_ERROR", value: 25, isUnsigned: true)
+!101 = !DIEnumerator(name: "FLOATBUFFERS", value: 26, isUnsigned: true)
+!102 = !DIEnumerator(name: "EGL_PLATFORM", value: 27, isUnsigned: true)
+!103 = !{i32 2, !"CodeView", i32 1}
+!104 = !{i32 2, !"Debug Info Version", i32 3}
+!105 = distinct !DISubprogram(name: "main", linkageName: "__main_main", scope: !8, file: !8, line: 11, type: !106, spFlags: DISPFlagDefinition, unit: !7, retainedNodes: !109)
+!106 = !DISubroutineType(types: !107)
+!107 = !{!108}
+!108 = !DIBasicType(name: "i32", size: 32, encoding: DW_ATE_signed)
+!109 = !{}
+!110 = !DILocation(line: 12, scope: !105)
+!111 = !DILocation(line: 13, scope: !105)
+!112 = !DILocation(line: 14, scope: !105)
+!113 = !DILocation(line: 17, scope: !105)
+!114 = !DILocation(line: 18, scope: !105)
+!115 = !DILocation(line: 19, scope: !105)
+!116 = !DILocation(line: 20, scope: !105)
+!117 = !DILocation(line: 22, scope: !105)
+!118 = !DILocalVariable(name: "maybe_window", scope: !105, file: !8, line: 22, type: !119)
+!119 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "?*__sdl_Window", baseType: !120, size: 64, align: 64, dwarfAddressSpace: 0)
+!120 = !DICompositeType(tag: DW_TAG_structure_type, name: "__sdl_Window", scope: !8, file: !8, elements: !109)
+!121 = !DILocation(line: 23, scope: !105)
+!122 = !DILocation(line: 24, scope: !105)
+!123 = !DILocation(line: 25, scope: !105)
+!124 = !DILocation(line: 28, scope: !105)
+!125 = !DILocalVariable(name: "window", scope: !105, file: !8, line: 28, type: !126)
+!126 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "*__sdl_Window", baseType: !120, size: 64, align: 64, dwarfAddressSpace: 0)
+!127 = !DILocation(line: 30, scope: !105)
+!128 = !DILocalVariable(name: "maybe_ctx", scope: !105, file: !8, line: 30, type: !129)
+!129 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "?*__sdl_GLContext", baseType: !130, size: 64, align: 64, dwarfAddressSpace: 0)
+!130 = !DICompositeType(tag: DW_TAG_structure_type, name: "__sdl_GLContext", scope: !8, file: !8, elements: !109)
+!131 = !DILocation(line: 31, scope: !105)
+!132 = !DILocation(line: 32, scope: !105)
+!133 = !DILocation(line: 33, scope: !105)
+!134 = !DILocation(line: 36, scope: !105)
+!135 = !DILocalVariable(name: "gl_ctx", scope: !105, file: !8, line: 36, type: !136)
+!136 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "*__sdl_GLContext", baseType: !130, size: 64, align: 64, dwarfAddressSpace: 0)
+!137 = !DILocation(line: 38, scope: !105)
+!138 = !DILocation(line: 39, scope: !105)
+!139 = !DILocation(line: 40, scope: !105)
+!140 = !DILocation(line: 43, scope: !105)
+!141 = !DILocalVariable(name: "renderer", scope: !105, file: !8, line: 43, type: !142)
+!142 = !DICompositeType(tag: DW_TAG_structure_type, name: "__renderer_ctx", scope: !8, file: !8, size: 96, elements: !143)
+!143 = !{!144, !146, !147}
+!144 = !DIDerivedType(tag: DW_TAG_member, name: "vao", scope: !8, file: !8, baseType: !145, size: 32, align: 32)
+!145 = !DIBasicType(name: "u32", size: 32, encoding: DW_ATE_unsigned)
+!146 = !DIDerivedType(tag: DW_TAG_member, name: "vbo", scope: !8, file: !8, baseType: !145, size: 32, align: 32, offset: 32)
+!147 = !DIDerivedType(tag: DW_TAG_member, name: "program", scope: !8, file: !8, baseType: !145, size: 32, align: 32, offset: 64)
+!148 = !DILocation(line: 44, scope: !105)
+!149 = !DILocalVariable(name: "running", scope: !105, file: !8, line: 44, type: !150)
+!150 = !DIBasicType(name: "bool", size: 8, encoding: DW_ATE_boolean)
+!151 = !DILocation(line: 46, scope: !105)
+!152 = !DILocation(line: 48, scope: !105)
+!153 = !DILocation(line: 49, scope: !105)
+!154 = !DILocation(line: 50, scope: !105)
+!155 = !DILocation(line: 51, scope: !105)
+!156 = !DILocalVariable(name: "event", scope: !105, file: !8, line: 53, type: !157)
+!157 = !DICompositeType(tag: DW_TAG_structure_type, name: "__sdl_Event", scope: !8, file: !8, size: 1024, elements: !158)
+!158 = !{!159, !160, !166}
+!159 = !DIDerivedType(tag: DW_TAG_member, name: "type", scope: !8, file: !8, baseType: !69, size: 32, align: 32)
+!160 = !DIDerivedType(tag: DW_TAG_member, name: "quit", scope: !8, file: !8, baseType: !161, size: 128, align: 64)
+!161 = !DICompositeType(tag: DW_TAG_structure_type, name: "__sdl_QuitEvent", scope: !8, file: !8, size: 128, elements: !162)
+!162 = !{!159, !163, !164}
+!163 = !DIDerivedType(tag: DW_TAG_member, name: "reserved", scope: !8, file: !8, baseType: !145, size: 32, align: 32, offset: 32)
+!164 = !DIDerivedType(tag: DW_TAG_member, name: "timestamp", scope: !8, file: !8, baseType: !165, size: 64, align: 64, offset: 64)
+!165 = !DIBasicType(name: "u64", size: 64, encoding: DW_ATE_unsigned)
+!166 = !DIDerivedType(tag: DW_TAG_member, name: "padding", scope: !8, file: !8, baseType: !167, size: 1024, align: 8)
+!167 = !DICompositeType(tag: DW_TAG_array_type, baseType: !168, size: 1024, align: 8, elements: !169)
+!168 = !DIBasicType(name: "u8", size: 8, encoding: DW_ATE_unsigned)
+!169 = !{!170}
+!170 = !DISubrange(count: 128, lowerBound: 0)
+!171 = !DILocation(line: 53, scope: !105)
+!172 = !DILocation(line: 54, scope: !105)
+!173 = !DILocation(line: 55, scope: !105)
+!174 = !DILocation(line: 57, scope: !105)
+!175 = !DILocation(line: 62, scope: !105)
+!176 = !DILocation(line: 69, scope: !105)
+!177 = !DILocation(line: 73, scope: !105)

@@ -1,5 +1,6 @@
 renderer
 #import gl
+#import math as m
 #import io
 #import os
 
@@ -10,18 +11,6 @@ struct ctx {
     vao: u32,
     vbo: u32,
     program: u32,
-}
-
-struct vec3 {
-    x: f32,
-    y: f32,
-    z: f32,
-}
-
-struct ivec3 {
-    x: i32,
-    y: i32,
-    z: i32,
 }
 
 compile_shader :: fn (shader: u32, src: **u8, name: string) {
@@ -59,6 +48,8 @@ create_ctx :: fn() -> ctx {
 
     gl.Enable(gl.DEBUG_OUTPUT);
     gl.Enable(gl.DEBUG_OUTPUT_SYNCHRONOUS);
+    gl.Enable(gl.MULTISAMPLE);
+    gl.Enable(gl.LINE_SMOOTH);
     gl.DebugMessageCallback(gl_callback, null);
     gl.DebugMessageControl(gl.DONT_CARE, gl.DONT_CARE, gl.DEBUG_SEVERITY_MEDIUM, 0, null, true);
 
@@ -76,14 +67,59 @@ create_ctx :: fn() -> ctx {
     return result;
 }
 
-draw_verts :: fn(c: *ctx, verts: []vec3) {
+set_uniform :: fn(c: *ctx, name: string, passed: $T) {
+    passed := passed;
+    t := type_of passed;
+    loc := gl.GetUniformLocation(c.program, name.data);
+    if loc == -1 {
+        io.println("Failed to find uniform % in shader", name);
+        return;
+    }
+
+    if t == f32 {
+        v := *@*f32 &passed;
+        gl.Uniform1f(loc, v);
+    } else if t == f64 {
+        v := *@*f64 &passed;
+        gl.Uniform1f(loc, @f32 v);
+    } else if t == m.v2 {
+        v := @*m.v2 &passed;
+        gl.Uniform2f(loc, v.x, v.y);
+    } else if t == m.v3 {
+        v := @*m.v3 &passed;
+        gl.Uniform3f(loc, v.x, v.y, v.z);
+    } else {
+        io.println("set_uniform(), unsupported type: %", t);
+    }
+}
+
+draw_verts :: fn(c: *ctx, verts: []m.v3) {
     offset := 0;
     gl.BindVertexArray(c.vao);
-    gl.VertexAttribPointer(0, 3, gl.FLOAT, false, @i32 size_of vec3, @*u8 offset);
+    gl.VertexAttribPointer(0, 3, gl.FLOAT, false, @i32 size_of m.v3, @*u8 offset);
     gl.EnableVertexAttribArray(0);
     gl.BindBuffer(gl.ARRAY_BUFFER, c.vbo);
-    gl.BufferData(gl.ARRAY_BUFFER, @uint verts.count * @uint size_of vec3, verts.data, gl.STATIC_DRAW);
+    gl.BufferData(gl.ARRAY_BUFFER, @uint verts.count * @uint size_of m.v3, verts.data, gl.STATIC_DRAW);
     gl.UseProgram(c.program);
     gl.DrawArrays(gl.TRIANGLES, 0, @i32 verts.count);
 }
+
+draw_lines :: fn(c: *ctx, verts: []m.v3, width: f32) {
+    offset := 0;
+    gl.LineWidth(width);
+    gl.BindVertexArray(c.vao);
+    gl.VertexAttribPointer(0, 3, gl.FLOAT, false, @i32 size_of m.v3, @*u8 offset);
+    gl.EnableVertexAttribArray(0);
+    gl.BindBuffer(gl.ARRAY_BUFFER, c.vbo);
+    gl.BufferData(gl.ARRAY_BUFFER, @uint verts.count * @uint size_of m.v3, verts.data, gl.STATIC_DRAW);
+
+    gl.UseProgram(c.program);
+    gl.DrawArrays(gl.LINE_STRIP, 0, @i32 verts.count);
+}
+
+map :: fn (t: f32, from1: f32, to1: f32, from2: f32, to2: f32) -> f32 {
+ return from2 + ((to2 - from2) / (to1 - from1)) * (t - from1);
+}
+
+
 

@@ -5,7 +5,9 @@ build
 
 compile :: fn() -> c.CompileInfo {
     out := c.CompileInfo {
-        files = []string { "../src/main.rcp", "../src/sdl.rcp", "../src/load_gl.rcp", "../src/renderer.rcp" },
+        files = []string {
+            "../src/main.rcp", "../src/sdl.rcp", "../src/load_gl.rcp", "../src/renderer.rcp", "../src/graph.rcp", "../src/math.rcp",
+        },
         opt = 0,
         flags = @u32 (c.CompileFlag.SanAddress)
     };
