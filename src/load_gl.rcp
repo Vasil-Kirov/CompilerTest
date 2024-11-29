@@ -1,7 +1,7 @@
 gl
 
 #import os
-
+#import io
 
 #private
 
@@ -15,56 +15,89 @@ load_gl_fn :: fn(name: *u8) -> * {
     p := wglGetProcAddress(name);
     if (p == null) || (@uint p == 0x1) || (@uint p == 0x2) || (@uint p == 0x3) || (@uint p == -1) {
         p = GetProcAddress(dll_module, name);
-        os.assert(p != null, "Failed to get gl function");
+        if p == null {
+            io.println("Failed to get gl function: %s", name);
+            os.abort();
+        }
     }
 
     return ?p;
 }
 
+default_fn :: fn() {
+    io.println("MISSING GL FUNCTION");
+}
+
 #public
 
 
+DefaultFn := @*void default_fn;
 
-ClearColor: *fn(red: f32, green: f32, blue: f32, alpha: f32);
-Clear: *fn(mask: u32);
-GenVertexArrays: *fn(n: i32, arrays: *u32);
-GenBuffers: *fn(n: i32, buffers: *u32);
-BindBuffer: *fn(target: u32, buffer: u32);
-BufferData: *fn(target: u32, size: uint, data: *, usage: u32);
-BufferSubData: *fn(target: u32, offset: uint, size: uint, data: *);
-DeleteBuffers: *fn(n: i32, buffers: *u32);
-DeleteVertexArrays: *fn(n: i32, arrays: *u32);
-BindVertexArray: *fn(array: u32);
-Enable: *fn(cap: u32);
-Disable: *fn(cap: u32);
-EnableVertexAttribArray: *fn(index: u32);
-DisableVertexAttribArray: *fn(index: u32);
-VertexAttribPointer: *fn(index: u32, size: i32, t: u32, normalized: bool, stride: i32, pointer: *);
-CreateShader: *fn(t: u32) -> u32;
-ShaderSource: *fn(shader: u32, count: i32, str: **u8, length: ?*i32);
-CompileShader: *fn(shader: u32);
-GetShaderiv: *fn(shader: u32, pname: u32, params: *i32);
-GetProgramiv: *fn(program: u32, pname: u32, params: *i32);
-GetShaderInfoLog: *fn(shader: u32, bufSize: i32, length: ?*i32, infoLog: *u8);
-GetProgramInfoLog: *fn(shader: u32, bufSize: i32, length: ?*i32, infoLog: *u8);
-DeleteShader: *fn(shader: u32);
-AttachShader: *fn(program: u32, shader: u32);
-LinkProgram: *fn(program: u32);
-UseProgram: *fn(program: u32);
-CreateProgram: *fn() -> u32;
-DeleteProgram: *fn(program: u32);
-GetUniformLocation: *fn(program: u32, name: *u8) -> i32;
-Uniform1i: *fn(location: i32, v0: i32);
-Uniform1f: *fn(location: i32, v0: f32);
-Uniform2f: *fn(location: i32, v0: f32, v1: f32);
-Uniform3f: *fn(location: i32, v0: f32, v1: f32, v2: f32);
-UniformMatrix4fv: *fn(location: i32, count: i32, transpose: bool, value: *f32);
-DrawArrays: *fn(mode: u32, first: i32, count: i32);
-DrawElements: *fn(mode: u32, count: i32, type: u32, indices: *);
-Viewport: *fn(x: i32, y: i32, width: i32, height: i32);
-DebugMessageCallback: *fn(callback: *fn(src: u32, t: u32, id: u32, severity: u32, len: u32, msg: *u8, user: ?*), user: ?*);
-DebugMessageControl: *fn(src: u32, t: u32, severity: u32, count: u32, ids: ?*u32, enabled: bool);
-LineWidth: *fn(w: f32);
+ClearColor: *fn(red: f32, green: f32, blue: f32, alpha: f32) = DefaultFn;
+Clear: *fn(mask: u32) = DefaultFn;
+
+// Vertex Arrays
+GenVertexArrays: *fn(n: i32, arrays: *u32) = DefaultFn;
+BindVertexArray: *fn(array: u32) = DefaultFn;
+DeleteVertexArrays: *fn(n: i32, arrays: *u32) = DefaultFn;
+EnableVertexAttribArray: *fn(index: u32) = DefaultFn;
+DisableVertexAttribArray: *fn(index: u32) = DefaultFn;
+VertexAttribPointer: *fn(index: u32, size: i32, t: u32, normalized: bool, stride: i32, pointer: *) = DefaultFn;
+
+// Buffer
+GenBuffers: *fn(n: i32, buffers: *u32) = DefaultFn;
+BindBuffer: *fn(target: u32, buffer: u32) = DefaultFn;
+BufferData: *fn(target: u32, size: uint, data: *, usage: u32) = DefaultFn;
+BufferSubData: *fn(target: u32, offset: uint, size: uint, data: *) = DefaultFn;
+DeleteBuffers: *fn(n: i32, buffers: *u32) = DefaultFn;
+
+// Framebuffer
+GenFramebuffers: *fn(n: i32, buffers: *u32) = DefaultFn;
+CheckFramebufferStatus: *fn(target: u32) -> u32 = DefaultFn;
+BindFramebuffer: *fn(target: u32, buffer: u32) = DefaultFn;
+DeleteFramebuffers: *fn(n: i32, buffers: *u32) = DefaultFn;
+FramebufferTexture2D: *fn(target: u32, attachment: u32, textarget: u32, texture: u32, level: i32) = DefaultFn;
+FramebufferRenderbuffer: *fn(target: u32, attachment: u32, rbuffertarget: u32, renderbuffer: u32) = DefaultFn;
+
+// Render buffer
+GenRenderbuffers: *fn(n: i32, buffers: *u32) = DefaultFn;
+BindRenderbuffer: *fn(target: u32, buffer: u32) = DefaultFn;
+RenderbufferStorage: *fn(target: u32, internal_format: u32, width: u32, height: u32) = DefaultFn;
+
+// Textures
+GenTextures: *fn(n: i32, textures: *u32) = DefaultFn;
+BindTexture: *fn(target: u32, texture: u32) = DefaultFn;
+TexImage2D: *fn(target: u32, level: i32, internal_format: i32, width: u32, height: u32, border: i32, format: u32, type: u32, data: ?*) = DefaultFn;
+TexParameteri: *fn(target: u32, name: u32, param: i32) = DefaultFn;
+
+Enable: *fn(cap: u32) = DefaultFn;
+Disable: *fn(cap: u32) = DefaultFn;
+CreateShader: *fn(t: u32) -> u32 = DefaultFn;
+ShaderSource: *fn(shader: u32, count: i32, str: **u8, length: ?*i32) = DefaultFn;
+CompileShader: *fn(shader: u32) = DefaultFn;
+GetShaderiv: *fn(shader: u32, pname: u32, params: *i32) = DefaultFn;
+GetProgramiv: *fn(program: u32, pname: u32, params: *i32) = DefaultFn;
+GetShaderInfoLog: *fn(shader: u32, bufSize: i32, length: ?*i32, infoLog: *u8) = DefaultFn;
+GetProgramInfoLog: *fn(shader: u32, bufSize: i32, length: ?*i32, infoLog: *u8) = DefaultFn;
+DeleteShader: *fn(shader: u32) = DefaultFn;
+AttachShader: *fn(program: u32, shader: u32) = DefaultFn;
+LinkProgram: *fn(program: u32) = DefaultFn;
+UseProgram: *fn(program: u32) = DefaultFn;
+CreateProgram: *fn() -> u32 = DefaultFn;
+DeleteProgram: *fn(program: u32) = DefaultFn;
+GetUniformLocation: *fn(program: u32, name: *u8) -> i32 = DefaultFn;
+Uniform1i: *fn(location: i32, v0: i32) = DefaultFn;
+Uniform1f: *fn(location: i32, v0: f32) = DefaultFn;
+Uniform2f: *fn(location: i32, v0: f32, v1: f32) = DefaultFn;
+Uniform3f: *fn(location: i32, v0: f32, v1: f32, v2: f32) = DefaultFn;
+UniformMatrix4fv: *fn(location: i32, count: i32, transpose: bool, value: *f32) = DefaultFn;
+DrawArrays: *fn(mode: u32, first: i32, count: i32) = DefaultFn;
+DrawElements: *fn(mode: u32, count: i32, type: u32, indices: *) = DefaultFn;
+Viewport: *fn(x: i32, y: i32, width: i32, height: i32) = DefaultFn;
+DebugMessageCallback: *fn(callback: *fn(src: u32, t: u32, id: u32, severity: u32, len: u32, msg: *u8, user: ?*), user: ?*) = DefaultFn;
+DebugMessageControl: *fn(src: u32, t: u32, severity: u32, count: u32, ids: ?*u32, enabled: bool) = DefaultFn;
+LineWidth: *fn(w: f32) = DefaultFn;
+BlendFunc: *fn(sfactor: u32, dfactor: u32) = DefaultFn;
 
 load :: fn () -> bool {
     maybe_module := LoadLibraryA(c"opengl32.dll");
@@ -111,6 +144,20 @@ load :: fn () -> bool {
     LineWidth = load_gl_fn(c"glLineWidth");
     Uniform2f = load_gl_fn(c"glUniform2f");
     Uniform3f = load_gl_fn(c"glUniform3f");
+    BlendFunc = load_gl_fn(c"glBlendFunc");
+    GenFramebuffers = load_gl_fn(c"glGenFramebuffers");
+    BindFramebuffer = load_gl_fn(c"glBindFramebuffer");
+    CheckFramebufferStatus = load_gl_fn(c"glCheckFramebufferStatus");
+    DeleteFramebuffers = load_gl_fn(c"glDeleteFramebuffers");
+    TexImage2D = load_gl_fn(c"glTexImage2D");
+    BindTexture = load_gl_fn(c"glBindTexture");
+    GenTextures = load_gl_fn(c"glGenTextures");
+    TexParameteri = load_gl_fn(c"glTexParameteri");
+    FramebufferTexture2D = load_gl_fn(c"glFramebufferTexture2D");
+    GenRenderbuffers = load_gl_fn(c"glGenRenderbuffers");
+    BindRenderbuffer = load_gl_fn(c"glBindRenderbuffer");
+    RenderbufferStorage = load_gl_fn(c"glRenderbufferStorage");
+    FramebufferRenderbuffer = load_gl_fn(c"glFramebufferRenderbuffer");
 
     return true;
 }
@@ -356,12 +403,12 @@ ADD                          :: @u32 0x0104;
 TEXTURE_ENV_MODE             :: @u32 0x2200;
 TEXTURE_ENV_COLOR            :: @u32 0x2201;
 TEXTURE_ENV                  :: @u32 0x2300;
-NEAREST                      :: @u32 0x2600;
-LINEAR                       :: @u32 0x2601;
-NEAREST_MIPMAP_NEAREST       :: @u32 0x2700;
-LINEAR_MIPMAP_NEAREST        :: @u32 0x2701;
-NEAREST_MIPMAP_LINEAR        :: @u32 0x2702;
-LINEAR_MIPMAP_LINEAR         :: @u32 0x2703;
+NEAREST                      :: @i32 0x2600;
+LINEAR                       :: @i32 0x2601;
+NEAREST_MIPMAP_NEAREST       :: @i32 0x2700;
+LINEAR_MIPMAP_NEAREST        :: @i32 0x2701;
+NEAREST_MIPMAP_LINEAR        :: @i32 0x2702;
+LINEAR_MIPMAP_LINEAR         :: @i32 0x2703;
 TEXTURE_MAG_FILTER           :: @u32 0x2800;
 TEXTURE_MIN_FILTER           :: @u32 0x2801;
 TEXTURE_WRAP_S               :: @u32 0x2802;
@@ -793,4 +840,242 @@ MAX_VERTEX_ATTRIB_RELATIVE_OFFSET :: @u32 0x82D9;
 MAX_VERTEX_ATTRIB_BINDINGS     :: @u32 0x82DA;
 VERTEX_BINDING_BUFFER          :: @u32 0x8F4F;
 DISPLAY_LIST                   :: @u32 0x82E7;
+
+COMPARE_REF_TO_TEXTURE         :: @u32 0x884E;
+CLIP_DISTANCE0                 :: @u32 0x3000;
+CLIP_DISTANCE1                 :: @u32 0x3001;
+CLIP_DISTANCE2                 :: @u32 0x3002;
+CLIP_DISTANCE3                 :: @u32 0x3003;
+CLIP_DISTANCE4                 :: @u32 0x3004;
+CLIP_DISTANCE5                 :: @u32 0x3005;
+CLIP_DISTANCE6                 :: @u32 0x3006;
+CLIP_DISTANCE7                 :: @u32 0x3007;
+MAX_CLIP_DISTANCES             :: @u32 0x0D32;
+MAJOR_VERSION                  :: @u32 0x821B;
+MINOR_VERSION                  :: @u32 0x821C;
+NUM_EXTENSIONS                 :: @u32 0x821D;
+CONTEXT_FLAGS                  :: @u32 0x821E;
+COMPRESSED_RED                 :: @u32 0x8225;
+COMPRESSED_RG                  :: @u32 0x8226;
+CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT :: @u32 0x00000001;
+RGBA32F                        :: @u32 0x8814;
+RGB32F                         :: @u32 0x8815;
+RGBA16F                        :: @u32 0x881A;
+RGB16F                         :: @u32 0x881B;
+VERTEX_ATTRIB_ARRAY_INTEGER    :: @u32 0x88FD;
+MAX_ARRAY_TEXTURE_LAYERS       :: @u32 0x88FF;
+MIN_PROGRAM_TEXEL_OFFSET       :: @u32 0x8904;
+MAX_PROGRAM_TEXEL_OFFSET       :: @u32 0x8905;
+CLAMP_READ_COLOR               :: @u32 0x891C;
+FIXED_ONLY                     :: @u32 0x891D;
+MAX_VARYING_COMPONENTS         :: @u32 0x8B4B;
+TEXTURE_1D_ARRAY               :: @u32 0x8C18;
+PROXY_TEXTURE_1D_ARRAY         :: @u32 0x8C19;
+TEXTURE_2D_ARRAY               :: @u32 0x8C1A;
+PROXY_TEXTURE_2D_ARRAY         :: @u32 0x8C1B;
+TEXTURE_BINDING_1D_ARRAY       :: @u32 0x8C1C;
+TEXTURE_BINDING_2D_ARRAY       :: @u32 0x8C1D;
+R11F_G11F_B10F                 :: @u32 0x8C3A;
+UNSIGNED_INT_10F_11F_11F_REV   :: @u32 0x8C3B;
+RGB9_E5                        :: @u32 0x8C3D;
+UNSIGNED_INT_5_9_9_9_REV       :: @u32 0x8C3E;
+TEXTURE_SHARED_SIZE            :: @u32 0x8C3F;
+TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH :: @u32 0x8C76;
+TRANSFORM_FEEDBACK_BUFFER_MODE :: @u32 0x8C7F;
+MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS :: @u32 0x8C80;
+TRANSFORM_FEEDBACK_VARYINGS    :: @u32 0x8C83;
+TRANSFORM_FEEDBACK_BUFFER_START :: @u32 0x8C84;
+TRANSFORM_FEEDBACK_BUFFER_SIZE :: @u32 0x8C85;
+PRIMITIVES_GENERATED           :: @u32 0x8C87;
+TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN :: @u32 0x8C88;
+RASTERIZER_DISCARD             :: @u32 0x8C89;
+MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS :: @u32 0x8C8A;
+MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS :: @u32 0x8C8B;
+INTERLEAVED_ATTRIBS            :: @u32 0x8C8C;
+SEPARATE_ATTRIBS               :: @u32 0x8C8D;
+TRANSFORM_FEEDBACK_BUFFER      :: @u32 0x8C8E;
+TRANSFORM_FEEDBACK_BUFFER_BINDING :: @u32 0x8C8F;
+RGBA32UI                       :: @u32 0x8D70;
+RGB32UI                        :: @u32 0x8D71;
+RGBA16UI                       :: @u32 0x8D76;
+RGB16UI                        :: @u32 0x8D77;
+RGBA8UI                        :: @u32 0x8D7C;
+RGB8UI                         :: @u32 0x8D7D;
+RGBA32I                        :: @u32 0x8D82;
+RGB32I                         :: @u32 0x8D83;
+RGBA16I                        :: @u32 0x8D88;
+RGB16I                         :: @u32 0x8D89;
+RGBA8I                         :: @u32 0x8D8E;
+RGB8I                          :: @u32 0x8D8F;
+RED_INTEGER                    :: @u32 0x8D94;
+GREEN_INTEGER                  :: @u32 0x8D95;
+BLUE_INTEGER                   :: @u32 0x8D96;
+RGB_INTEGER                    :: @u32 0x8D98;
+RGBA_INTEGER                   :: @u32 0x8D99;
+BGR_INTEGER                    :: @u32 0x8D9A;
+BGRA_INTEGER                   :: @u32 0x8D9B;
+SAMPLER_1D_ARRAY               :: @u32 0x8DC0;
+SAMPLER_2D_ARRAY               :: @u32 0x8DC1;
+SAMPLER_1D_ARRAY_SHADOW        :: @u32 0x8DC3;
+SAMPLER_2D_ARRAY_SHADOW        :: @u32 0x8DC4;
+SAMPLER_CUBE_SHADOW            :: @u32 0x8DC5;
+UNSIGNED_INT_VEC2              :: @u32 0x8DC6;
+UNSIGNED_INT_VEC3              :: @u32 0x8DC7;
+UNSIGNED_INT_VEC4              :: @u32 0x8DC8;
+INT_SAMPLER_1D                 :: @u32 0x8DC9;
+INT_SAMPLER_2D                 :: @u32 0x8DCA;
+INT_SAMPLER_3D                 :: @u32 0x8DCB;
+INT_SAMPLER_CUBE               :: @u32 0x8DCC;
+INT_SAMPLER_1D_ARRAY           :: @u32 0x8DCE;
+INT_SAMPLER_2D_ARRAY           :: @u32 0x8DCF;
+UNSIGNED_INT_SAMPLER_1D        :: @u32 0x8DD1;
+UNSIGNED_INT_SAMPLER_2D        :: @u32 0x8DD2;
+UNSIGNED_INT_SAMPLER_3D        :: @u32 0x8DD3;
+UNSIGNED_INT_SAMPLER_CUBE      :: @u32 0x8DD4;
+UNSIGNED_INT_SAMPLER_1D_ARRAY  :: @u32 0x8DD6;
+UNSIGNED_INT_SAMPLER_2D_ARRAY  :: @u32 0x8DD7;
+QUERY_WAIT                     :: @u32 0x8E13;
+QUERY_NO_WAIT                  :: @u32 0x8E14;
+QUERY_BY_REGION_WAIT           :: @u32 0x8E15;
+QUERY_BY_REGION_NO_WAIT        :: @u32 0x8E16;
+BUFFER_ACCESS_FLAGS            :: @u32 0x911F;
+BUFFER_MAP_LENGTH              :: @u32 0x9120;
+BUFFER_MAP_OFFSET              :: @u32 0x9121;
+DEPTH_COMPONENT32F             :: @u32 0x8CAC;
+DEPTH32F_STENCIL8              :: @u32 0x8CAD;
+FLOAT_32_UNSIGNED_INT_24_8_REV :: @u32 0x8DAD;
+INVALID_FRAMEBUFFER_OPERATION  :: @u32 0x0506;
+FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING :: @u32 0x8210;
+FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE :: @u32 0x8211;
+FRAMEBUFFER_ATTACHMENT_RED_SIZE :: @u32 0x8212;
+FRAMEBUFFER_ATTACHMENT_GREEN_SIZE :: @u32 0x8213;
+FRAMEBUFFER_ATTACHMENT_BLUE_SIZE :: @u32 0x8214;
+FRAMEBUFFER_ATTACHMENT_ALPHA_SIZE :: @u32 0x8215;
+FRAMEBUFFER_ATTACHMENT_DEPTH_SIZE :: @u32 0x8216;
+FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE :: @u32 0x8217;
+FRAMEBUFFER_DEFAULT            :: @u32 0x8218;
+FRAMEBUFFER_UNDEFINED          :: @u32 0x8219;
+DEPTH_STENCIL_ATTACHMENT       :: @u32 0x821A;
+MAX_RENDERBUFFER_SIZE          :: @u32 0x84E8;
+DEPTH_STENCIL                  :: @u32 0x84F9;
+UNSIGNED_INT_24_8              :: @u32 0x84FA;
+DEPTH24_STENCIL8               :: @u32 0x88F0;
+TEXTURE_STENCIL_SIZE           :: @u32 0x88F1;
+TEXTURE_RED_TYPE               :: @u32 0x8C10;
+TEXTURE_GREEN_TYPE             :: @u32 0x8C11;
+TEXTURE_BLUE_TYPE              :: @u32 0x8C12;
+TEXTURE_ALPHA_TYPE             :: @u32 0x8C13;
+TEXTURE_DEPTH_TYPE             :: @u32 0x8C16;
+UNSIGNED_NORMALIZED            :: @u32 0x8C17;
+FRAMEBUFFER_BINDING            :: @u32 0x8CA6;
+DRAW_FRAMEBUFFER_BINDING       :: @u32 0x8CA6;
+RENDERBUFFER_BINDING           :: @u32 0x8CA7;
+READ_FRAMEBUFFER               :: @u32 0x8CA8;
+DRAW_FRAMEBUFFER               :: @u32 0x8CA9;
+READ_FRAMEBUFFER_BINDING       :: @u32 0x8CAA;
+RENDERBUFFER_SAMPLES           :: @u32 0x8CAB;
+FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE :: @u32 0x8CD0;
+FRAMEBUFFER_ATTACHMENT_OBJECT_NAME :: @u32 0x8CD1;
+FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL :: @u32 0x8CD2;
+FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE :: @u32 0x8CD3;
+FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER :: @u32 0x8CD4;
+FRAMEBUFFER_COMPLETE           :: @u32 0x8CD5;
+FRAMEBUFFER_INCOMPLETE_ATTACHMENT :: @u32 0x8CD6;
+FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT :: @u32 0x8CD7;
+FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER :: @u32 0x8CDB;
+FRAMEBUFFER_INCOMPLETE_READ_BUFFER :: @u32 0x8CDC;
+FRAMEBUFFER_UNSUPPORTED        :: @u32 0x8CDD;
+MAX_COLOR_ATTACHMENTS          :: @u32 0x8CDF;
+COLOR_ATTACHMENT0              :: @u32 0x8CE0;
+COLOR_ATTACHMENT1              :: @u32 0x8CE1;
+COLOR_ATTACHMENT2              :: @u32 0x8CE2;
+COLOR_ATTACHMENT3              :: @u32 0x8CE3;
+COLOR_ATTACHMENT4              :: @u32 0x8CE4;
+COLOR_ATTACHMENT5              :: @u32 0x8CE5;
+COLOR_ATTACHMENT6              :: @u32 0x8CE6;
+COLOR_ATTACHMENT7              :: @u32 0x8CE7;
+COLOR_ATTACHMENT8              :: @u32 0x8CE8;
+COLOR_ATTACHMENT9              :: @u32 0x8CE9;
+COLOR_ATTACHMENT10             :: @u32 0x8CEA;
+COLOR_ATTACHMENT11             :: @u32 0x8CEB;
+COLOR_ATTACHMENT12             :: @u32 0x8CEC;
+COLOR_ATTACHMENT13             :: @u32 0x8CED;
+COLOR_ATTACHMENT14             :: @u32 0x8CEE;
+COLOR_ATTACHMENT15             :: @u32 0x8CEF;
+COLOR_ATTACHMENT16             :: @u32 0x8CF0;
+COLOR_ATTACHMENT17             :: @u32 0x8CF1;
+COLOR_ATTACHMENT18             :: @u32 0x8CF2;
+COLOR_ATTACHMENT19             :: @u32 0x8CF3;
+COLOR_ATTACHMENT20             :: @u32 0x8CF4;
+COLOR_ATTACHMENT21             :: @u32 0x8CF5;
+COLOR_ATTACHMENT22             :: @u32 0x8CF6;
+COLOR_ATTACHMENT23             :: @u32 0x8CF7;
+COLOR_ATTACHMENT24             :: @u32 0x8CF8;
+COLOR_ATTACHMENT25             :: @u32 0x8CF9;
+COLOR_ATTACHMENT26             :: @u32 0x8CFA;
+COLOR_ATTACHMENT27             :: @u32 0x8CFB;
+COLOR_ATTACHMENT28             :: @u32 0x8CFC;
+COLOR_ATTACHMENT29             :: @u32 0x8CFD;
+COLOR_ATTACHMENT30             :: @u32 0x8CFE;
+COLOR_ATTACHMENT31             :: @u32 0x8CFF;
+DEPTH_ATTACHMENT               :: @u32 0x8D00;
+STENCIL_ATTACHMENT             :: @u32 0x8D20;
+FRAMEBUFFER                    :: @u32 0x8D40;
+RENDERBUFFER                   :: @u32 0x8D41;
+RENDERBUFFER_WIDTH             :: @u32 0x8D42;
+RENDERBUFFER_HEIGHT            :: @u32 0x8D43;
+RENDERBUFFER_INTERNAL_FORMAT   :: @u32 0x8D44;
+STENCIL_INDEX1                 :: @u32 0x8D46;
+STENCIL_INDEX4                 :: @u32 0x8D47;
+STENCIL_INDEX8                 :: @u32 0x8D48;
+STENCIL_INDEX16                :: @u32 0x8D49;
+RENDERBUFFER_RED_SIZE          :: @u32 0x8D50;
+RENDERBUFFER_GREEN_SIZE        :: @u32 0x8D51;
+RENDERBUFFER_BLUE_SIZE         :: @u32 0x8D52;
+RENDERBUFFER_ALPHA_SIZE        :: @u32 0x8D53;
+RENDERBUFFER_DEPTH_SIZE        :: @u32 0x8D54;
+RENDERBUFFER_STENCIL_SIZE      :: @u32 0x8D55;
+FRAMEBUFFER_INCOMPLETE_MULTISAMPLE :: @u32 0x8D56;
+MAX_SAMPLES                    :: @u32 0x8D57;
+INDEX                          :: @u32 0x8222;
+TEXTURE_LUMINANCE_TYPE         :: @u32 0x8C14;
+TEXTURE_INTENSITY_TYPE         :: @u32 0x8C15;
+FRAMEBUFFER_SRGB               :: @u32 0x8DB9;
+HALF_FLOAT                     :: @u32 0x140B;
+MAP_READ_BIT                   :: @u32 0x0001;
+MAP_WRITE_BIT                  :: @u32 0x0002;
+MAP_INVALIDATE_RANGE_BIT       :: @u32 0x0004;
+MAP_INVALIDATE_BUFFER_BIT      :: @u32 0x0008;
+MAP_FLUSH_EXPLICIT_BIT         :: @u32 0x0010;
+MAP_UNSYNCHRONIZED_BIT         :: @u32 0x0020;
+COMPRESSED_RED_RGTC1           :: @u32 0x8DBB;
+COMPRESSED_SIGNED_RED_RGTC1    :: @u32 0x8DBC;
+COMPRESSED_RG_RGTC2            :: @u32 0x8DBD;
+COMPRESSED_SIGNED_RG_RGTC2     :: @u32 0x8DBE;
+RG                             :: @u32 0x8227;
+RG_INTEGER                     :: @u32 0x8228;
+R8                             :: @u32 0x8229;
+R16                            :: @u32 0x822A;
+RG8                            :: @u32 0x822B;
+RG16                           :: @u32 0x822C;
+R16F                           :: @u32 0x822D;
+R32F                           :: @u32 0x822E;
+RG16F                          :: @u32 0x822F;
+RG32F                          :: @u32 0x8230;
+R8I                            :: @u32 0x8231;
+R8UI                           :: @u32 0x8232;
+R16I                           :: @u32 0x8233;
+R16UI                          :: @u32 0x8234;
+R32I                           :: @u32 0x8235;
+R32UI                          :: @u32 0x8236;
+RG8I                           :: @u32 0x8237;
+RG8UI                          :: @u32 0x8238;
+RG16I                          :: @u32 0x8239;
+RG16UI                         :: @u32 0x823A;
+RG32I                          :: @u32 0x823B;
+RG32UI                         :: @u32 0x823C;
+VERTEX_ARRAY_BINDING           :: @u32 0x85B5;
+CLAMP_VERTEX_COLOR             :: @u32 0x891A;
+CLAMP_FRAGMENT_COLOR           :: @u32 0x891B;
+ALPHA_INTEGER                  :: @u32 0x8D97;
 

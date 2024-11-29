@@ -3,7 +3,7 @@ source_filename = "sdl.rcp"
 target datalayout = "e-m:w-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-windows-msvc"
 
-%slice.76 = type { i64, ptr }
+%slice.82 = type { i64, ptr }
 
 $__sdl_INIT_AUDIO = comdat nodeduplicate
 
@@ -71,6 +71,16 @@ $__sdl_WINDOW_TRANSPARENT = comdat nodeduplicate
 
 $__sdl_WINDOW_NOT_FOCUSABLE = comdat nodeduplicate
 
+$__sdl_BUTTON_LEFT = comdat nodeduplicate
+
+$__sdl_BUTTON_MIDDLE = comdat nodeduplicate
+
+$__sdl_BUTTON_RIGHT = comdat nodeduplicate
+
+$__sdl_BUTTON_X1 = comdat nodeduplicate
+
+$__sdl_BUTTON_X2 = comdat nodeduplicate
+
 $__sdl_GL_CONTEXT_PROFILE_CORE = comdat nodeduplicate
 
 $__sdl_GL_CONTEXT_PROFILE_COMPATIBILITY = comdat nodeduplicate
@@ -87,6 +97,8 @@ $__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG = comdat nodeduplicate
 
 @__main_WIDTH = external global i32
 @__main_HEIGHT = external global i32
+@__main_vert_shader = external global ptr
+@__main_frag_shader = external global ptr
 @__sdl_INIT_AUDIO = global { i32, [28 x i8] } zeroinitializer, comdat, align 32
 @__sdl_INIT_VIDEO = global { i32, [28 x i8] } zeroinitializer, comdat, align 32
 @__sdl_INIT_JOYSTICK = global { i32, [28 x i8] } zeroinitializer, comdat, align 32
@@ -120,6 +132,11 @@ $__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG = comdat nodeduplicate
 @__sdl_WINDOW_METAL = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
 @__sdl_WINDOW_TRANSPARENT = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
 @__sdl_WINDOW_NOT_FOCUSABLE = global { i64, [24 x i8] } zeroinitializer, comdat, align 32
+@__sdl_BUTTON_LEFT = global { i32, [28 x i8] } zeroinitializer, comdat, align 32
+@__sdl_BUTTON_MIDDLE = global { i32, [28 x i8] } zeroinitializer, comdat, align 32
+@__sdl_BUTTON_RIGHT = global { i32, [28 x i8] } zeroinitializer, comdat, align 32
+@__sdl_BUTTON_X1 = global { i32, [28 x i8] } zeroinitializer, comdat, align 32
+@__sdl_BUTTON_X2 = global { i32, [28 x i8] } zeroinitializer, comdat, align 32
 @__sdl_GL_CONTEXT_PROFILE_CORE = global { i32, [28 x i8] } zeroinitializer, comdat, align 32
 @__sdl_GL_CONTEXT_PROFILE_COMPATIBILITY = global { i32, [28 x i8] } zeroinitializer, comdat, align 32
 @__sdl_GL_CONTEXT_PROFILE_ES = global { i32, [28 x i8] } zeroinitializer, comdat, align 32
@@ -131,18 +148,31 @@ $__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG = comdat nodeduplicate
 @__gl_ClearColor = external global ptr
 @__gl_Clear = external global ptr
 @__gl_GenVertexArrays = external global ptr
+@__gl_BindVertexArray = external global ptr
+@__gl_DeleteVertexArrays = external global ptr
+@__gl_EnableVertexAttribArray = external global ptr
+@__gl_DisableVertexAttribArray = external global ptr
+@__gl_VertexAttribPointer = external global ptr
 @__gl_GenBuffers = external global ptr
 @__gl_BindBuffer = external global ptr
 @__gl_BufferData = external global ptr
 @__gl_BufferSubData = external global ptr
 @__gl_DeleteBuffers = external global ptr
-@__gl_DeleteVertexArrays = external global ptr
-@__gl_BindVertexArray = external global ptr
+@__gl_GenFramebuffers = external global ptr
+@__gl_CheckFramebufferStatus = external global ptr
+@__gl_BindFramebuffer = external global ptr
+@__gl_DeleteFramebuffers = external global ptr
+@__gl_FramebufferTexture2D = external global ptr
+@__gl_FramebufferRenderbuffer = external global ptr
+@__gl_GenRenderbuffers = external global ptr
+@__gl_BindRenderbuffer = external global ptr
+@__gl_RenderbufferStorage = external global ptr
+@__gl_GenTextures = external global ptr
+@__gl_BindTexture = external global ptr
+@__gl_TexImage2D = external global ptr
+@__gl_TexParameteri = external global ptr
 @__gl_Enable = external global ptr
 @__gl_Disable = external global ptr
-@__gl_EnableVertexAttribArray = external global ptr
-@__gl_DisableVertexAttribArray = external global ptr
-@__gl_VertexAttribPointer = external global ptr
 @__gl_CreateShader = external global ptr
 @__gl_ShaderSource = external global ptr
 @__gl_CompileShader = external global ptr
@@ -157,14 +187,18 @@ $__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG = comdat nodeduplicate
 @__gl_CreateProgram = external global ptr
 @__gl_DeleteProgram = external global ptr
 @__gl_GetUniformLocation = external global ptr
-@__gl_Uniform1f = external global ptr
 @__gl_Uniform1i = external global ptr
+@__gl_Uniform1f = external global ptr
+@__gl_Uniform2f = external global ptr
+@__gl_Uniform3f = external global ptr
 @__gl_UniformMatrix4fv = external global ptr
 @__gl_DrawArrays = external global ptr
 @__gl_DrawElements = external global ptr
 @__gl_Viewport = external global ptr
 @__gl_DebugMessageCallback = external global ptr
 @__gl_DebugMessageControl = external global ptr
+@__gl_LineWidth = external global ptr
+@__gl_BlendFunc = external global ptr
 @__gl_VERSION_ES_CL_1_0 = external global i32
 @__gl_VERSION_ES_CM_1_1 = external global i32
 @__gl_VERSION_ES_CL_1_1 = external global i32
@@ -841,10 +875,245 @@ $__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG = comdat nodeduplicate
 @__gl_MAX_VERTEX_ATTRIB_BINDINGS = external global i32
 @__gl_VERTEX_BINDING_BUFFER = external global i32
 @__gl_DISPLAY_LIST = external global i32
-@__renderer_vert_shader = external global ptr
-@__renderer_frag_shader = external global ptr
+@__gl_COMPARE_REF_TO_TEXTURE = external global i32
+@__gl_CLIP_DISTANCE0 = external global i32
+@__gl_CLIP_DISTANCE1 = external global i32
+@__gl_CLIP_DISTANCE2 = external global i32
+@__gl_CLIP_DISTANCE3 = external global i32
+@__gl_CLIP_DISTANCE4 = external global i32
+@__gl_CLIP_DISTANCE5 = external global i32
+@__gl_CLIP_DISTANCE6 = external global i32
+@__gl_CLIP_DISTANCE7 = external global i32
+@__gl_MAX_CLIP_DISTANCES = external global i32
+@__gl_MAJOR_VERSION = external global i32
+@__gl_MINOR_VERSION = external global i32
+@__gl_NUM_EXTENSIONS = external global i32
+@__gl_CONTEXT_FLAGS = external global i32
+@__gl_COMPRESSED_RED = external global i32
+@__gl_COMPRESSED_RG = external global i32
+@__gl_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT = external global i32
+@__gl_RGBA32F = external global i32
+@__gl_RGB32F = external global i32
+@__gl_RGBA16F = external global i32
+@__gl_RGB16F = external global i32
+@__gl_VERTEX_ATTRIB_ARRAY_INTEGER = external global i32
+@__gl_MAX_ARRAY_TEXTURE_LAYERS = external global i32
+@__gl_MIN_PROGRAM_TEXEL_OFFSET = external global i32
+@__gl_MAX_PROGRAM_TEXEL_OFFSET = external global i32
+@__gl_CLAMP_READ_COLOR = external global i32
+@__gl_FIXED_ONLY = external global i32
+@__gl_MAX_VARYING_COMPONENTS = external global i32
+@__gl_TEXTURE_1D_ARRAY = external global i32
+@__gl_PROXY_TEXTURE_1D_ARRAY = external global i32
+@__gl_TEXTURE_2D_ARRAY = external global i32
+@__gl_PROXY_TEXTURE_2D_ARRAY = external global i32
+@__gl_TEXTURE_BINDING_1D_ARRAY = external global i32
+@__gl_TEXTURE_BINDING_2D_ARRAY = external global i32
+@__gl_R11F_G11F_B10F = external global i32
+@__gl_UNSIGNED_INT_10F_11F_11F_REV = external global i32
+@__gl_RGB9_E5 = external global i32
+@__gl_UNSIGNED_INT_5_9_9_9_REV = external global i32
+@__gl_TEXTURE_SHARED_SIZE = external global i32
+@__gl_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH = external global i32
+@__gl_TRANSFORM_FEEDBACK_BUFFER_MODE = external global i32
+@__gl_MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS = external global i32
+@__gl_TRANSFORM_FEEDBACK_VARYINGS = external global i32
+@__gl_TRANSFORM_FEEDBACK_BUFFER_START = external global i32
+@__gl_TRANSFORM_FEEDBACK_BUFFER_SIZE = external global i32
+@__gl_PRIMITIVES_GENERATED = external global i32
+@__gl_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN = external global i32
+@__gl_RASTERIZER_DISCARD = external global i32
+@__gl_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS = external global i32
+@__gl_MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS = external global i32
+@__gl_INTERLEAVED_ATTRIBS = external global i32
+@__gl_SEPARATE_ATTRIBS = external global i32
+@__gl_TRANSFORM_FEEDBACK_BUFFER = external global i32
+@__gl_TRANSFORM_FEEDBACK_BUFFER_BINDING = external global i32
+@__gl_RGBA32UI = external global i32
+@__gl_RGB32UI = external global i32
+@__gl_RGBA16UI = external global i32
+@__gl_RGB16UI = external global i32
+@__gl_RGBA8UI = external global i32
+@__gl_RGB8UI = external global i32
+@__gl_RGBA32I = external global i32
+@__gl_RGB32I = external global i32
+@__gl_RGBA16I = external global i32
+@__gl_RGB16I = external global i32
+@__gl_RGBA8I = external global i32
+@__gl_RGB8I = external global i32
+@__gl_RED_INTEGER = external global i32
+@__gl_GREEN_INTEGER = external global i32
+@__gl_BLUE_INTEGER = external global i32
+@__gl_RGB_INTEGER = external global i32
+@__gl_RGBA_INTEGER = external global i32
+@__gl_BGR_INTEGER = external global i32
+@__gl_BGRA_INTEGER = external global i32
+@__gl_SAMPLER_1D_ARRAY = external global i32
+@__gl_SAMPLER_2D_ARRAY = external global i32
+@__gl_SAMPLER_1D_ARRAY_SHADOW = external global i32
+@__gl_SAMPLER_2D_ARRAY_SHADOW = external global i32
+@__gl_SAMPLER_CUBE_SHADOW = external global i32
+@__gl_UNSIGNED_INT_VEC2 = external global i32
+@__gl_UNSIGNED_INT_VEC3 = external global i32
+@__gl_UNSIGNED_INT_VEC4 = external global i32
+@__gl_INT_SAMPLER_1D = external global i32
+@__gl_INT_SAMPLER_2D = external global i32
+@__gl_INT_SAMPLER_3D = external global i32
+@__gl_INT_SAMPLER_CUBE = external global i32
+@__gl_INT_SAMPLER_1D_ARRAY = external global i32
+@__gl_INT_SAMPLER_2D_ARRAY = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_1D = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_2D = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_3D = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_CUBE = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_1D_ARRAY = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_2D_ARRAY = external global i32
+@__gl_QUERY_WAIT = external global i32
+@__gl_QUERY_NO_WAIT = external global i32
+@__gl_QUERY_BY_REGION_WAIT = external global i32
+@__gl_QUERY_BY_REGION_NO_WAIT = external global i32
+@__gl_BUFFER_ACCESS_FLAGS = external global i32
+@__gl_BUFFER_MAP_LENGTH = external global i32
+@__gl_BUFFER_MAP_OFFSET = external global i32
+@__gl_DEPTH_COMPONENT32F = external global i32
+@__gl_DEPTH32F_STENCIL8 = external global i32
+@__gl_FLOAT_32_UNSIGNED_INT_24_8_REV = external global i32
+@__gl_INVALID_FRAMEBUFFER_OPERATION = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_RED_SIZE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_GREEN_SIZE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_BLUE_SIZE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_ALPHA_SIZE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_DEPTH_SIZE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE = external global i32
+@__gl_FRAMEBUFFER_DEFAULT = external global i32
+@__gl_FRAMEBUFFER_UNDEFINED = external global i32
+@__gl_DEPTH_STENCIL_ATTACHMENT = external global i32
+@__gl_MAX_RENDERBUFFER_SIZE = external global i32
+@__gl_DEPTH_STENCIL = external global i32
+@__gl_UNSIGNED_INT_24_8 = external global i32
+@__gl_DEPTH24_STENCIL8 = external global i32
+@__gl_TEXTURE_STENCIL_SIZE = external global i32
+@__gl_TEXTURE_RED_TYPE = external global i32
+@__gl_TEXTURE_GREEN_TYPE = external global i32
+@__gl_TEXTURE_BLUE_TYPE = external global i32
+@__gl_TEXTURE_ALPHA_TYPE = external global i32
+@__gl_TEXTURE_DEPTH_TYPE = external global i32
+@__gl_UNSIGNED_NORMALIZED = external global i32
+@__gl_FRAMEBUFFER_BINDING = external global i32
+@__gl_DRAW_FRAMEBUFFER_BINDING = external global i32
+@__gl_RENDERBUFFER_BINDING = external global i32
+@__gl_READ_FRAMEBUFFER = external global i32
+@__gl_DRAW_FRAMEBUFFER = external global i32
+@__gl_READ_FRAMEBUFFER_BINDING = external global i32
+@__gl_RENDERBUFFER_SAMPLES = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER = external global i32
+@__gl_FRAMEBUFFER_COMPLETE = external global i32
+@__gl_FRAMEBUFFER_INCOMPLETE_ATTACHMENT = external global i32
+@__gl_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT = external global i32
+@__gl_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER = external global i32
+@__gl_FRAMEBUFFER_INCOMPLETE_READ_BUFFER = external global i32
+@__gl_FRAMEBUFFER_UNSUPPORTED = external global i32
+@__gl_MAX_COLOR_ATTACHMENTS = external global i32
+@__gl_COLOR_ATTACHMENT0 = external global i32
+@__gl_COLOR_ATTACHMENT1 = external global i32
+@__gl_COLOR_ATTACHMENT2 = external global i32
+@__gl_COLOR_ATTACHMENT3 = external global i32
+@__gl_COLOR_ATTACHMENT4 = external global i32
+@__gl_COLOR_ATTACHMENT5 = external global i32
+@__gl_COLOR_ATTACHMENT6 = external global i32
+@__gl_COLOR_ATTACHMENT7 = external global i32
+@__gl_COLOR_ATTACHMENT8 = external global i32
+@__gl_COLOR_ATTACHMENT9 = external global i32
+@__gl_COLOR_ATTACHMENT10 = external global i32
+@__gl_COLOR_ATTACHMENT11 = external global i32
+@__gl_COLOR_ATTACHMENT12 = external global i32
+@__gl_COLOR_ATTACHMENT13 = external global i32
+@__gl_COLOR_ATTACHMENT14 = external global i32
+@__gl_COLOR_ATTACHMENT15 = external global i32
+@__gl_COLOR_ATTACHMENT16 = external global i32
+@__gl_COLOR_ATTACHMENT17 = external global i32
+@__gl_COLOR_ATTACHMENT18 = external global i32
+@__gl_COLOR_ATTACHMENT19 = external global i32
+@__gl_COLOR_ATTACHMENT20 = external global i32
+@__gl_COLOR_ATTACHMENT21 = external global i32
+@__gl_COLOR_ATTACHMENT22 = external global i32
+@__gl_COLOR_ATTACHMENT23 = external global i32
+@__gl_COLOR_ATTACHMENT24 = external global i32
+@__gl_COLOR_ATTACHMENT25 = external global i32
+@__gl_COLOR_ATTACHMENT26 = external global i32
+@__gl_COLOR_ATTACHMENT27 = external global i32
+@__gl_COLOR_ATTACHMENT28 = external global i32
+@__gl_COLOR_ATTACHMENT29 = external global i32
+@__gl_COLOR_ATTACHMENT30 = external global i32
+@__gl_COLOR_ATTACHMENT31 = external global i32
+@__gl_DEPTH_ATTACHMENT = external global i32
+@__gl_STENCIL_ATTACHMENT = external global i32
+@__gl_FRAMEBUFFER = external global i32
+@__gl_RENDERBUFFER = external global i32
+@__gl_RENDERBUFFER_WIDTH = external global i32
+@__gl_RENDERBUFFER_HEIGHT = external global i32
+@__gl_RENDERBUFFER_INTERNAL_FORMAT = external global i32
+@__gl_STENCIL_INDEX1 = external global i32
+@__gl_STENCIL_INDEX4 = external global i32
+@__gl_STENCIL_INDEX8 = external global i32
+@__gl_STENCIL_INDEX16 = external global i32
+@__gl_RENDERBUFFER_RED_SIZE = external global i32
+@__gl_RENDERBUFFER_GREEN_SIZE = external global i32
+@__gl_RENDERBUFFER_BLUE_SIZE = external global i32
+@__gl_RENDERBUFFER_ALPHA_SIZE = external global i32
+@__gl_RENDERBUFFER_DEPTH_SIZE = external global i32
+@__gl_RENDERBUFFER_STENCIL_SIZE = external global i32
+@__gl_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE = external global i32
+@__gl_MAX_SAMPLES = external global i32
+@__gl_INDEX = external global i32
+@__gl_TEXTURE_LUMINANCE_TYPE = external global i32
+@__gl_TEXTURE_INTENSITY_TYPE = external global i32
+@__gl_FRAMEBUFFER_SRGB = external global i32
+@__gl_HALF_FLOAT = external global i32
+@__gl_MAP_READ_BIT = external global i32
+@__gl_MAP_WRITE_BIT = external global i32
+@__gl_MAP_INVALIDATE_RANGE_BIT = external global i32
+@__gl_MAP_INVALIDATE_BUFFER_BIT = external global i32
+@__gl_MAP_FLUSH_EXPLICIT_BIT = external global i32
+@__gl_MAP_UNSYNCHRONIZED_BIT = external global i32
+@__gl_COMPRESSED_RED_RGTC1 = external global i32
+@__gl_COMPRESSED_SIGNED_RED_RGTC1 = external global i32
+@__gl_COMPRESSED_RG_RGTC2 = external global i32
+@__gl_COMPRESSED_SIGNED_RG_RGTC2 = external global i32
+@__gl_RG = external global i32
+@__gl_RG_INTEGER = external global i32
+@__gl_R8 = external global i32
+@__gl_R16 = external global i32
+@__gl_RG8 = external global i32
+@__gl_RG16 = external global i32
+@__gl_R16F = external global i32
+@__gl_R32F = external global i32
+@__gl_RG16F = external global i32
+@__gl_RG32F = external global i32
+@__gl_R8I = external global i32
+@__gl_R8UI = external global i32
+@__gl_R16I = external global i32
+@__gl_R16UI = external global i32
+@__gl_R32I = external global i32
+@__gl_R32UI = external global i32
+@__gl_RG8I = external global i32
+@__gl_RG8UI = external global i32
+@__gl_RG16I = external global i32
+@__gl_RG16UI = external global i32
+@__gl_RG32I = external global i32
+@__gl_RG32UI = external global i32
+@__gl_VERTEX_ARRAY_BINDING = external global i32
+@__gl_CLAMP_VERTEX_COLOR = external global i32
+@__gl_CLAMP_FRAGMENT_COLOR = external global i32
+@__gl_ALPHA_INTEGER = external global i32
 @__init_INVALID_TYPE = external global i64
-@__init_type_table = external global %slice.76
+@__init_type_table = external global %slice.82
 @__os_STD_INPUT_HANDLE = external global i32
 @__os_STD_OUTPUT_HANDLE = external global i32
 @__os_STD_ERROR_HANDLE = external global i32
@@ -934,19 +1203,29 @@ $__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG = comdat nodeduplicate
 @__odr_asan_gen___sdl_WINDOW_TRANSPARENT = global i8 0, align 1
 @___asan_gen_.34 = private unnamed_addr constant [27 x i8] c"__sdl_WINDOW_NOT_FOCUSABLE\00", align 1
 @__odr_asan_gen___sdl_WINDOW_NOT_FOCUSABLE = global i8 0, align 1
-@___asan_gen_.35 = private unnamed_addr constant [30 x i8] c"__sdl_GL_CONTEXT_PROFILE_CORE\00", align 1
+@___asan_gen_.35 = private unnamed_addr constant [18 x i8] c"__sdl_BUTTON_LEFT\00", align 1
+@__odr_asan_gen___sdl_BUTTON_LEFT = global i8 0, align 1
+@___asan_gen_.36 = private unnamed_addr constant [20 x i8] c"__sdl_BUTTON_MIDDLE\00", align 1
+@__odr_asan_gen___sdl_BUTTON_MIDDLE = global i8 0, align 1
+@___asan_gen_.37 = private unnamed_addr constant [19 x i8] c"__sdl_BUTTON_RIGHT\00", align 1
+@__odr_asan_gen___sdl_BUTTON_RIGHT = global i8 0, align 1
+@___asan_gen_.38 = private unnamed_addr constant [16 x i8] c"__sdl_BUTTON_X1\00", align 1
+@__odr_asan_gen___sdl_BUTTON_X1 = global i8 0, align 1
+@___asan_gen_.39 = private unnamed_addr constant [16 x i8] c"__sdl_BUTTON_X2\00", align 1
+@__odr_asan_gen___sdl_BUTTON_X2 = global i8 0, align 1
+@___asan_gen_.40 = private unnamed_addr constant [30 x i8] c"__sdl_GL_CONTEXT_PROFILE_CORE\00", align 1
 @__odr_asan_gen___sdl_GL_CONTEXT_PROFILE_CORE = global i8 0, align 1
-@___asan_gen_.36 = private unnamed_addr constant [39 x i8] c"__sdl_GL_CONTEXT_PROFILE_COMPATIBILITY\00", align 1
+@___asan_gen_.41 = private unnamed_addr constant [39 x i8] c"__sdl_GL_CONTEXT_PROFILE_COMPATIBILITY\00", align 1
 @__odr_asan_gen___sdl_GL_CONTEXT_PROFILE_COMPATIBILITY = global i8 0, align 1
-@___asan_gen_.37 = private unnamed_addr constant [28 x i8] c"__sdl_GL_CONTEXT_PROFILE_ES\00", align 1
+@___asan_gen_.42 = private unnamed_addr constant [28 x i8] c"__sdl_GL_CONTEXT_PROFILE_ES\00", align 1
 @__odr_asan_gen___sdl_GL_CONTEXT_PROFILE_ES = global i8 0, align 1
-@___asan_gen_.38 = private unnamed_addr constant [28 x i8] c"__sdl_GL_CONTEXT_DEBUG_FLAG\00", align 1
+@___asan_gen_.43 = private unnamed_addr constant [28 x i8] c"__sdl_GL_CONTEXT_DEBUG_FLAG\00", align 1
 @__odr_asan_gen___sdl_GL_CONTEXT_DEBUG_FLAG = global i8 0, align 1
-@___asan_gen_.39 = private unnamed_addr constant [41 x i8] c"__sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG\00", align 1
+@___asan_gen_.44 = private unnamed_addr constant [41 x i8] c"__sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG\00", align 1
 @__odr_asan_gen___sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG = global i8 0, align 1
-@___asan_gen_.40 = private unnamed_addr constant [36 x i8] c"__sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG\00", align 1
+@___asan_gen_.45 = private unnamed_addr constant [36 x i8] c"__sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG\00", align 1
 @__odr_asan_gen___sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG = global i8 0, align 1
-@___asan_gen_.41 = private unnamed_addr constant [38 x i8] c"__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG\00", align 1
+@___asan_gen_.46 = private unnamed_addr constant [38 x i8] c"__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG\00", align 1
 @__odr_asan_gen___sdl_GL_CONTEXT_RESET_ISOLATION_FLAG = global i8 0, align 1
 @__asan_global___sdl_INIT_AUDIO = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_INIT_AUDIO to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.2 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_INIT_AUDIO to i64) }, section ".ASAN$GL", comdat($__sdl_INIT_AUDIO), align 64, !associated !0
 @__asan_global___sdl_INIT_VIDEO = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_INIT_VIDEO to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.3 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_INIT_VIDEO to i64) }, section ".ASAN$GL", comdat($__sdl_INIT_VIDEO), align 64, !associated !1
@@ -981,14 +1260,19 @@ $__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG = comdat nodeduplicate
 @__asan_global___sdl_WINDOW_METAL = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_METAL to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.32 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_METAL to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_METAL), align 64, !associated !30
 @__asan_global___sdl_WINDOW_TRANSPARENT = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_TRANSPARENT to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.33 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_TRANSPARENT to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_TRANSPARENT), align 64, !associated !31
 @__asan_global___sdl_WINDOW_NOT_FOCUSABLE = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_WINDOW_NOT_FOCUSABLE to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.34 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_WINDOW_NOT_FOCUSABLE to i64) }, section ".ASAN$GL", comdat($__sdl_WINDOW_NOT_FOCUSABLE), align 64, !associated !32
-@__asan_global___sdl_GL_CONTEXT_PROFILE_CORE = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_GL_CONTEXT_PROFILE_CORE to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.35 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_GL_CONTEXT_PROFILE_CORE to i64) }, section ".ASAN$GL", comdat($__sdl_GL_CONTEXT_PROFILE_CORE), align 64, !associated !33
-@__asan_global___sdl_GL_CONTEXT_PROFILE_COMPATIBILITY = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_GL_CONTEXT_PROFILE_COMPATIBILITY to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.36 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_GL_CONTEXT_PROFILE_COMPATIBILITY to i64) }, section ".ASAN$GL", comdat($__sdl_GL_CONTEXT_PROFILE_COMPATIBILITY), align 64, !associated !34
-@__asan_global___sdl_GL_CONTEXT_PROFILE_ES = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_GL_CONTEXT_PROFILE_ES to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.37 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_GL_CONTEXT_PROFILE_ES to i64) }, section ".ASAN$GL", comdat($__sdl_GL_CONTEXT_PROFILE_ES), align 64, !associated !35
-@__asan_global___sdl_GL_CONTEXT_DEBUG_FLAG = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_GL_CONTEXT_DEBUG_FLAG to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.38 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_GL_CONTEXT_DEBUG_FLAG to i64) }, section ".ASAN$GL", comdat($__sdl_GL_CONTEXT_DEBUG_FLAG), align 64, !associated !36
-@__asan_global___sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.39 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG to i64) }, section ".ASAN$GL", comdat($__sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG), align 64, !associated !37
-@__asan_global___sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.40 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG to i64) }, section ".ASAN$GL", comdat($__sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG), align 64, !associated !38
-@__asan_global___sdl_GL_CONTEXT_RESET_ISOLATION_FLAG = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.41 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_GL_CONTEXT_RESET_ISOLATION_FLAG to i64) }, section ".ASAN$GL", comdat($__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG), align 64, !associated !39
-@llvm.compiler.used = appending global [80 x ptr] [ptr @__sdl_INIT_AUDIO, ptr @__sdl_INIT_VIDEO, ptr @__sdl_INIT_JOYSTICK, ptr @__sdl_INIT_HAPTIC, ptr @__sdl_INIT_GAMEPAD, ptr @__sdl_INIT_EVENTS, ptr @__sdl_INIT_SENSOR, ptr @__sdl_INIT_CAMERA, ptr @__sdl_WINDOW_FULLSCREEN, ptr @__sdl_WINDOW_OPENGL, ptr @__sdl_WINDOW_OCCLUDED, ptr @__sdl_WINDOW_HIDDEN, ptr @__sdl_WINDOW_BORDERLESS, ptr @__sdl_WINDOW_RESIZABLE, ptr @__sdl_WINDOW_MINIMIZED, ptr @__sdl_WINDOW_MAXIMIZED, ptr @__sdl_WINDOW_MOUSE_GRABBED, ptr @__sdl_WINDOW_INPUT_FOCUS, ptr @__sdl_WINDOW_MOUSE_FOCUS, ptr @__sdl_WINDOW_EXTERNAL, ptr @__sdl_WINDOW_MODAL, ptr @__sdl_WINDOW_HIGH_PIXEL_DENSITY, ptr @__sdl_WINDOW_MOUSE_CAPTURE, ptr @__sdl_WINDOW_MOUSE_RELATIVE_MODE, ptr @__sdl_WINDOW_ALWAYS_ON_TOP, ptr @__sdl_WINDOW_UTILITY, ptr @__sdl_WINDOW_TOOLTIP, ptr @__sdl_WINDOW_POPUP_MENU, ptr @__sdl_WINDOW_KEYBOARD_GRABBED, ptr @__sdl_WINDOW_VULKAN, ptr @__sdl_WINDOW_METAL, ptr @__sdl_WINDOW_TRANSPARENT, ptr @__sdl_WINDOW_NOT_FOCUSABLE, ptr @__sdl_GL_CONTEXT_PROFILE_CORE, ptr @__sdl_GL_CONTEXT_PROFILE_COMPATIBILITY, ptr @__sdl_GL_CONTEXT_PROFILE_ES, ptr @__sdl_GL_CONTEXT_DEBUG_FLAG, ptr @__sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG, ptr @__sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG, ptr @__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG, ptr @__asan_global___sdl_INIT_AUDIO, ptr @__asan_global___sdl_INIT_VIDEO, ptr @__asan_global___sdl_INIT_JOYSTICK, ptr @__asan_global___sdl_INIT_HAPTIC, ptr @__asan_global___sdl_INIT_GAMEPAD, ptr @__asan_global___sdl_INIT_EVENTS, ptr @__asan_global___sdl_INIT_SENSOR, ptr @__asan_global___sdl_INIT_CAMERA, ptr @__asan_global___sdl_WINDOW_FULLSCREEN, ptr @__asan_global___sdl_WINDOW_OPENGL, ptr @__asan_global___sdl_WINDOW_OCCLUDED, ptr @__asan_global___sdl_WINDOW_HIDDEN, ptr @__asan_global___sdl_WINDOW_BORDERLESS, ptr @__asan_global___sdl_WINDOW_RESIZABLE, ptr @__asan_global___sdl_WINDOW_MINIMIZED, ptr @__asan_global___sdl_WINDOW_MAXIMIZED, ptr @__asan_global___sdl_WINDOW_MOUSE_GRABBED, ptr @__asan_global___sdl_WINDOW_INPUT_FOCUS, ptr @__asan_global___sdl_WINDOW_MOUSE_FOCUS, ptr @__asan_global___sdl_WINDOW_EXTERNAL, ptr @__asan_global___sdl_WINDOW_MODAL, ptr @__asan_global___sdl_WINDOW_HIGH_PIXEL_DENSITY, ptr @__asan_global___sdl_WINDOW_MOUSE_CAPTURE, ptr @__asan_global___sdl_WINDOW_MOUSE_RELATIVE_MODE, ptr @__asan_global___sdl_WINDOW_ALWAYS_ON_TOP, ptr @__asan_global___sdl_WINDOW_UTILITY, ptr @__asan_global___sdl_WINDOW_TOOLTIP, ptr @__asan_global___sdl_WINDOW_POPUP_MENU, ptr @__asan_global___sdl_WINDOW_KEYBOARD_GRABBED, ptr @__asan_global___sdl_WINDOW_VULKAN, ptr @__asan_global___sdl_WINDOW_METAL, ptr @__asan_global___sdl_WINDOW_TRANSPARENT, ptr @__asan_global___sdl_WINDOW_NOT_FOCUSABLE, ptr @__asan_global___sdl_GL_CONTEXT_PROFILE_CORE, ptr @__asan_global___sdl_GL_CONTEXT_PROFILE_COMPATIBILITY, ptr @__asan_global___sdl_GL_CONTEXT_PROFILE_ES, ptr @__asan_global___sdl_GL_CONTEXT_DEBUG_FLAG, ptr @__asan_global___sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG, ptr @__asan_global___sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG, ptr @__asan_global___sdl_GL_CONTEXT_RESET_ISOLATION_FLAG], section "llvm.metadata"
+@__asan_global___sdl_BUTTON_LEFT = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_BUTTON_LEFT to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.35 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_BUTTON_LEFT to i64) }, section ".ASAN$GL", comdat($__sdl_BUTTON_LEFT), align 64, !associated !33
+@__asan_global___sdl_BUTTON_MIDDLE = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_BUTTON_MIDDLE to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.36 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_BUTTON_MIDDLE to i64) }, section ".ASAN$GL", comdat($__sdl_BUTTON_MIDDLE), align 64, !associated !34
+@__asan_global___sdl_BUTTON_RIGHT = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_BUTTON_RIGHT to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.37 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_BUTTON_RIGHT to i64) }, section ".ASAN$GL", comdat($__sdl_BUTTON_RIGHT), align 64, !associated !35
+@__asan_global___sdl_BUTTON_X1 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_BUTTON_X1 to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.38 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_BUTTON_X1 to i64) }, section ".ASAN$GL", comdat($__sdl_BUTTON_X1), align 64, !associated !36
+@__asan_global___sdl_BUTTON_X2 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_BUTTON_X2 to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.39 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_BUTTON_X2 to i64) }, section ".ASAN$GL", comdat($__sdl_BUTTON_X2), align 64, !associated !37
+@__asan_global___sdl_GL_CONTEXT_PROFILE_CORE = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_GL_CONTEXT_PROFILE_CORE to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.40 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_GL_CONTEXT_PROFILE_CORE to i64) }, section ".ASAN$GL", comdat($__sdl_GL_CONTEXT_PROFILE_CORE), align 64, !associated !38
+@__asan_global___sdl_GL_CONTEXT_PROFILE_COMPATIBILITY = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_GL_CONTEXT_PROFILE_COMPATIBILITY to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.41 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_GL_CONTEXT_PROFILE_COMPATIBILITY to i64) }, section ".ASAN$GL", comdat($__sdl_GL_CONTEXT_PROFILE_COMPATIBILITY), align 64, !associated !39
+@__asan_global___sdl_GL_CONTEXT_PROFILE_ES = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_GL_CONTEXT_PROFILE_ES to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.42 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_GL_CONTEXT_PROFILE_ES to i64) }, section ".ASAN$GL", comdat($__sdl_GL_CONTEXT_PROFILE_ES), align 64, !associated !40
+@__asan_global___sdl_GL_CONTEXT_DEBUG_FLAG = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_GL_CONTEXT_DEBUG_FLAG to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.43 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_GL_CONTEXT_DEBUG_FLAG to i64) }, section ".ASAN$GL", comdat($__sdl_GL_CONTEXT_DEBUG_FLAG), align 64, !associated !41
+@__asan_global___sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.44 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG to i64) }, section ".ASAN$GL", comdat($__sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG), align 64, !associated !42
+@__asan_global___sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.45 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG to i64) }, section ".ASAN$GL", comdat($__sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG), align 64, !associated !43
+@__asan_global___sdl_GL_CONTEXT_RESET_ISOLATION_FLAG = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.46 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___sdl_GL_CONTEXT_RESET_ISOLATION_FLAG to i64) }, section ".ASAN$GL", comdat($__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG), align 64, !associated !44
+@llvm.compiler.used = appending global [90 x ptr] [ptr @__sdl_INIT_AUDIO, ptr @__sdl_INIT_VIDEO, ptr @__sdl_INIT_JOYSTICK, ptr @__sdl_INIT_HAPTIC, ptr @__sdl_INIT_GAMEPAD, ptr @__sdl_INIT_EVENTS, ptr @__sdl_INIT_SENSOR, ptr @__sdl_INIT_CAMERA, ptr @__sdl_WINDOW_FULLSCREEN, ptr @__sdl_WINDOW_OPENGL, ptr @__sdl_WINDOW_OCCLUDED, ptr @__sdl_WINDOW_HIDDEN, ptr @__sdl_WINDOW_BORDERLESS, ptr @__sdl_WINDOW_RESIZABLE, ptr @__sdl_WINDOW_MINIMIZED, ptr @__sdl_WINDOW_MAXIMIZED, ptr @__sdl_WINDOW_MOUSE_GRABBED, ptr @__sdl_WINDOW_INPUT_FOCUS, ptr @__sdl_WINDOW_MOUSE_FOCUS, ptr @__sdl_WINDOW_EXTERNAL, ptr @__sdl_WINDOW_MODAL, ptr @__sdl_WINDOW_HIGH_PIXEL_DENSITY, ptr @__sdl_WINDOW_MOUSE_CAPTURE, ptr @__sdl_WINDOW_MOUSE_RELATIVE_MODE, ptr @__sdl_WINDOW_ALWAYS_ON_TOP, ptr @__sdl_WINDOW_UTILITY, ptr @__sdl_WINDOW_TOOLTIP, ptr @__sdl_WINDOW_POPUP_MENU, ptr @__sdl_WINDOW_KEYBOARD_GRABBED, ptr @__sdl_WINDOW_VULKAN, ptr @__sdl_WINDOW_METAL, ptr @__sdl_WINDOW_TRANSPARENT, ptr @__sdl_WINDOW_NOT_FOCUSABLE, ptr @__sdl_BUTTON_LEFT, ptr @__sdl_BUTTON_MIDDLE, ptr @__sdl_BUTTON_RIGHT, ptr @__sdl_BUTTON_X1, ptr @__sdl_BUTTON_X2, ptr @__sdl_GL_CONTEXT_PROFILE_CORE, ptr @__sdl_GL_CONTEXT_PROFILE_COMPATIBILITY, ptr @__sdl_GL_CONTEXT_PROFILE_ES, ptr @__sdl_GL_CONTEXT_DEBUG_FLAG, ptr @__sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG, ptr @__sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG, ptr @__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG, ptr @__asan_global___sdl_INIT_AUDIO, ptr @__asan_global___sdl_INIT_VIDEO, ptr @__asan_global___sdl_INIT_JOYSTICK, ptr @__asan_global___sdl_INIT_HAPTIC, ptr @__asan_global___sdl_INIT_GAMEPAD, ptr @__asan_global___sdl_INIT_EVENTS, ptr @__asan_global___sdl_INIT_SENSOR, ptr @__asan_global___sdl_INIT_CAMERA, ptr @__asan_global___sdl_WINDOW_FULLSCREEN, ptr @__asan_global___sdl_WINDOW_OPENGL, ptr @__asan_global___sdl_WINDOW_OCCLUDED, ptr @__asan_global___sdl_WINDOW_HIDDEN, ptr @__asan_global___sdl_WINDOW_BORDERLESS, ptr @__asan_global___sdl_WINDOW_RESIZABLE, ptr @__asan_global___sdl_WINDOW_MINIMIZED, ptr @__asan_global___sdl_WINDOW_MAXIMIZED, ptr @__asan_global___sdl_WINDOW_MOUSE_GRABBED, ptr @__asan_global___sdl_WINDOW_INPUT_FOCUS, ptr @__asan_global___sdl_WINDOW_MOUSE_FOCUS, ptr @__asan_global___sdl_WINDOW_EXTERNAL, ptr @__asan_global___sdl_WINDOW_MODAL, ptr @__asan_global___sdl_WINDOW_HIGH_PIXEL_DENSITY, ptr @__asan_global___sdl_WINDOW_MOUSE_CAPTURE, ptr @__asan_global___sdl_WINDOW_MOUSE_RELATIVE_MODE, ptr @__asan_global___sdl_WINDOW_ALWAYS_ON_TOP, ptr @__asan_global___sdl_WINDOW_UTILITY, ptr @__asan_global___sdl_WINDOW_TOOLTIP, ptr @__asan_global___sdl_WINDOW_POPUP_MENU, ptr @__asan_global___sdl_WINDOW_KEYBOARD_GRABBED, ptr @__asan_global___sdl_WINDOW_VULKAN, ptr @__asan_global___sdl_WINDOW_METAL, ptr @__asan_global___sdl_WINDOW_TRANSPARENT, ptr @__asan_global___sdl_WINDOW_NOT_FOCUSABLE, ptr @__asan_global___sdl_BUTTON_LEFT, ptr @__asan_global___sdl_BUTTON_MIDDLE, ptr @__asan_global___sdl_BUTTON_RIGHT, ptr @__asan_global___sdl_BUTTON_X1, ptr @__asan_global___sdl_BUTTON_X2, ptr @__asan_global___sdl_GL_CONTEXT_PROFILE_CORE, ptr @__asan_global___sdl_GL_CONTEXT_PROFILE_COMPATIBILITY, ptr @__asan_global___sdl_GL_CONTEXT_PROFILE_ES, ptr @__asan_global___sdl_GL_CONTEXT_DEBUG_FLAG, ptr @__asan_global___sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG, ptr @__asan_global___sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG, ptr @__asan_global___sdl_GL_CONTEXT_RESET_ISOLATION_FLAG], section "llvm.metadata"
 @llvm.global_ctors = appending global [1 x { i32, ptr, ptr }] [{ i32, ptr, ptr } { i32 1, ptr @asan.module_ctor, ptr null }]
 
 define void @__sdl___GlobalInitializerFunction.0() {
@@ -1026,6 +1310,11 @@ block_0:
   store i64 536870912, ptr @__sdl_WINDOW_METAL, align 8
   store i64 1073741824, ptr @__sdl_WINDOW_TRANSPARENT, align 8
   store i64 -2147483648, ptr @__sdl_WINDOW_NOT_FOCUSABLE, align 8
+  store i32 1, ptr @__sdl_BUTTON_LEFT, align 4
+  store i32 2, ptr @__sdl_BUTTON_MIDDLE, align 4
+  store i32 3, ptr @__sdl_BUTTON_RIGHT, align 4
+  store i32 4, ptr @__sdl_BUTTON_X1, align 4
+  store i32 5, ptr @__sdl_BUTTON_X2, align 4
   store i32 1, ptr @__sdl_GL_CONTEXT_PROFILE_CORE, align 4
   store i32 2, ptr @__sdl_GL_CONTEXT_PROFILE_COMPATIBILITY, align 4
   store i32 4, ptr @__sdl_GL_CONTEXT_PROFILE_ES, align 4
@@ -1052,7 +1341,21 @@ declare i1 @SDL_PollEvent(ptr)
 
 declare ptr @SDL_GetError()
 
+declare i64 @SDL_GetTicks()
+
 declare i1 @SDL_GL_SetSwapInterval(i32)
+
+define i32 @__sdl_BUTTON_MASK(i32 %0) !dbg !146 {
+block_0:
+  %1 = alloca i32, align 4
+  call void @llvm.memset.p0.i32(ptr align 4 %1, i8 0, i32 4, i1 false)
+  store i32 %0, ptr %1, align 4, !dbg !151
+  call void @llvm.dbg.value(metadata ptr %1, metadata !152, metadata !DIExpression()), !dbg !151
+  %2 = load i32, ptr %1, align 4, !dbg !151
+  %3 = sub i32 %2, 1, !dbg !151
+  %4 = shl i32 1, %3, !dbg !151
+  ret i32 %4, !dbg !151
+}
 
 declare ptr @wglGetProcAddress(ptr)
 
@@ -1064,17 +1367,45 @@ declare ptr @__gl_load_gl_fn(ptr)
 
 declare i1 @__gl_load()
 
+declare i32 @__renderer_compile_shaders(ptr, ptr)
+
+declare void @__renderer_use_shader(i32)
+
+declare i64 @__renderer_create_ctx()
+
+declare ptr @__renderer_create_framebuffer(i32, i32, ptr)
+
+declare void @__renderer_delete_framebuffer(ptr)
+
+declare void @__renderer_bind_framebuffer(ptr, ptr)
+
+declare void @__renderer_draw_verts(ptr, ptr)
+
+declare void @__renderer_draw_lines(ptr, ptr, float)
+
 declare void @__renderer_compile_shader(i32, ptr, ptr)
 
 declare void @__renderer_gl_callback(i32, i32, i32, i32, i32, ptr, ptr)
 
-declare void @__renderer_create_ctx(ptr)
+declare void @"__renderer_set_uniform@u32_string_f32_@void"(i32, ptr, float)
 
-declare void @__renderer_draw_verts(ptr, ptr)
+declare void @"__renderer_set_uniform@u32_string_@@f32_f32_@@__math_v2_@void"(i32, ptr, i64)
 
-declare void @__graph_draw_line(i64, i64, ptr)
+declare void @"__renderer_set_uniform@u32_string_@@f32_f32_f32_@@__math_v3_@void"(i32, ptr, ptr)
 
-declare void @__graph_draw_graph(ptr, float, float, float, float)
+declare void @"__renderer_set_uniform@u32_string_int_@void"(i32, ptr, i64)
+
+declare i64 @__graph_map_point(i64, float, float)
+
+declare i64 @__graph_calculate_spline(i64, i64, i64, i64, float)
+
+declare void @__graph_draw(ptr, ptr, float, float)
+
+declare i64 @__math_v2_scale(i64, float)
+
+declare i64 @__math_v2_add(i64, i64)
+
+declare float @__math_map(float, float, float, float, float)
 
 declare void @__init_global_initializers()
 
@@ -1106,6 +1437,8 @@ declare ptr @VirtualAlloc(ptr, i64, i32, i32)
 
 declare i1 @VirtualFree(ptr, i64, i32)
 
+declare i1 @ReadConsoleA(ptr, ptr, i32, ptr, ptr)
+
 declare void @__os_abort()
 
 declare void @__os_assert(i1, ptr)
@@ -1115,6 +1448,8 @@ declare void @__os_print(ptr, i32)
 declare ptr @__os_alloc(i64)
 
 declare void @__os_free(ptr)
+
+declare i32 @__os_read_stdin_line(ptr, i32)
 
 declare void @__io_push_string(ptr, ptr)
 
@@ -1135,6 +1470,8 @@ declare void @__io___internal_print(ptr, ptr, ptr)
 declare void @__io_print(ptr, ptr)
 
 declare void @__io_println(ptr, ptr)
+
+declare void @__io_readln(ptr, ptr, i32)
 
 declare i32 @__io_get_next(ptr)
 
@@ -1170,6 +1507,10 @@ declare i32 @__str_deref(ptr)
 
 declare i32 @__str_index(ptr, i64)
 
+declare void @"__array_create@type_*__mem_Allocator_@[]__math_v3"(ptr, i64, ptr)
+
+declare void @"__array_add@@@f32_f32_f32_@@*[]__math_v3_@@f32_f32_f32_@@__math_v3_@void"(ptr, ptr)
+
 declare void @"__array_add@*[]u32_u32_@void"(ptr, i32)
 
 declare void @"__array_create@type_*__mem_Allocator_@[]u8"(ptr, i64, ptr)
@@ -1181,6 +1522,12 @@ declare void @"__array_create@type_*__mem_Allocator_@[]u32"(ptr, i64, ptr)
 declare void @"__array_free@*[]u32_@void"(ptr)
 
 declare void @"__array_free@*[]u8_@void"(ptr)
+
+; Function Attrs: nocallback nofree nounwind willreturn memory(argmem: write)
+declare void @llvm.memset.p0.i32(ptr nocapture writeonly, i8, i32, i1 immarg) #0
+
+; Function Attrs: nocallback nofree nosync nounwind speculatable willreturn memory(none)
+declare void @llvm.dbg.value(metadata, metadata, metadata) #1
 
 declare void @__asan_before_dynamic_init(i64)
 
@@ -1201,7 +1548,7 @@ declare void @__asan_unregister_elf_globals(i64, i64, i64)
 declare void @__asan_init()
 
 ; Function Attrs: nounwind
-define internal void @asan.module_ctor() #0 {
+define internal void @asan.module_ctor() #2 {
   call void @__asan_init()
   call void @__asan_version_mismatch_check_v8()
   ret void
@@ -1209,10 +1556,12 @@ define internal void @asan.module_ctor() #0 {
 
 declare void @__asan_version_mismatch_check_v8()
 
-attributes #0 = { nounwind }
+attributes #0 = { nocallback nofree nounwind willreturn memory(argmem: write) }
+attributes #1 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
+attributes #2 = { nounwind }
 
-!llvm.dbg.cu = !{!40}
-!llvm.module.flags = !{!136, !137}
+!llvm.dbg.cu = !{!45}
+!llvm.module.flags = !{!144, !145}
 
 !0 = !{ptr @__sdl_INIT_AUDIO}
 !1 = !{ptr @__sdl_INIT_VIDEO}
@@ -1247,108 +1596,123 @@ attributes #0 = { nounwind }
 !30 = !{ptr @__sdl_WINDOW_METAL}
 !31 = !{ptr @__sdl_WINDOW_TRANSPARENT}
 !32 = !{ptr @__sdl_WINDOW_NOT_FOCUSABLE}
-!33 = !{ptr @__sdl_GL_CONTEXT_PROFILE_CORE}
-!34 = !{ptr @__sdl_GL_CONTEXT_PROFILE_COMPATIBILITY}
-!35 = !{ptr @__sdl_GL_CONTEXT_PROFILE_ES}
-!36 = !{ptr @__sdl_GL_CONTEXT_DEBUG_FLAG}
-!37 = !{ptr @__sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG}
-!38 = !{ptr @__sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG}
-!39 = !{ptr @__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG}
-!40 = distinct !DICompileUnit(language: DW_LANG_C99, file: !41, producer: "RCP Compiler", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, enums: !42, splitDebugInlining: false)
-!41 = !DIFile(filename: "sdl.rcp", directory: "E:\\Non_C_Projects\\RCPProjects\\graph\\src")
-!42 = !{!43, !55, !76, !85, !90, !94, !102, !106, !43, !55, !76, !85, !90, !94}
-!43 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_TypeKind", scope: !41, file: !41, size: 64, align: 64, elements: !44)
-!44 = !{!45, !46, !47, !48, !49, !50, !51, !52, !53, !54}
-!45 = !DIEnumerator(name: "Invalid", value: 0, isUnsigned: true)
-!46 = !DIEnumerator(name: "Basic", value: 1, isUnsigned: true)
-!47 = !DIEnumerator(name: "Function", value: 2, isUnsigned: true)
-!48 = !DIEnumerator(name: "Struct", value: 3, isUnsigned: true)
-!49 = !DIEnumerator(name: "Pointer", value: 4, isUnsigned: true)
-!50 = !DIEnumerator(name: "Array", value: 5, isUnsigned: true)
-!51 = !DIEnumerator(name: "Slice", value: 6, isUnsigned: true)
-!52 = !DIEnumerator(name: "Vector", value: 7, isUnsigned: true)
-!53 = !DIEnumerator(name: "Enum", value: 8, isUnsigned: true)
-!54 = !DIEnumerator(name: "Generic", value: 9, isUnsigned: true)
-!55 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_BasicKind", scope: !41, file: !41, size: 64, align: 64, elements: !56)
-!56 = !{!57, !58, !59, !60, !61, !62, !63, !64, !65, !66, !67, !68, !69, !70, !71, !72, !73, !74, !75}
-!57 = !DIEnumerator(name: "Bool", value: 0, isUnsigned: true)
-!58 = !DIEnumerator(name: "String", value: 1, isUnsigned: true)
-!59 = !DIEnumerator(name: "U8", value: 2, isUnsigned: true)
-!60 = !DIEnumerator(name: "U16", value: 3, isUnsigned: true)
-!61 = !DIEnumerator(name: "U32", value: 4, isUnsigned: true)
-!62 = !DIEnumerator(name: "U64", value: 5, isUnsigned: true)
-!63 = !DIEnumerator(name: "I8", value: 6, isUnsigned: true)
-!64 = !DIEnumerator(name: "I16", value: 7, isUnsigned: true)
-!65 = !DIEnumerator(name: "I32", value: 8, isUnsigned: true)
-!66 = !DIEnumerator(name: "I64", value: 9, isUnsigned: true)
-!67 = !DIEnumerator(name: "F32", value: 10, isUnsigned: true)
-!68 = !DIEnumerator(name: "F64", value: 11, isUnsigned: true)
-!69 = !DIEnumerator(name: "untypedInteger", value: 12, isUnsigned: true)
-!70 = !DIEnumerator(name: "untypedFloat", value: 13, isUnsigned: true)
-!71 = !DIEnumerator(name: "Int", value: 14, isUnsigned: true)
-!72 = !DIEnumerator(name: "Uint", value: 15, isUnsigned: true)
-!73 = !DIEnumerator(name: "Type", value: 16, isUnsigned: true)
-!74 = !DIEnumerator(name: "Auto", value: 17, isUnsigned: true)
-!75 = !DIEnumerator(name: "Module", value: 18, isUnsigned: true)
-!76 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_BasicFlag", scope: !41, file: !41, size: 32, align: 32, elements: !77)
-!77 = !{!78, !79, !80, !81, !82, !83, !84}
-!78 = !DIEnumerator(name: "Boolean", value: 1, isUnsigned: true)
-!79 = !DIEnumerator(name: "Integer", value: 2, isUnsigned: true)
-!80 = !DIEnumerator(name: "Float", value: 4, isUnsigned: true)
-!81 = !DIEnumerator(name: "String", value: 8, isUnsigned: true)
-!82 = !DIEnumerator(name: "Untyped", value: 32, isUnsigned: true)
-!83 = !DIEnumerator(name: "Unsigned", value: 64, isUnsigned: true)
-!84 = !DIEnumerator(name: "TypeID", value: 128, isUnsigned: true)
-!85 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_StructFlag", scope: !41, file: !41, size: 32, align: 32, elements: !86)
-!86 = !{!87, !88, !89}
-!87 = !DIEnumerator(name: "Packed", value: 1, isUnsigned: true)
-!88 = !DIEnumerator(name: "Generic", value: 2, isUnsigned: true)
-!89 = !DIEnumerator(name: "Union", value: 4, isUnsigned: true)
-!90 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_VectorKind", scope: !41, file: !41, size: 64, align: 64, elements: !91)
-!91 = !{!92, !93}
-!92 = !DIEnumerator(name: "Float", value: 0, isUnsigned: true)
-!93 = !DIEnumerator(name: "Int", value: 1, isUnsigned: true)
-!94 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__compile_CompileFlag", scope: !41, file: !41, size: 32, align: 32, elements: !95)
-!95 = !{!96, !97, !98, !99, !100, !101}
-!96 = !DIEnumerator(name: "Debug", value: 1, isUnsigned: true)
-!97 = !DIEnumerator(name: "SanAddress", value: 2, isUnsigned: true)
-!98 = !DIEnumerator(name: "SanMemory", value: 4, isUnsigned: true)
-!99 = !DIEnumerator(name: "SanThread", value: 8, isUnsigned: true)
-!100 = !DIEnumerator(name: "SanUndefined", value: 16, isUnsigned: true)
-!101 = !DIEnumerator(name: "NoStdLib", value: 32, isUnsigned: true)
-!102 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__sdl_EventType", scope: !41, file: !41, size: 32, align: 32, elements: !103)
-!103 = !{!104, !105}
-!104 = !DIEnumerator(name: "FIRST", value: 0)
-!105 = !DIEnumerator(name: "QUIT", value: 256, isUnsigned: true)
-!106 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__sdl_GLattr", scope: !41, file: !41, size: 32, align: 32, elements: !107)
-!107 = !{!108, !109, !110, !111, !112, !113, !114, !115, !116, !117, !118, !119, !120, !121, !122, !123, !124, !125, !126, !127, !128, !129, !130, !131, !132, !133, !134, !135}
-!108 = !DIEnumerator(name: "RED_SIZE", value: 0, isUnsigned: true)
-!109 = !DIEnumerator(name: "GREEN_SIZE", value: 1, isUnsigned: true)
-!110 = !DIEnumerator(name: "BLUE_SIZE", value: 2, isUnsigned: true)
-!111 = !DIEnumerator(name: "ALPHA_SIZE", value: 3, isUnsigned: true)
-!112 = !DIEnumerator(name: "BUFFER_SIZE", value: 4, isUnsigned: true)
-!113 = !DIEnumerator(name: "DOUBLEBUFFER", value: 5, isUnsigned: true)
-!114 = !DIEnumerator(name: "DEPTH_SIZE", value: 6, isUnsigned: true)
-!115 = !DIEnumerator(name: "STENCIL_SIZE", value: 7, isUnsigned: true)
-!116 = !DIEnumerator(name: "ACCUM_RED_SIZE", value: 8, isUnsigned: true)
-!117 = !DIEnumerator(name: "ACCUM_GREEN_SIZE", value: 9, isUnsigned: true)
-!118 = !DIEnumerator(name: "ACCUM_BLUE_SIZE", value: 10, isUnsigned: true)
-!119 = !DIEnumerator(name: "ACCUM_ALPHA_SIZE", value: 11, isUnsigned: true)
-!120 = !DIEnumerator(name: "STEREO", value: 12, isUnsigned: true)
-!121 = !DIEnumerator(name: "MULTISAMPLEBUFFERS", value: 13, isUnsigned: true)
-!122 = !DIEnumerator(name: "MULTISAMPLESAMPLES", value: 14, isUnsigned: true)
-!123 = !DIEnumerator(name: "ACCELERATED_VISUAL", value: 15, isUnsigned: true)
-!124 = !DIEnumerator(name: "RETAINED_BACKING", value: 16, isUnsigned: true)
-!125 = !DIEnumerator(name: "CONTEXT_MAJOR_VERSION", value: 17, isUnsigned: true)
-!126 = !DIEnumerator(name: "CONTEXT_MINOR_VERSION", value: 18, isUnsigned: true)
-!127 = !DIEnumerator(name: "CONTEXT_FLAGS", value: 19, isUnsigned: true)
-!128 = !DIEnumerator(name: "CONTEXT_PROFILE_MASK", value: 20, isUnsigned: true)
-!129 = !DIEnumerator(name: "SHARE_WITH_CURRENT_CONTEXT", value: 21, isUnsigned: true)
-!130 = !DIEnumerator(name: "FRAMEBUFFER_SRGB_CAPABLE", value: 22, isUnsigned: true)
-!131 = !DIEnumerator(name: "CONTEXT_RELEASE_BEHAVIOR", value: 23, isUnsigned: true)
-!132 = !DIEnumerator(name: "CONTEXT_RESET_NOTIFICATION", value: 24, isUnsigned: true)
-!133 = !DIEnumerator(name: "CONTEXT_NO_ERROR", value: 25, isUnsigned: true)
-!134 = !DIEnumerator(name: "FLOATBUFFERS", value: 26, isUnsigned: true)
-!135 = !DIEnumerator(name: "EGL_PLATFORM", value: 27, isUnsigned: true)
-!136 = !{i32 2, !"CodeView", i32 1}
-!137 = !{i32 2, !"Debug Info Version", i32 3}
+!33 = !{ptr @__sdl_BUTTON_LEFT}
+!34 = !{ptr @__sdl_BUTTON_MIDDLE}
+!35 = !{ptr @__sdl_BUTTON_RIGHT}
+!36 = !{ptr @__sdl_BUTTON_X1}
+!37 = !{ptr @__sdl_BUTTON_X2}
+!38 = !{ptr @__sdl_GL_CONTEXT_PROFILE_CORE}
+!39 = !{ptr @__sdl_GL_CONTEXT_PROFILE_COMPATIBILITY}
+!40 = !{ptr @__sdl_GL_CONTEXT_PROFILE_ES}
+!41 = !{ptr @__sdl_GL_CONTEXT_DEBUG_FLAG}
+!42 = !{ptr @__sdl_GL_CONTEXT_FORWARD_COMPATIBLE_FLAG}
+!43 = !{ptr @__sdl_GL_CONTEXT_ROBUST_ACCESS_FLAG}
+!44 = !{ptr @__sdl_GL_CONTEXT_RESET_ISOLATION_FLAG}
+!45 = distinct !DICompileUnit(language: DW_LANG_C99, file: !46, producer: "RCP Compiler", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, enums: !47, splitDebugInlining: false)
+!46 = !DIFile(filename: "sdl.rcp", directory: "E:\\Non_C_Projects\\RCPProjects\\graph\\src")
+!47 = !{!48, !60, !81, !90, !95, !99, !107, !114, !48, !60, !81, !90, !95, !99}
+!48 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_TypeKind", scope: !46, file: !46, size: 64, align: 64, elements: !49)
+!49 = !{!50, !51, !52, !53, !54, !55, !56, !57, !58, !59}
+!50 = !DIEnumerator(name: "Invalid", value: 0, isUnsigned: true)
+!51 = !DIEnumerator(name: "Basic", value: 1, isUnsigned: true)
+!52 = !DIEnumerator(name: "Function", value: 2, isUnsigned: true)
+!53 = !DIEnumerator(name: "Struct", value: 3, isUnsigned: true)
+!54 = !DIEnumerator(name: "Pointer", value: 4, isUnsigned: true)
+!55 = !DIEnumerator(name: "Array", value: 5, isUnsigned: true)
+!56 = !DIEnumerator(name: "Slice", value: 6, isUnsigned: true)
+!57 = !DIEnumerator(name: "Vector", value: 7, isUnsigned: true)
+!58 = !DIEnumerator(name: "Enum", value: 8, isUnsigned: true)
+!59 = !DIEnumerator(name: "Generic", value: 9, isUnsigned: true)
+!60 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_BasicKind", scope: !46, file: !46, size: 64, align: 64, elements: !61)
+!61 = !{!62, !63, !64, !65, !66, !67, !68, !69, !70, !71, !72, !73, !74, !75, !76, !77, !78, !79, !80}
+!62 = !DIEnumerator(name: "Bool", value: 0, isUnsigned: true)
+!63 = !DIEnumerator(name: "String", value: 1, isUnsigned: true)
+!64 = !DIEnumerator(name: "U8", value: 2, isUnsigned: true)
+!65 = !DIEnumerator(name: "U16", value: 3, isUnsigned: true)
+!66 = !DIEnumerator(name: "U32", value: 4, isUnsigned: true)
+!67 = !DIEnumerator(name: "U64", value: 5, isUnsigned: true)
+!68 = !DIEnumerator(name: "I8", value: 6, isUnsigned: true)
+!69 = !DIEnumerator(name: "I16", value: 7, isUnsigned: true)
+!70 = !DIEnumerator(name: "I32", value: 8, isUnsigned: true)
+!71 = !DIEnumerator(name: "I64", value: 9, isUnsigned: true)
+!72 = !DIEnumerator(name: "F32", value: 10, isUnsigned: true)
+!73 = !DIEnumerator(name: "F64", value: 11, isUnsigned: true)
+!74 = !DIEnumerator(name: "untypedInteger", value: 12, isUnsigned: true)
+!75 = !DIEnumerator(name: "untypedFloat", value: 13, isUnsigned: true)
+!76 = !DIEnumerator(name: "Int", value: 14, isUnsigned: true)
+!77 = !DIEnumerator(name: "Uint", value: 15, isUnsigned: true)
+!78 = !DIEnumerator(name: "Type", value: 16, isUnsigned: true)
+!79 = !DIEnumerator(name: "Auto", value: 17, isUnsigned: true)
+!80 = !DIEnumerator(name: "Module", value: 18, isUnsigned: true)
+!81 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_BasicFlag", scope: !46, file: !46, size: 32, align: 32, elements: !82)
+!82 = !{!83, !84, !85, !86, !87, !88, !89}
+!83 = !DIEnumerator(name: "Boolean", value: 1, isUnsigned: true)
+!84 = !DIEnumerator(name: "Integer", value: 2, isUnsigned: true)
+!85 = !DIEnumerator(name: "Float", value: 4, isUnsigned: true)
+!86 = !DIEnumerator(name: "String", value: 8, isUnsigned: true)
+!87 = !DIEnumerator(name: "Untyped", value: 32, isUnsigned: true)
+!88 = !DIEnumerator(name: "Unsigned", value: 64, isUnsigned: true)
+!89 = !DIEnumerator(name: "TypeID", value: 128, isUnsigned: true)
+!90 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_StructFlag", scope: !46, file: !46, size: 32, align: 32, elements: !91)
+!91 = !{!92, !93, !94}
+!92 = !DIEnumerator(name: "Packed", value: 1, isUnsigned: true)
+!93 = !DIEnumerator(name: "Generic", value: 2, isUnsigned: true)
+!94 = !DIEnumerator(name: "Union", value: 4, isUnsigned: true)
+!95 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_VectorKind", scope: !46, file: !46, size: 64, align: 64, elements: !96)
+!96 = !{!97, !98}
+!97 = !DIEnumerator(name: "Float", value: 0, isUnsigned: true)
+!98 = !DIEnumerator(name: "Int", value: 1, isUnsigned: true)
+!99 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__compile_CompileFlag", scope: !46, file: !46, size: 32, align: 32, elements: !100)
+!100 = !{!101, !102, !103, !104, !105, !106}
+!101 = !DIEnumerator(name: "Debug", value: 1, isUnsigned: true)
+!102 = !DIEnumerator(name: "SanAddress", value: 2, isUnsigned: true)
+!103 = !DIEnumerator(name: "SanMemory", value: 4, isUnsigned: true)
+!104 = !DIEnumerator(name: "SanThread", value: 8, isUnsigned: true)
+!105 = !DIEnumerator(name: "SanUndefined", value: 16, isUnsigned: true)
+!106 = !DIEnumerator(name: "NoStdLib", value: 32, isUnsigned: true)
+!107 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__sdl_EventType", scope: !46, file: !46, size: 32, align: 32, elements: !108)
+!108 = !{!109, !110, !111, !112, !113}
+!109 = !DIEnumerator(name: "FIRST", value: 0)
+!110 = !DIEnumerator(name: "QUIT", value: 256, isUnsigned: true)
+!111 = !DIEnumerator(name: "MOUSE_MOTION", value: 1024, isUnsigned: true)
+!112 = !DIEnumerator(name: "MOUSE_BUTTON_DOWN", value: 1025, isUnsigned: true)
+!113 = !DIEnumerator(name: "MOUSE_BUTTON_UP", value: 1026, isUnsigned: true)
+!114 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__sdl_GLattr", scope: !46, file: !46, size: 32, align: 32, elements: !115)
+!115 = !{!116, !117, !118, !119, !120, !121, !122, !123, !124, !125, !126, !127, !128, !129, !130, !131, !132, !133, !134, !135, !136, !137, !138, !139, !140, !141, !142, !143}
+!116 = !DIEnumerator(name: "RED_SIZE", value: 0, isUnsigned: true)
+!117 = !DIEnumerator(name: "GREEN_SIZE", value: 1, isUnsigned: true)
+!118 = !DIEnumerator(name: "BLUE_SIZE", value: 2, isUnsigned: true)
+!119 = !DIEnumerator(name: "ALPHA_SIZE", value: 3, isUnsigned: true)
+!120 = !DIEnumerator(name: "BUFFER_SIZE", value: 4, isUnsigned: true)
+!121 = !DIEnumerator(name: "DOUBLEBUFFER", value: 5, isUnsigned: true)
+!122 = !DIEnumerator(name: "DEPTH_SIZE", value: 6, isUnsigned: true)
+!123 = !DIEnumerator(name: "STENCIL_SIZE", value: 7, isUnsigned: true)
+!124 = !DIEnumerator(name: "ACCUM_RED_SIZE", value: 8, isUnsigned: true)
+!125 = !DIEnumerator(name: "ACCUM_GREEN_SIZE", value: 9, isUnsigned: true)
+!126 = !DIEnumerator(name: "ACCUM_BLUE_SIZE", value: 10, isUnsigned: true)
+!127 = !DIEnumerator(name: "ACCUM_ALPHA_SIZE", value: 11, isUnsigned: true)
+!128 = !DIEnumerator(name: "STEREO", value: 12, isUnsigned: true)
+!129 = !DIEnumerator(name: "MULTISAMPLEBUFFERS", value: 13, isUnsigned: true)
+!130 = !DIEnumerator(name: "MULTISAMPLESAMPLES", value: 14, isUnsigned: true)
+!131 = !DIEnumerator(name: "ACCELERATED_VISUAL", value: 15, isUnsigned: true)
+!132 = !DIEnumerator(name: "RETAINED_BACKING", value: 16, isUnsigned: true)
+!133 = !DIEnumerator(name: "CONTEXT_MAJOR_VERSION", value: 17, isUnsigned: true)
+!134 = !DIEnumerator(name: "CONTEXT_MINOR_VERSION", value: 18, isUnsigned: true)
+!135 = !DIEnumerator(name: "CONTEXT_FLAGS", value: 19, isUnsigned: true)
+!136 = !DIEnumerator(name: "CONTEXT_PROFILE_MASK", value: 20, isUnsigned: true)
+!137 = !DIEnumerator(name: "SHARE_WITH_CURRENT_CONTEXT", value: 21, isUnsigned: true)
+!138 = !DIEnumerator(name: "FRAMEBUFFER_SRGB_CAPABLE", value: 22, isUnsigned: true)
+!139 = !DIEnumerator(name: "CONTEXT_RELEASE_BEHAVIOR", value: 23, isUnsigned: true)
+!140 = !DIEnumerator(name: "CONTEXT_RESET_NOTIFICATION", value: 24, isUnsigned: true)
+!141 = !DIEnumerator(name: "CONTEXT_NO_ERROR", value: 25, isUnsigned: true)
+!142 = !DIEnumerator(name: "FLOATBUFFERS", value: 26, isUnsigned: true)
+!143 = !DIEnumerator(name: "EGL_PLATFORM", value: 27, isUnsigned: true)
+!144 = !{i32 2, !"CodeView", i32 1}
+!145 = !{i32 2, !"Debug Info Version", i32 3}
+!146 = distinct !DISubprogram(name: "BUTTON_MASK", linkageName: "__sdl_BUTTON_MASK", scope: !46, file: !46, line: 95, type: !147, spFlags: DISPFlagDefinition, unit: !45, retainedNodes: !150)
+!147 = !DISubroutineType(types: !148)
+!148 = !{!149, !149}
+!149 = !DIBasicType(name: "u32", size: 32, encoding: DW_ATE_unsigned)
+!150 = !{}
+!151 = !DILocation(line: 95, scope: !146)
+!152 = !DILocalVariable(name: "X", scope: !146, file: !46, line: 95, type: !149)

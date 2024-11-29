@@ -3,10 +3,12 @@ source_filename = "compile.rcp"
 target datalayout = "e-m:w-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-windows-msvc"
 
-%slice.671 = type { i64, ptr }
+%slice.797 = type { i64, ptr }
 
 @__main_WIDTH = external global i32
 @__main_HEIGHT = external global i32
+@__main_vert_shader = external global ptr
+@__main_frag_shader = external global ptr
 @__sdl_INIT_AUDIO = external global i32
 @__sdl_INIT_VIDEO = external global i32
 @__sdl_INIT_JOYSTICK = external global i32
@@ -40,6 +42,11 @@ target triple = "x86_64-pc-windows-msvc"
 @__sdl_WINDOW_METAL = external global i64
 @__sdl_WINDOW_TRANSPARENT = external global i64
 @__sdl_WINDOW_NOT_FOCUSABLE = external global i64
+@__sdl_BUTTON_LEFT = external global i32
+@__sdl_BUTTON_MIDDLE = external global i32
+@__sdl_BUTTON_RIGHT = external global i32
+@__sdl_BUTTON_X1 = external global i32
+@__sdl_BUTTON_X2 = external global i32
 @__sdl_GL_CONTEXT_PROFILE_CORE = external global i32
 @__sdl_GL_CONTEXT_PROFILE_COMPATIBILITY = external global i32
 @__sdl_GL_CONTEXT_PROFILE_ES = external global i32
@@ -51,18 +58,31 @@ target triple = "x86_64-pc-windows-msvc"
 @__gl_ClearColor = external global ptr
 @__gl_Clear = external global ptr
 @__gl_GenVertexArrays = external global ptr
+@__gl_BindVertexArray = external global ptr
+@__gl_DeleteVertexArrays = external global ptr
+@__gl_EnableVertexAttribArray = external global ptr
+@__gl_DisableVertexAttribArray = external global ptr
+@__gl_VertexAttribPointer = external global ptr
 @__gl_GenBuffers = external global ptr
 @__gl_BindBuffer = external global ptr
 @__gl_BufferData = external global ptr
 @__gl_BufferSubData = external global ptr
 @__gl_DeleteBuffers = external global ptr
-@__gl_DeleteVertexArrays = external global ptr
-@__gl_BindVertexArray = external global ptr
+@__gl_GenFramebuffers = external global ptr
+@__gl_CheckFramebufferStatus = external global ptr
+@__gl_BindFramebuffer = external global ptr
+@__gl_DeleteFramebuffers = external global ptr
+@__gl_FramebufferTexture2D = external global ptr
+@__gl_FramebufferRenderbuffer = external global ptr
+@__gl_GenRenderbuffers = external global ptr
+@__gl_BindRenderbuffer = external global ptr
+@__gl_RenderbufferStorage = external global ptr
+@__gl_GenTextures = external global ptr
+@__gl_BindTexture = external global ptr
+@__gl_TexImage2D = external global ptr
+@__gl_TexParameteri = external global ptr
 @__gl_Enable = external global ptr
 @__gl_Disable = external global ptr
-@__gl_EnableVertexAttribArray = external global ptr
-@__gl_DisableVertexAttribArray = external global ptr
-@__gl_VertexAttribPointer = external global ptr
 @__gl_CreateShader = external global ptr
 @__gl_ShaderSource = external global ptr
 @__gl_CompileShader = external global ptr
@@ -77,14 +97,18 @@ target triple = "x86_64-pc-windows-msvc"
 @__gl_CreateProgram = external global ptr
 @__gl_DeleteProgram = external global ptr
 @__gl_GetUniformLocation = external global ptr
-@__gl_Uniform1f = external global ptr
 @__gl_Uniform1i = external global ptr
+@__gl_Uniform1f = external global ptr
+@__gl_Uniform2f = external global ptr
+@__gl_Uniform3f = external global ptr
 @__gl_UniformMatrix4fv = external global ptr
 @__gl_DrawArrays = external global ptr
 @__gl_DrawElements = external global ptr
 @__gl_Viewport = external global ptr
 @__gl_DebugMessageCallback = external global ptr
 @__gl_DebugMessageControl = external global ptr
+@__gl_LineWidth = external global ptr
+@__gl_BlendFunc = external global ptr
 @__gl_VERSION_ES_CL_1_0 = external global i32
 @__gl_VERSION_ES_CM_1_1 = external global i32
 @__gl_VERSION_ES_CL_1_1 = external global i32
@@ -761,10 +785,245 @@ target triple = "x86_64-pc-windows-msvc"
 @__gl_MAX_VERTEX_ATTRIB_BINDINGS = external global i32
 @__gl_VERTEX_BINDING_BUFFER = external global i32
 @__gl_DISPLAY_LIST = external global i32
-@__renderer_vert_shader = external global ptr
-@__renderer_frag_shader = external global ptr
+@__gl_COMPARE_REF_TO_TEXTURE = external global i32
+@__gl_CLIP_DISTANCE0 = external global i32
+@__gl_CLIP_DISTANCE1 = external global i32
+@__gl_CLIP_DISTANCE2 = external global i32
+@__gl_CLIP_DISTANCE3 = external global i32
+@__gl_CLIP_DISTANCE4 = external global i32
+@__gl_CLIP_DISTANCE5 = external global i32
+@__gl_CLIP_DISTANCE6 = external global i32
+@__gl_CLIP_DISTANCE7 = external global i32
+@__gl_MAX_CLIP_DISTANCES = external global i32
+@__gl_MAJOR_VERSION = external global i32
+@__gl_MINOR_VERSION = external global i32
+@__gl_NUM_EXTENSIONS = external global i32
+@__gl_CONTEXT_FLAGS = external global i32
+@__gl_COMPRESSED_RED = external global i32
+@__gl_COMPRESSED_RG = external global i32
+@__gl_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT = external global i32
+@__gl_RGBA32F = external global i32
+@__gl_RGB32F = external global i32
+@__gl_RGBA16F = external global i32
+@__gl_RGB16F = external global i32
+@__gl_VERTEX_ATTRIB_ARRAY_INTEGER = external global i32
+@__gl_MAX_ARRAY_TEXTURE_LAYERS = external global i32
+@__gl_MIN_PROGRAM_TEXEL_OFFSET = external global i32
+@__gl_MAX_PROGRAM_TEXEL_OFFSET = external global i32
+@__gl_CLAMP_READ_COLOR = external global i32
+@__gl_FIXED_ONLY = external global i32
+@__gl_MAX_VARYING_COMPONENTS = external global i32
+@__gl_TEXTURE_1D_ARRAY = external global i32
+@__gl_PROXY_TEXTURE_1D_ARRAY = external global i32
+@__gl_TEXTURE_2D_ARRAY = external global i32
+@__gl_PROXY_TEXTURE_2D_ARRAY = external global i32
+@__gl_TEXTURE_BINDING_1D_ARRAY = external global i32
+@__gl_TEXTURE_BINDING_2D_ARRAY = external global i32
+@__gl_R11F_G11F_B10F = external global i32
+@__gl_UNSIGNED_INT_10F_11F_11F_REV = external global i32
+@__gl_RGB9_E5 = external global i32
+@__gl_UNSIGNED_INT_5_9_9_9_REV = external global i32
+@__gl_TEXTURE_SHARED_SIZE = external global i32
+@__gl_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH = external global i32
+@__gl_TRANSFORM_FEEDBACK_BUFFER_MODE = external global i32
+@__gl_MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS = external global i32
+@__gl_TRANSFORM_FEEDBACK_VARYINGS = external global i32
+@__gl_TRANSFORM_FEEDBACK_BUFFER_START = external global i32
+@__gl_TRANSFORM_FEEDBACK_BUFFER_SIZE = external global i32
+@__gl_PRIMITIVES_GENERATED = external global i32
+@__gl_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN = external global i32
+@__gl_RASTERIZER_DISCARD = external global i32
+@__gl_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS = external global i32
+@__gl_MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS = external global i32
+@__gl_INTERLEAVED_ATTRIBS = external global i32
+@__gl_SEPARATE_ATTRIBS = external global i32
+@__gl_TRANSFORM_FEEDBACK_BUFFER = external global i32
+@__gl_TRANSFORM_FEEDBACK_BUFFER_BINDING = external global i32
+@__gl_RGBA32UI = external global i32
+@__gl_RGB32UI = external global i32
+@__gl_RGBA16UI = external global i32
+@__gl_RGB16UI = external global i32
+@__gl_RGBA8UI = external global i32
+@__gl_RGB8UI = external global i32
+@__gl_RGBA32I = external global i32
+@__gl_RGB32I = external global i32
+@__gl_RGBA16I = external global i32
+@__gl_RGB16I = external global i32
+@__gl_RGBA8I = external global i32
+@__gl_RGB8I = external global i32
+@__gl_RED_INTEGER = external global i32
+@__gl_GREEN_INTEGER = external global i32
+@__gl_BLUE_INTEGER = external global i32
+@__gl_RGB_INTEGER = external global i32
+@__gl_RGBA_INTEGER = external global i32
+@__gl_BGR_INTEGER = external global i32
+@__gl_BGRA_INTEGER = external global i32
+@__gl_SAMPLER_1D_ARRAY = external global i32
+@__gl_SAMPLER_2D_ARRAY = external global i32
+@__gl_SAMPLER_1D_ARRAY_SHADOW = external global i32
+@__gl_SAMPLER_2D_ARRAY_SHADOW = external global i32
+@__gl_SAMPLER_CUBE_SHADOW = external global i32
+@__gl_UNSIGNED_INT_VEC2 = external global i32
+@__gl_UNSIGNED_INT_VEC3 = external global i32
+@__gl_UNSIGNED_INT_VEC4 = external global i32
+@__gl_INT_SAMPLER_1D = external global i32
+@__gl_INT_SAMPLER_2D = external global i32
+@__gl_INT_SAMPLER_3D = external global i32
+@__gl_INT_SAMPLER_CUBE = external global i32
+@__gl_INT_SAMPLER_1D_ARRAY = external global i32
+@__gl_INT_SAMPLER_2D_ARRAY = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_1D = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_2D = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_3D = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_CUBE = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_1D_ARRAY = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_2D_ARRAY = external global i32
+@__gl_QUERY_WAIT = external global i32
+@__gl_QUERY_NO_WAIT = external global i32
+@__gl_QUERY_BY_REGION_WAIT = external global i32
+@__gl_QUERY_BY_REGION_NO_WAIT = external global i32
+@__gl_BUFFER_ACCESS_FLAGS = external global i32
+@__gl_BUFFER_MAP_LENGTH = external global i32
+@__gl_BUFFER_MAP_OFFSET = external global i32
+@__gl_DEPTH_COMPONENT32F = external global i32
+@__gl_DEPTH32F_STENCIL8 = external global i32
+@__gl_FLOAT_32_UNSIGNED_INT_24_8_REV = external global i32
+@__gl_INVALID_FRAMEBUFFER_OPERATION = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_RED_SIZE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_GREEN_SIZE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_BLUE_SIZE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_ALPHA_SIZE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_DEPTH_SIZE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE = external global i32
+@__gl_FRAMEBUFFER_DEFAULT = external global i32
+@__gl_FRAMEBUFFER_UNDEFINED = external global i32
+@__gl_DEPTH_STENCIL_ATTACHMENT = external global i32
+@__gl_MAX_RENDERBUFFER_SIZE = external global i32
+@__gl_DEPTH_STENCIL = external global i32
+@__gl_UNSIGNED_INT_24_8 = external global i32
+@__gl_DEPTH24_STENCIL8 = external global i32
+@__gl_TEXTURE_STENCIL_SIZE = external global i32
+@__gl_TEXTURE_RED_TYPE = external global i32
+@__gl_TEXTURE_GREEN_TYPE = external global i32
+@__gl_TEXTURE_BLUE_TYPE = external global i32
+@__gl_TEXTURE_ALPHA_TYPE = external global i32
+@__gl_TEXTURE_DEPTH_TYPE = external global i32
+@__gl_UNSIGNED_NORMALIZED = external global i32
+@__gl_FRAMEBUFFER_BINDING = external global i32
+@__gl_DRAW_FRAMEBUFFER_BINDING = external global i32
+@__gl_RENDERBUFFER_BINDING = external global i32
+@__gl_READ_FRAMEBUFFER = external global i32
+@__gl_DRAW_FRAMEBUFFER = external global i32
+@__gl_READ_FRAMEBUFFER_BINDING = external global i32
+@__gl_RENDERBUFFER_SAMPLES = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER = external global i32
+@__gl_FRAMEBUFFER_COMPLETE = external global i32
+@__gl_FRAMEBUFFER_INCOMPLETE_ATTACHMENT = external global i32
+@__gl_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT = external global i32
+@__gl_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER = external global i32
+@__gl_FRAMEBUFFER_INCOMPLETE_READ_BUFFER = external global i32
+@__gl_FRAMEBUFFER_UNSUPPORTED = external global i32
+@__gl_MAX_COLOR_ATTACHMENTS = external global i32
+@__gl_COLOR_ATTACHMENT0 = external global i32
+@__gl_COLOR_ATTACHMENT1 = external global i32
+@__gl_COLOR_ATTACHMENT2 = external global i32
+@__gl_COLOR_ATTACHMENT3 = external global i32
+@__gl_COLOR_ATTACHMENT4 = external global i32
+@__gl_COLOR_ATTACHMENT5 = external global i32
+@__gl_COLOR_ATTACHMENT6 = external global i32
+@__gl_COLOR_ATTACHMENT7 = external global i32
+@__gl_COLOR_ATTACHMENT8 = external global i32
+@__gl_COLOR_ATTACHMENT9 = external global i32
+@__gl_COLOR_ATTACHMENT10 = external global i32
+@__gl_COLOR_ATTACHMENT11 = external global i32
+@__gl_COLOR_ATTACHMENT12 = external global i32
+@__gl_COLOR_ATTACHMENT13 = external global i32
+@__gl_COLOR_ATTACHMENT14 = external global i32
+@__gl_COLOR_ATTACHMENT15 = external global i32
+@__gl_COLOR_ATTACHMENT16 = external global i32
+@__gl_COLOR_ATTACHMENT17 = external global i32
+@__gl_COLOR_ATTACHMENT18 = external global i32
+@__gl_COLOR_ATTACHMENT19 = external global i32
+@__gl_COLOR_ATTACHMENT20 = external global i32
+@__gl_COLOR_ATTACHMENT21 = external global i32
+@__gl_COLOR_ATTACHMENT22 = external global i32
+@__gl_COLOR_ATTACHMENT23 = external global i32
+@__gl_COLOR_ATTACHMENT24 = external global i32
+@__gl_COLOR_ATTACHMENT25 = external global i32
+@__gl_COLOR_ATTACHMENT26 = external global i32
+@__gl_COLOR_ATTACHMENT27 = external global i32
+@__gl_COLOR_ATTACHMENT28 = external global i32
+@__gl_COLOR_ATTACHMENT29 = external global i32
+@__gl_COLOR_ATTACHMENT30 = external global i32
+@__gl_COLOR_ATTACHMENT31 = external global i32
+@__gl_DEPTH_ATTACHMENT = external global i32
+@__gl_STENCIL_ATTACHMENT = external global i32
+@__gl_FRAMEBUFFER = external global i32
+@__gl_RENDERBUFFER = external global i32
+@__gl_RENDERBUFFER_WIDTH = external global i32
+@__gl_RENDERBUFFER_HEIGHT = external global i32
+@__gl_RENDERBUFFER_INTERNAL_FORMAT = external global i32
+@__gl_STENCIL_INDEX1 = external global i32
+@__gl_STENCIL_INDEX4 = external global i32
+@__gl_STENCIL_INDEX8 = external global i32
+@__gl_STENCIL_INDEX16 = external global i32
+@__gl_RENDERBUFFER_RED_SIZE = external global i32
+@__gl_RENDERBUFFER_GREEN_SIZE = external global i32
+@__gl_RENDERBUFFER_BLUE_SIZE = external global i32
+@__gl_RENDERBUFFER_ALPHA_SIZE = external global i32
+@__gl_RENDERBUFFER_DEPTH_SIZE = external global i32
+@__gl_RENDERBUFFER_STENCIL_SIZE = external global i32
+@__gl_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE = external global i32
+@__gl_MAX_SAMPLES = external global i32
+@__gl_INDEX = external global i32
+@__gl_TEXTURE_LUMINANCE_TYPE = external global i32
+@__gl_TEXTURE_INTENSITY_TYPE = external global i32
+@__gl_FRAMEBUFFER_SRGB = external global i32
+@__gl_HALF_FLOAT = external global i32
+@__gl_MAP_READ_BIT = external global i32
+@__gl_MAP_WRITE_BIT = external global i32
+@__gl_MAP_INVALIDATE_RANGE_BIT = external global i32
+@__gl_MAP_INVALIDATE_BUFFER_BIT = external global i32
+@__gl_MAP_FLUSH_EXPLICIT_BIT = external global i32
+@__gl_MAP_UNSYNCHRONIZED_BIT = external global i32
+@__gl_COMPRESSED_RED_RGTC1 = external global i32
+@__gl_COMPRESSED_SIGNED_RED_RGTC1 = external global i32
+@__gl_COMPRESSED_RG_RGTC2 = external global i32
+@__gl_COMPRESSED_SIGNED_RG_RGTC2 = external global i32
+@__gl_RG = external global i32
+@__gl_RG_INTEGER = external global i32
+@__gl_R8 = external global i32
+@__gl_R16 = external global i32
+@__gl_RG8 = external global i32
+@__gl_RG16 = external global i32
+@__gl_R16F = external global i32
+@__gl_R32F = external global i32
+@__gl_RG16F = external global i32
+@__gl_RG32F = external global i32
+@__gl_R8I = external global i32
+@__gl_R8UI = external global i32
+@__gl_R16I = external global i32
+@__gl_R16UI = external global i32
+@__gl_R32I = external global i32
+@__gl_R32UI = external global i32
+@__gl_RG8I = external global i32
+@__gl_RG8UI = external global i32
+@__gl_RG16I = external global i32
+@__gl_RG16UI = external global i32
+@__gl_RG32I = external global i32
+@__gl_RG32UI = external global i32
+@__gl_VERTEX_ARRAY_BINDING = external global i32
+@__gl_CLAMP_VERTEX_COLOR = external global i32
+@__gl_CLAMP_FRAGMENT_COLOR = external global i32
+@__gl_ALPHA_INTEGER = external global i32
 @__init_INVALID_TYPE = external global i64
-@__init_type_table = external global %slice.671
+@__init_type_table = external global %slice.797
 @__os_STD_INPUT_HANDLE = external global i32
 @__os_STD_OUTPUT_HANDLE = external global i32
 @__os_STD_ERROR_HANDLE = external global i32
@@ -810,7 +1069,11 @@ declare i1 @SDL_PollEvent(ptr)
 
 declare ptr @SDL_GetError()
 
+declare i64 @SDL_GetTicks()
+
 declare i1 @SDL_GL_SetSwapInterval(i32)
+
+declare i32 @__sdl_BUTTON_MASK(i32)
 
 declare ptr @wglGetProcAddress(ptr)
 
@@ -822,17 +1085,45 @@ declare ptr @__gl_load_gl_fn(ptr)
 
 declare i1 @__gl_load()
 
+declare i32 @__renderer_compile_shaders(ptr, ptr)
+
+declare void @__renderer_use_shader(i32)
+
+declare i64 @__renderer_create_ctx()
+
+declare ptr @__renderer_create_framebuffer(i32, i32, ptr)
+
+declare void @__renderer_delete_framebuffer(ptr)
+
+declare void @__renderer_bind_framebuffer(ptr, ptr)
+
+declare void @__renderer_draw_verts(ptr, ptr)
+
+declare void @__renderer_draw_lines(ptr, ptr, float)
+
 declare void @__renderer_compile_shader(i32, ptr, ptr)
 
 declare void @__renderer_gl_callback(i32, i32, i32, i32, i32, ptr, ptr)
 
-declare void @__renderer_create_ctx(ptr)
+declare void @"__renderer_set_uniform@u32_string_f32_@void"(i32, ptr, float)
 
-declare void @__renderer_draw_verts(ptr, ptr)
+declare void @"__renderer_set_uniform@u32_string_@@f32_f32_@@__math_v2_@void"(i32, ptr, i64)
 
-declare void @__graph_draw_line(i64, i64, ptr)
+declare void @"__renderer_set_uniform@u32_string_@@f32_f32_f32_@@__math_v3_@void"(i32, ptr, ptr)
 
-declare void @__graph_draw_graph(ptr, float, float, float, float)
+declare void @"__renderer_set_uniform@u32_string_int_@void"(i32, ptr, i64)
+
+declare i64 @__graph_map_point(i64, float, float)
+
+declare i64 @__graph_calculate_spline(i64, i64, i64, i64, float)
+
+declare void @__graph_draw(ptr, ptr, float, float)
+
+declare i64 @__math_v2_scale(i64, float)
+
+declare i64 @__math_v2_add(i64, i64)
+
+declare float @__math_map(float, float, float, float, float)
 
 declare void @__init_global_initializers()
 
@@ -864,6 +1155,8 @@ declare ptr @VirtualAlloc(ptr, i64, i32, i32)
 
 declare i1 @VirtualFree(ptr, i64, i32)
 
+declare i1 @ReadConsoleA(ptr, ptr, i32, ptr, ptr)
+
 declare void @__os_abort()
 
 declare void @__os_assert(i1, ptr)
@@ -873,6 +1166,8 @@ declare void @__os_print(ptr, i32)
 declare ptr @__os_alloc(i64)
 
 declare void @__os_free(ptr)
+
+declare i32 @__os_read_stdin_line(ptr, i32)
 
 declare void @__io_push_string(ptr, ptr)
 
@@ -893,6 +1188,8 @@ declare void @__io___internal_print(ptr, ptr, ptr)
 declare void @__io_print(ptr, ptr)
 
 declare void @__io_println(ptr, ptr)
+
+declare void @__io_readln(ptr, ptr, i32)
 
 declare i32 @__io_get_next(ptr)
 
@@ -927,6 +1224,10 @@ declare ptr @__str__it_advance(ptr, i64, i64)
 declare i32 @__str_deref(ptr)
 
 declare i32 @__str_index(ptr, i64)
+
+declare void @"__array_create@type_*__mem_Allocator_@[]__math_v3"(ptr, i64, ptr)
+
+declare void @"__array_add@@@f32_f32_f32_@@*[]__math_v3_@@f32_f32_f32_@@__math_v3_@void"(ptr, ptr)
 
 declare void @"__array_add@*[]u32_u32_@void"(ptr, i32)
 
@@ -970,11 +1271,11 @@ declare void @__asan_version_mismatch_check_v8()
 attributes #0 = { nounwind }
 
 !llvm.dbg.cu = !{!0}
-!llvm.module.flags = !{!96, !97}
+!llvm.module.flags = !{!99, !100}
 
 !0 = distinct !DICompileUnit(language: DW_LANG_C99, file: !1, producer: "RCP Compiler", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, enums: !2, splitDebugInlining: false)
 !1 = !DIFile(filename: "compile.rcp", directory: "E:\\C_Projects\\ReComp\\std")
-!2 = !{!3, !15, !36, !45, !50, !54, !62, !66, !3, !15, !36, !45, !50, !54}
+!2 = !{!3, !15, !36, !45, !50, !54, !62, !69, !3, !15, !36, !45, !50, !54}
 !3 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_TypeKind", scope: !1, file: !1, size: 64, align: 64, elements: !4)
 !4 = !{!5, !6, !7, !8, !9, !10, !11, !12, !13, !14}
 !5 = !DIEnumerator(name: "Invalid", value: 0, isUnsigned: true)
@@ -1035,38 +1336,41 @@ attributes #0 = { nounwind }
 !60 = !DIEnumerator(name: "SanUndefined", value: 16, isUnsigned: true)
 !61 = !DIEnumerator(name: "NoStdLib", value: 32, isUnsigned: true)
 !62 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__sdl_EventType", scope: !1, file: !1, size: 32, align: 32, elements: !63)
-!63 = !{!64, !65}
+!63 = !{!64, !65, !66, !67, !68}
 !64 = !DIEnumerator(name: "FIRST", value: 0)
 !65 = !DIEnumerator(name: "QUIT", value: 256, isUnsigned: true)
-!66 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__sdl_GLattr", scope: !1, file: !1, size: 32, align: 32, elements: !67)
-!67 = !{!68, !69, !70, !71, !72, !73, !74, !75, !76, !77, !78, !79, !80, !81, !82, !83, !84, !85, !86, !87, !88, !89, !90, !91, !92, !93, !94, !95}
-!68 = !DIEnumerator(name: "RED_SIZE", value: 0, isUnsigned: true)
-!69 = !DIEnumerator(name: "GREEN_SIZE", value: 1, isUnsigned: true)
-!70 = !DIEnumerator(name: "BLUE_SIZE", value: 2, isUnsigned: true)
-!71 = !DIEnumerator(name: "ALPHA_SIZE", value: 3, isUnsigned: true)
-!72 = !DIEnumerator(name: "BUFFER_SIZE", value: 4, isUnsigned: true)
-!73 = !DIEnumerator(name: "DOUBLEBUFFER", value: 5, isUnsigned: true)
-!74 = !DIEnumerator(name: "DEPTH_SIZE", value: 6, isUnsigned: true)
-!75 = !DIEnumerator(name: "STENCIL_SIZE", value: 7, isUnsigned: true)
-!76 = !DIEnumerator(name: "ACCUM_RED_SIZE", value: 8, isUnsigned: true)
-!77 = !DIEnumerator(name: "ACCUM_GREEN_SIZE", value: 9, isUnsigned: true)
-!78 = !DIEnumerator(name: "ACCUM_BLUE_SIZE", value: 10, isUnsigned: true)
-!79 = !DIEnumerator(name: "ACCUM_ALPHA_SIZE", value: 11, isUnsigned: true)
-!80 = !DIEnumerator(name: "STEREO", value: 12, isUnsigned: true)
-!81 = !DIEnumerator(name: "MULTISAMPLEBUFFERS", value: 13, isUnsigned: true)
-!82 = !DIEnumerator(name: "MULTISAMPLESAMPLES", value: 14, isUnsigned: true)
-!83 = !DIEnumerator(name: "ACCELERATED_VISUAL", value: 15, isUnsigned: true)
-!84 = !DIEnumerator(name: "RETAINED_BACKING", value: 16, isUnsigned: true)
-!85 = !DIEnumerator(name: "CONTEXT_MAJOR_VERSION", value: 17, isUnsigned: true)
-!86 = !DIEnumerator(name: "CONTEXT_MINOR_VERSION", value: 18, isUnsigned: true)
-!87 = !DIEnumerator(name: "CONTEXT_FLAGS", value: 19, isUnsigned: true)
-!88 = !DIEnumerator(name: "CONTEXT_PROFILE_MASK", value: 20, isUnsigned: true)
-!89 = !DIEnumerator(name: "SHARE_WITH_CURRENT_CONTEXT", value: 21, isUnsigned: true)
-!90 = !DIEnumerator(name: "FRAMEBUFFER_SRGB_CAPABLE", value: 22, isUnsigned: true)
-!91 = !DIEnumerator(name: "CONTEXT_RELEASE_BEHAVIOR", value: 23, isUnsigned: true)
-!92 = !DIEnumerator(name: "CONTEXT_RESET_NOTIFICATION", value: 24, isUnsigned: true)
-!93 = !DIEnumerator(name: "CONTEXT_NO_ERROR", value: 25, isUnsigned: true)
-!94 = !DIEnumerator(name: "FLOATBUFFERS", value: 26, isUnsigned: true)
-!95 = !DIEnumerator(name: "EGL_PLATFORM", value: 27, isUnsigned: true)
-!96 = !{i32 2, !"CodeView", i32 1}
-!97 = !{i32 2, !"Debug Info Version", i32 3}
+!66 = !DIEnumerator(name: "MOUSE_MOTION", value: 1024, isUnsigned: true)
+!67 = !DIEnumerator(name: "MOUSE_BUTTON_DOWN", value: 1025, isUnsigned: true)
+!68 = !DIEnumerator(name: "MOUSE_BUTTON_UP", value: 1026, isUnsigned: true)
+!69 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__sdl_GLattr", scope: !1, file: !1, size: 32, align: 32, elements: !70)
+!70 = !{!71, !72, !73, !74, !75, !76, !77, !78, !79, !80, !81, !82, !83, !84, !85, !86, !87, !88, !89, !90, !91, !92, !93, !94, !95, !96, !97, !98}
+!71 = !DIEnumerator(name: "RED_SIZE", value: 0, isUnsigned: true)
+!72 = !DIEnumerator(name: "GREEN_SIZE", value: 1, isUnsigned: true)
+!73 = !DIEnumerator(name: "BLUE_SIZE", value: 2, isUnsigned: true)
+!74 = !DIEnumerator(name: "ALPHA_SIZE", value: 3, isUnsigned: true)
+!75 = !DIEnumerator(name: "BUFFER_SIZE", value: 4, isUnsigned: true)
+!76 = !DIEnumerator(name: "DOUBLEBUFFER", value: 5, isUnsigned: true)
+!77 = !DIEnumerator(name: "DEPTH_SIZE", value: 6, isUnsigned: true)
+!78 = !DIEnumerator(name: "STENCIL_SIZE", value: 7, isUnsigned: true)
+!79 = !DIEnumerator(name: "ACCUM_RED_SIZE", value: 8, isUnsigned: true)
+!80 = !DIEnumerator(name: "ACCUM_GREEN_SIZE", value: 9, isUnsigned: true)
+!81 = !DIEnumerator(name: "ACCUM_BLUE_SIZE", value: 10, isUnsigned: true)
+!82 = !DIEnumerator(name: "ACCUM_ALPHA_SIZE", value: 11, isUnsigned: true)
+!83 = !DIEnumerator(name: "STEREO", value: 12, isUnsigned: true)
+!84 = !DIEnumerator(name: "MULTISAMPLEBUFFERS", value: 13, isUnsigned: true)
+!85 = !DIEnumerator(name: "MULTISAMPLESAMPLES", value: 14, isUnsigned: true)
+!86 = !DIEnumerator(name: "ACCELERATED_VISUAL", value: 15, isUnsigned: true)
+!87 = !DIEnumerator(name: "RETAINED_BACKING", value: 16, isUnsigned: true)
+!88 = !DIEnumerator(name: "CONTEXT_MAJOR_VERSION", value: 17, isUnsigned: true)
+!89 = !DIEnumerator(name: "CONTEXT_MINOR_VERSION", value: 18, isUnsigned: true)
+!90 = !DIEnumerator(name: "CONTEXT_FLAGS", value: 19, isUnsigned: true)
+!91 = !DIEnumerator(name: "CONTEXT_PROFILE_MASK", value: 20, isUnsigned: true)
+!92 = !DIEnumerator(name: "SHARE_WITH_CURRENT_CONTEXT", value: 21, isUnsigned: true)
+!93 = !DIEnumerator(name: "FRAMEBUFFER_SRGB_CAPABLE", value: 22, isUnsigned: true)
+!94 = !DIEnumerator(name: "CONTEXT_RELEASE_BEHAVIOR", value: 23, isUnsigned: true)
+!95 = !DIEnumerator(name: "CONTEXT_RESET_NOTIFICATION", value: 24, isUnsigned: true)
+!96 = !DIEnumerator(name: "CONTEXT_NO_ERROR", value: 25, isUnsigned: true)
+!97 = !DIEnumerator(name: "FLOATBUFFERS", value: 26, isUnsigned: true)
+!98 = !DIEnumerator(name: "EGL_PLATFORM", value: 27, isUnsigned: true)
+!99 = !{i32 2, !"CodeView", i32 1}
+!100 = !{i32 2, !"Debug Info Version", i32 3}

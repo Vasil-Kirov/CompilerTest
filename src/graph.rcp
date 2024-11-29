@@ -10,8 +10,8 @@ map_point :: fn(p: m.v2, x_end: f32, y_end: f32) -> m.v2 {
     X :: @f32 0.75;
 	Y :: @f32 0.75;
 	return m.v2 {
-		r.map(p.x, 0, x_end, -X, X),
-		r.map(p.y, 0, y_end, -Y, Y),
+		m.map(p.x, 0, x_end, -X, X),
+		m.map(p.y, 0, y_end, -Y, Y),
 	};
 }
 
@@ -26,6 +26,7 @@ calculate_spline :: fn(p0: m.v2, p1: m.v2, p2: m.v2, p3: m.v2, t: f32) -> m.v2 {
 
 	// @TODO: compiler bug, investigate
 	// return m.v2_add(m.v2_add(m.v2_scale(p0, q0), m.v2_scale(p1, q1)), m.v2_add(m.v2_scale(p2, q2), m.v2_scale(p3, q3)));
+
 	x := 0.5 * (p0.x * q0 + p1.x * q1 + p2.x * q2 + p3.x * q3);
 	y := 0.5 * (p0.y * q0 + p1.y * q1 + p2.y * q2 + p3.y * q3);
 	return m.v2 { x, y };
@@ -39,7 +40,6 @@ draw :: fn(renderer: *r.ctx, points: []m.v2, x_end: f32, y_end: f32) {
     defer mem.destroy_scratch(&scratch);
 
     verts := arr.create(m.v3, &scratch);
-	r.set_uniform(renderer, "mouse", m.v2 { 1, 1 });
 
     for i := 1; i < points.count-2; i += 1 {
 		p0 := map_point(points[i-1], x_end, y_end);

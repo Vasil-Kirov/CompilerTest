@@ -3,31 +3,60 @@ source_filename = "main.rcp"
 target datalayout = "e-m:w-p270:32:32-p271:32:32-p272:64:64-i64:64-i128:128-f80:128-n8:16:32:64-S128"
 target triple = "x86_64-pc-windows-msvc"
 
-%slice.22 = type { i64, ptr }
-%slice.25 = type { i64, ptr }
+%slice.23 = type { i64, ptr }
+%slice.26 = type { i64, ptr }
 %__init_Arg = type { i64, ptr }
 %string = type { ptr, i64 }
-%__renderer_ctx = type { i32, i32, i32 }
+%__renderer_ctx = type { i32, i32 }
+%slice.22 = type { i64, ptr }
+%__math_v2 = type { float, float }
 %__sdl_Event = type { [128 x i8] }
-%slice.20 = type { i64, ptr }
-%__renderer_vec3 = type { float, float, float }
+%__math_v3 = type { float, float, float }
+%__sdl_MouseMotionEvent = type { i32, i32, i64, i32, i32, i32, float, float, float, float }
+%__sdl_MouseButtonEvent = type { i32, i32, i64, i32, i32, i8, i8, i8, i8, float, float }
 
 $__main_WIDTH = comdat nodeduplicate
 
 $__main_HEIGHT = comdat nodeduplicate
 
+$__main_vert_shader = comdat nodeduplicate
+
+$__main_frag_shader = comdat nodeduplicate
+
 $___asan_gen__anon_global = comdat nodeduplicate
 
-$___asan_gen__anon_global.10 = comdat nodeduplicate
+$___asan_gen__anon_global.22 = comdat nodeduplicate
 
-$___asan_gen__anon_global.12 = comdat nodeduplicate
+$___asan_gen__anon_global.24 = comdat nodeduplicate
 
-$___asan_gen__anon_global.14 = comdat nodeduplicate
+$___asan_gen__anon_global.26 = comdat nodeduplicate
 
-$___asan_gen__anon_global.16 = comdat nodeduplicate
+$___asan_gen__anon_global.28 = comdat nodeduplicate
+
+$___asan_gen__anon_global.30 = comdat nodeduplicate
+
+$___asan_gen__anon_global.32 = comdat nodeduplicate
+
+$___asan_gen__anon_global.34 = comdat nodeduplicate
+
+$___asan_gen__anon_global.36 = comdat nodeduplicate
+
+$___asan_gen__anon_global.38 = comdat nodeduplicate
+
+$___asan_gen__anon_global.40 = comdat nodeduplicate
+
+$___asan_gen__anon_global.42 = comdat nodeduplicate
+
+$___asan_gen__anon_global.44 = comdat nodeduplicate
+
+$___asan_gen__anon_global.46 = comdat nodeduplicate
+
+$___asan_gen__anon_global.48 = comdat nodeduplicate
 
 @__main_WIDTH = global { i32, [28 x i8] } zeroinitializer, comdat, align 32
 @__main_HEIGHT = global { i32, [28 x i8] } zeroinitializer, comdat, align 32
+@__main_vert_shader = global { ptr, [24 x i8] } zeroinitializer, comdat, align 32
+@__main_frag_shader = global { ptr, [24 x i8] } zeroinitializer, comdat, align 32
 @__sdl_INIT_AUDIO = external global i32
 @__sdl_INIT_VIDEO = external global i32
 @__sdl_INIT_JOYSTICK = external global i32
@@ -61,6 +90,11 @@ $___asan_gen__anon_global.16 = comdat nodeduplicate
 @__sdl_WINDOW_METAL = external global i64
 @__sdl_WINDOW_TRANSPARENT = external global i64
 @__sdl_WINDOW_NOT_FOCUSABLE = external global i64
+@__sdl_BUTTON_LEFT = external global i32
+@__sdl_BUTTON_MIDDLE = external global i32
+@__sdl_BUTTON_RIGHT = external global i32
+@__sdl_BUTTON_X1 = external global i32
+@__sdl_BUTTON_X2 = external global i32
 @__sdl_GL_CONTEXT_PROFILE_CORE = external global i32
 @__sdl_GL_CONTEXT_PROFILE_COMPATIBILITY = external global i32
 @__sdl_GL_CONTEXT_PROFILE_ES = external global i32
@@ -72,18 +106,31 @@ $___asan_gen__anon_global.16 = comdat nodeduplicate
 @__gl_ClearColor = external global ptr
 @__gl_Clear = external global ptr
 @__gl_GenVertexArrays = external global ptr
+@__gl_BindVertexArray = external global ptr
+@__gl_DeleteVertexArrays = external global ptr
+@__gl_EnableVertexAttribArray = external global ptr
+@__gl_DisableVertexAttribArray = external global ptr
+@__gl_VertexAttribPointer = external global ptr
 @__gl_GenBuffers = external global ptr
 @__gl_BindBuffer = external global ptr
 @__gl_BufferData = external global ptr
 @__gl_BufferSubData = external global ptr
 @__gl_DeleteBuffers = external global ptr
-@__gl_DeleteVertexArrays = external global ptr
-@__gl_BindVertexArray = external global ptr
+@__gl_GenFramebuffers = external global ptr
+@__gl_CheckFramebufferStatus = external global ptr
+@__gl_BindFramebuffer = external global ptr
+@__gl_DeleteFramebuffers = external global ptr
+@__gl_FramebufferTexture2D = external global ptr
+@__gl_FramebufferRenderbuffer = external global ptr
+@__gl_GenRenderbuffers = external global ptr
+@__gl_BindRenderbuffer = external global ptr
+@__gl_RenderbufferStorage = external global ptr
+@__gl_GenTextures = external global ptr
+@__gl_BindTexture = external global ptr
+@__gl_TexImage2D = external global ptr
+@__gl_TexParameteri = external global ptr
 @__gl_Enable = external global ptr
 @__gl_Disable = external global ptr
-@__gl_EnableVertexAttribArray = external global ptr
-@__gl_DisableVertexAttribArray = external global ptr
-@__gl_VertexAttribPointer = external global ptr
 @__gl_CreateShader = external global ptr
 @__gl_ShaderSource = external global ptr
 @__gl_CompileShader = external global ptr
@@ -98,14 +145,18 @@ $___asan_gen__anon_global.16 = comdat nodeduplicate
 @__gl_CreateProgram = external global ptr
 @__gl_DeleteProgram = external global ptr
 @__gl_GetUniformLocation = external global ptr
-@__gl_Uniform1f = external global ptr
 @__gl_Uniform1i = external global ptr
+@__gl_Uniform1f = external global ptr
+@__gl_Uniform2f = external global ptr
+@__gl_Uniform3f = external global ptr
 @__gl_UniformMatrix4fv = external global ptr
 @__gl_DrawArrays = external global ptr
 @__gl_DrawElements = external global ptr
 @__gl_Viewport = external global ptr
 @__gl_DebugMessageCallback = external global ptr
 @__gl_DebugMessageControl = external global ptr
+@__gl_LineWidth = external global ptr
+@__gl_BlendFunc = external global ptr
 @__gl_VERSION_ES_CL_1_0 = external global i32
 @__gl_VERSION_ES_CM_1_1 = external global i32
 @__gl_VERSION_ES_CL_1_1 = external global i32
@@ -782,10 +833,245 @@ $___asan_gen__anon_global.16 = comdat nodeduplicate
 @__gl_MAX_VERTEX_ATTRIB_BINDINGS = external global i32
 @__gl_VERTEX_BINDING_BUFFER = external global i32
 @__gl_DISPLAY_LIST = external global i32
-@__renderer_vert_shader = external global ptr
-@__renderer_frag_shader = external global ptr
+@__gl_COMPARE_REF_TO_TEXTURE = external global i32
+@__gl_CLIP_DISTANCE0 = external global i32
+@__gl_CLIP_DISTANCE1 = external global i32
+@__gl_CLIP_DISTANCE2 = external global i32
+@__gl_CLIP_DISTANCE3 = external global i32
+@__gl_CLIP_DISTANCE4 = external global i32
+@__gl_CLIP_DISTANCE5 = external global i32
+@__gl_CLIP_DISTANCE6 = external global i32
+@__gl_CLIP_DISTANCE7 = external global i32
+@__gl_MAX_CLIP_DISTANCES = external global i32
+@__gl_MAJOR_VERSION = external global i32
+@__gl_MINOR_VERSION = external global i32
+@__gl_NUM_EXTENSIONS = external global i32
+@__gl_CONTEXT_FLAGS = external global i32
+@__gl_COMPRESSED_RED = external global i32
+@__gl_COMPRESSED_RG = external global i32
+@__gl_CONTEXT_FLAG_FORWARD_COMPATIBLE_BIT = external global i32
+@__gl_RGBA32F = external global i32
+@__gl_RGB32F = external global i32
+@__gl_RGBA16F = external global i32
+@__gl_RGB16F = external global i32
+@__gl_VERTEX_ATTRIB_ARRAY_INTEGER = external global i32
+@__gl_MAX_ARRAY_TEXTURE_LAYERS = external global i32
+@__gl_MIN_PROGRAM_TEXEL_OFFSET = external global i32
+@__gl_MAX_PROGRAM_TEXEL_OFFSET = external global i32
+@__gl_CLAMP_READ_COLOR = external global i32
+@__gl_FIXED_ONLY = external global i32
+@__gl_MAX_VARYING_COMPONENTS = external global i32
+@__gl_TEXTURE_1D_ARRAY = external global i32
+@__gl_PROXY_TEXTURE_1D_ARRAY = external global i32
+@__gl_TEXTURE_2D_ARRAY = external global i32
+@__gl_PROXY_TEXTURE_2D_ARRAY = external global i32
+@__gl_TEXTURE_BINDING_1D_ARRAY = external global i32
+@__gl_TEXTURE_BINDING_2D_ARRAY = external global i32
+@__gl_R11F_G11F_B10F = external global i32
+@__gl_UNSIGNED_INT_10F_11F_11F_REV = external global i32
+@__gl_RGB9_E5 = external global i32
+@__gl_UNSIGNED_INT_5_9_9_9_REV = external global i32
+@__gl_TEXTURE_SHARED_SIZE = external global i32
+@__gl_TRANSFORM_FEEDBACK_VARYING_MAX_LENGTH = external global i32
+@__gl_TRANSFORM_FEEDBACK_BUFFER_MODE = external global i32
+@__gl_MAX_TRANSFORM_FEEDBACK_SEPARATE_COMPONENTS = external global i32
+@__gl_TRANSFORM_FEEDBACK_VARYINGS = external global i32
+@__gl_TRANSFORM_FEEDBACK_BUFFER_START = external global i32
+@__gl_TRANSFORM_FEEDBACK_BUFFER_SIZE = external global i32
+@__gl_PRIMITIVES_GENERATED = external global i32
+@__gl_TRANSFORM_FEEDBACK_PRIMITIVES_WRITTEN = external global i32
+@__gl_RASTERIZER_DISCARD = external global i32
+@__gl_MAX_TRANSFORM_FEEDBACK_INTERLEAVED_COMPONENTS = external global i32
+@__gl_MAX_TRANSFORM_FEEDBACK_SEPARATE_ATTRIBS = external global i32
+@__gl_INTERLEAVED_ATTRIBS = external global i32
+@__gl_SEPARATE_ATTRIBS = external global i32
+@__gl_TRANSFORM_FEEDBACK_BUFFER = external global i32
+@__gl_TRANSFORM_FEEDBACK_BUFFER_BINDING = external global i32
+@__gl_RGBA32UI = external global i32
+@__gl_RGB32UI = external global i32
+@__gl_RGBA16UI = external global i32
+@__gl_RGB16UI = external global i32
+@__gl_RGBA8UI = external global i32
+@__gl_RGB8UI = external global i32
+@__gl_RGBA32I = external global i32
+@__gl_RGB32I = external global i32
+@__gl_RGBA16I = external global i32
+@__gl_RGB16I = external global i32
+@__gl_RGBA8I = external global i32
+@__gl_RGB8I = external global i32
+@__gl_RED_INTEGER = external global i32
+@__gl_GREEN_INTEGER = external global i32
+@__gl_BLUE_INTEGER = external global i32
+@__gl_RGB_INTEGER = external global i32
+@__gl_RGBA_INTEGER = external global i32
+@__gl_BGR_INTEGER = external global i32
+@__gl_BGRA_INTEGER = external global i32
+@__gl_SAMPLER_1D_ARRAY = external global i32
+@__gl_SAMPLER_2D_ARRAY = external global i32
+@__gl_SAMPLER_1D_ARRAY_SHADOW = external global i32
+@__gl_SAMPLER_2D_ARRAY_SHADOW = external global i32
+@__gl_SAMPLER_CUBE_SHADOW = external global i32
+@__gl_UNSIGNED_INT_VEC2 = external global i32
+@__gl_UNSIGNED_INT_VEC3 = external global i32
+@__gl_UNSIGNED_INT_VEC4 = external global i32
+@__gl_INT_SAMPLER_1D = external global i32
+@__gl_INT_SAMPLER_2D = external global i32
+@__gl_INT_SAMPLER_3D = external global i32
+@__gl_INT_SAMPLER_CUBE = external global i32
+@__gl_INT_SAMPLER_1D_ARRAY = external global i32
+@__gl_INT_SAMPLER_2D_ARRAY = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_1D = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_2D = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_3D = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_CUBE = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_1D_ARRAY = external global i32
+@__gl_UNSIGNED_INT_SAMPLER_2D_ARRAY = external global i32
+@__gl_QUERY_WAIT = external global i32
+@__gl_QUERY_NO_WAIT = external global i32
+@__gl_QUERY_BY_REGION_WAIT = external global i32
+@__gl_QUERY_BY_REGION_NO_WAIT = external global i32
+@__gl_BUFFER_ACCESS_FLAGS = external global i32
+@__gl_BUFFER_MAP_LENGTH = external global i32
+@__gl_BUFFER_MAP_OFFSET = external global i32
+@__gl_DEPTH_COMPONENT32F = external global i32
+@__gl_DEPTH32F_STENCIL8 = external global i32
+@__gl_FLOAT_32_UNSIGNED_INT_24_8_REV = external global i32
+@__gl_INVALID_FRAMEBUFFER_OPERATION = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_COLOR_ENCODING = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_COMPONENT_TYPE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_RED_SIZE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_GREEN_SIZE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_BLUE_SIZE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_ALPHA_SIZE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_DEPTH_SIZE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_STENCIL_SIZE = external global i32
+@__gl_FRAMEBUFFER_DEFAULT = external global i32
+@__gl_FRAMEBUFFER_UNDEFINED = external global i32
+@__gl_DEPTH_STENCIL_ATTACHMENT = external global i32
+@__gl_MAX_RENDERBUFFER_SIZE = external global i32
+@__gl_DEPTH_STENCIL = external global i32
+@__gl_UNSIGNED_INT_24_8 = external global i32
+@__gl_DEPTH24_STENCIL8 = external global i32
+@__gl_TEXTURE_STENCIL_SIZE = external global i32
+@__gl_TEXTURE_RED_TYPE = external global i32
+@__gl_TEXTURE_GREEN_TYPE = external global i32
+@__gl_TEXTURE_BLUE_TYPE = external global i32
+@__gl_TEXTURE_ALPHA_TYPE = external global i32
+@__gl_TEXTURE_DEPTH_TYPE = external global i32
+@__gl_UNSIGNED_NORMALIZED = external global i32
+@__gl_FRAMEBUFFER_BINDING = external global i32
+@__gl_DRAW_FRAMEBUFFER_BINDING = external global i32
+@__gl_RENDERBUFFER_BINDING = external global i32
+@__gl_READ_FRAMEBUFFER = external global i32
+@__gl_DRAW_FRAMEBUFFER = external global i32
+@__gl_READ_FRAMEBUFFER_BINDING = external global i32
+@__gl_RENDERBUFFER_SAMPLES = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_OBJECT_TYPE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_OBJECT_NAME = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_TEXTURE_LEVEL = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_TEXTURE_CUBE_MAP_FACE = external global i32
+@__gl_FRAMEBUFFER_ATTACHMENT_TEXTURE_LAYER = external global i32
+@__gl_FRAMEBUFFER_COMPLETE = external global i32
+@__gl_FRAMEBUFFER_INCOMPLETE_ATTACHMENT = external global i32
+@__gl_FRAMEBUFFER_INCOMPLETE_MISSING_ATTACHMENT = external global i32
+@__gl_FRAMEBUFFER_INCOMPLETE_DRAW_BUFFER = external global i32
+@__gl_FRAMEBUFFER_INCOMPLETE_READ_BUFFER = external global i32
+@__gl_FRAMEBUFFER_UNSUPPORTED = external global i32
+@__gl_MAX_COLOR_ATTACHMENTS = external global i32
+@__gl_COLOR_ATTACHMENT0 = external global i32
+@__gl_COLOR_ATTACHMENT1 = external global i32
+@__gl_COLOR_ATTACHMENT2 = external global i32
+@__gl_COLOR_ATTACHMENT3 = external global i32
+@__gl_COLOR_ATTACHMENT4 = external global i32
+@__gl_COLOR_ATTACHMENT5 = external global i32
+@__gl_COLOR_ATTACHMENT6 = external global i32
+@__gl_COLOR_ATTACHMENT7 = external global i32
+@__gl_COLOR_ATTACHMENT8 = external global i32
+@__gl_COLOR_ATTACHMENT9 = external global i32
+@__gl_COLOR_ATTACHMENT10 = external global i32
+@__gl_COLOR_ATTACHMENT11 = external global i32
+@__gl_COLOR_ATTACHMENT12 = external global i32
+@__gl_COLOR_ATTACHMENT13 = external global i32
+@__gl_COLOR_ATTACHMENT14 = external global i32
+@__gl_COLOR_ATTACHMENT15 = external global i32
+@__gl_COLOR_ATTACHMENT16 = external global i32
+@__gl_COLOR_ATTACHMENT17 = external global i32
+@__gl_COLOR_ATTACHMENT18 = external global i32
+@__gl_COLOR_ATTACHMENT19 = external global i32
+@__gl_COLOR_ATTACHMENT20 = external global i32
+@__gl_COLOR_ATTACHMENT21 = external global i32
+@__gl_COLOR_ATTACHMENT22 = external global i32
+@__gl_COLOR_ATTACHMENT23 = external global i32
+@__gl_COLOR_ATTACHMENT24 = external global i32
+@__gl_COLOR_ATTACHMENT25 = external global i32
+@__gl_COLOR_ATTACHMENT26 = external global i32
+@__gl_COLOR_ATTACHMENT27 = external global i32
+@__gl_COLOR_ATTACHMENT28 = external global i32
+@__gl_COLOR_ATTACHMENT29 = external global i32
+@__gl_COLOR_ATTACHMENT30 = external global i32
+@__gl_COLOR_ATTACHMENT31 = external global i32
+@__gl_DEPTH_ATTACHMENT = external global i32
+@__gl_STENCIL_ATTACHMENT = external global i32
+@__gl_FRAMEBUFFER = external global i32
+@__gl_RENDERBUFFER = external global i32
+@__gl_RENDERBUFFER_WIDTH = external global i32
+@__gl_RENDERBUFFER_HEIGHT = external global i32
+@__gl_RENDERBUFFER_INTERNAL_FORMAT = external global i32
+@__gl_STENCIL_INDEX1 = external global i32
+@__gl_STENCIL_INDEX4 = external global i32
+@__gl_STENCIL_INDEX8 = external global i32
+@__gl_STENCIL_INDEX16 = external global i32
+@__gl_RENDERBUFFER_RED_SIZE = external global i32
+@__gl_RENDERBUFFER_GREEN_SIZE = external global i32
+@__gl_RENDERBUFFER_BLUE_SIZE = external global i32
+@__gl_RENDERBUFFER_ALPHA_SIZE = external global i32
+@__gl_RENDERBUFFER_DEPTH_SIZE = external global i32
+@__gl_RENDERBUFFER_STENCIL_SIZE = external global i32
+@__gl_FRAMEBUFFER_INCOMPLETE_MULTISAMPLE = external global i32
+@__gl_MAX_SAMPLES = external global i32
+@__gl_INDEX = external global i32
+@__gl_TEXTURE_LUMINANCE_TYPE = external global i32
+@__gl_TEXTURE_INTENSITY_TYPE = external global i32
+@__gl_FRAMEBUFFER_SRGB = external global i32
+@__gl_HALF_FLOAT = external global i32
+@__gl_MAP_READ_BIT = external global i32
+@__gl_MAP_WRITE_BIT = external global i32
+@__gl_MAP_INVALIDATE_RANGE_BIT = external global i32
+@__gl_MAP_INVALIDATE_BUFFER_BIT = external global i32
+@__gl_MAP_FLUSH_EXPLICIT_BIT = external global i32
+@__gl_MAP_UNSYNCHRONIZED_BIT = external global i32
+@__gl_COMPRESSED_RED_RGTC1 = external global i32
+@__gl_COMPRESSED_SIGNED_RED_RGTC1 = external global i32
+@__gl_COMPRESSED_RG_RGTC2 = external global i32
+@__gl_COMPRESSED_SIGNED_RG_RGTC2 = external global i32
+@__gl_RG = external global i32
+@__gl_RG_INTEGER = external global i32
+@__gl_R8 = external global i32
+@__gl_R16 = external global i32
+@__gl_RG8 = external global i32
+@__gl_RG16 = external global i32
+@__gl_R16F = external global i32
+@__gl_R32F = external global i32
+@__gl_RG16F = external global i32
+@__gl_RG32F = external global i32
+@__gl_R8I = external global i32
+@__gl_R8UI = external global i32
+@__gl_R16I = external global i32
+@__gl_R16UI = external global i32
+@__gl_R32I = external global i32
+@__gl_R32UI = external global i32
+@__gl_RG8I = external global i32
+@__gl_RG8UI = external global i32
+@__gl_RG16I = external global i32
+@__gl_RG16UI = external global i32
+@__gl_RG32I = external global i32
+@__gl_RG32UI = external global i32
+@__gl_VERTEX_ARRAY_BINDING = external global i32
+@__gl_CLAMP_VERTEX_COLOR = external global i32
+@__gl_CLAMP_FRAGMENT_COLOR = external global i32
+@__gl_ALPHA_INTEGER = external global i32
 @__init_INVALID_TYPE = external global i64
-@__init_type_table = external global %slice.22
+@__init_type_table = external global %slice.23
 @__os_STD_INPUT_HANDLE = external global i32
 @__os_STD_OUTPUT_HANDLE = external global i32
 @__os_STD_ERROR_HANDLE = external global i32
@@ -807,42 +1093,80 @@ $___asan_gen__anon_global.16 = comdat nodeduplicate
 @__os_PAGE_NOCACHE = external global i32
 @__os_PAGE_WRITECOMBINE = external global i32
 @__str_CONTINUE_BIT = external global i8
-@___asan_gen__anon_global = internal constant { [22 x i8], [42 x i8] } { [22 x i8] c"sdl.Init() failed: %s\00", [42 x i8] zeroinitializer }, comdat, align 32
-@___asan_gen__anon_global.10 = internal constant { [10 x i8], [22 x i8] } { [10 x i8] c"My Window\00", [22 x i8] zeroinitializer }, comdat, align 32
-@___asan_gen__anon_global.12 = internal constant { [30 x i8], [34 x i8] } { [30 x i8] c"sdl.CreateWindow() failed: %s\00", [34 x i8] zeroinitializer }, comdat, align 32
-@___asan_gen__anon_global.14 = internal constant { [34 x i8], [62 x i8] } { [34 x i8] c"sdl.GL_CreateContext() failed: %s\00", [62 x i8] zeroinitializer }, comdat, align 32
-@___asan_gen__anon_global.16 = internal constant { [17 x i8], [47 x i8] } { [17 x i8] c"gl.load() failed\00", [47 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global = internal constant { [127 x i8], [33 x i8] } { [127 x i8] c"#version 430 core\0D\0A\0D\0Alayout (location = 0) in vec3 pos;\0D\0A\0D\0Avoid main()\0D\0A{\0D\0A\09gl_Position = vec4(pos.x, pos.y, pos.z, 1);\0D\0A}\0D\0A\0D\0A\00", [33 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.22 = internal constant { [672 x i8], [160 x i8] } { [672 x i8] c"#version 430 core\0D\0A\0D\0Aout vec4 frag_color;\0D\0A\0D\0Auniform vec2 u_mouse;\0D\0Auniform vec2 u_resolution;\0D\0Auniform vec3 u_color;\0D\0Auniform bool u_darken;\0D\0Auniform float t;\0D\0A\0D\0Abool is_close(float v, float p, float dist)\0D\0A{\0D\0A    return abs(p - v) < dist;\0D\0A}\0D\0A\0D\0Afloat rand(vec2 uv){\0D\0A    return fract(sin(dot(uv, vec2(12.9898, 78.233))) * 43758.5453);\0D\0A}\0D\0A\0D\0Avoid main()\0D\0A{\0D\0A\09float random = rand(gl_FragCoord.xy / u_resolution.xy);\0D\0A\09if(u_darken)\0D\0A\09{\0D\0A\09\09if(is_close(gl_FragCoord.x, u_mouse.x, 5))\0D\0A\09\09{\0D\0A\09\09\09frag_color = vec4(0.8, 0.3, 0.2, mod(t*random, 1.0));\0D\0A\09\09}\0D\0A\09\09else\0D\0A\09\09{\0D\0A\09\09\09frag_color = vec4(u_color * 0.5, 1.0);\0D\0A\09\09}\0D\0A\09}\0D\0A\09else\0D\0A\09{\0D\0A\09\09frag_color = vec4(u_color, 1.0);\0D\0A\09}\0D\0A}\0D\0A\0D\0A\00", [160 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.24 = internal constant { [22 x i8], [42 x i8] } { [22 x i8] c"sdl.Init() failed: %s\00", [42 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.26 = internal constant { [5 x i8], [27 x i8] } { [5 x i8] c"foo2\00", [27 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.28 = internal constant { [5 x i8], [27 x i8] } { [5 x i8] c"foo1\00", [27 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.30 = internal constant { [10 x i8], [22 x i8] } { [10 x i8] c"My Window\00", [22 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.32 = internal constant { [30 x i8], [34 x i8] } { [30 x i8] c"sdl.CreateWindow() failed: %s\00", [34 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.34 = internal constant { [34 x i8], [62 x i8] } { [34 x i8] c"sdl.GL_CreateContext() failed: %s\00", [62 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.36 = internal constant { [17 x i8], [47 x i8] } { [17 x i8] c"gl.load() failed\00", [47 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.38 = internal constant { [2 x i8], [30 x i8] } { [2 x i8] c"t\00", [30 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.40 = internal constant { [13 x i8], [19 x i8] } { [13 x i8] c"u_resolution\00", [19 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.42 = internal constant { [8 x i8], [24 x i8] } { [8 x i8] c"u_mouse\00", [24 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.44 = internal constant { [8 x i8], [24 x i8] } { [8 x i8] c"u_color\00", [24 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.46 = internal constant { [9 x i8], [23 x i8] } { [9 x i8] c"u_darken\00", [23 x i8] zeroinitializer }, comdat, align 32
+@___asan_gen__anon_global.48 = internal constant { [9 x i8], [23 x i8] } { [9 x i8] c"u_darken\00", [23 x i8] zeroinitializer }, comdat, align 32
 @llvm.used = appending global [1 x ptr] [ptr @asan.module_ctor], section "llvm.metadata"
 @___asan_gen_ = private constant [5 x i8] c"main\00", align 1
 @___asan_gen_.2 = private unnamed_addr constant [13 x i8] c"__main_WIDTH\00", align 1
 @__odr_asan_gen___main_WIDTH = global i8 0, align 1
 @___asan_gen_.3 = private unnamed_addr constant [14 x i8] c"__main_HEIGHT\00", align 1
 @__odr_asan_gen___main_HEIGHT = global i8 0, align 1
-@___asan_gen_.4 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
-@___asan_gen_.5 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.4 = private unnamed_addr constant [19 x i8] c"__main_vert_shader\00", align 1
+@__odr_asan_gen___main_vert_shader = global i8 0, align 1
+@___asan_gen_.5 = private unnamed_addr constant [19 x i8] c"__main_frag_shader\00", align 1
+@__odr_asan_gen___main_frag_shader = global i8 0, align 1
 @___asan_gen_.6 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
 @___asan_gen_.7 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
 @___asan_gen_.8 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.9 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.10 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.11 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.12 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.13 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.14 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.15 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.16 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.17 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.18 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.19 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
+@___asan_gen_.20 = private unnamed_addr constant [1 x i8] zeroinitializer, align 1
 @__asan_global___main_WIDTH = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__main_WIDTH to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.2 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___main_WIDTH to i64) }, section ".ASAN$GL", comdat($__main_WIDTH), align 64, !associated !0
 @__asan_global___main_HEIGHT = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__main_HEIGHT to i64), i64 4, i64 32, i64 ptrtoint (ptr @___asan_gen_.3 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___main_HEIGHT to i64) }, section ".ASAN$GL", comdat($__main_HEIGHT), align 64, !associated !1
-@__asan_global_ = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global to i64), i64 22, i64 64, i64 ptrtoint (ptr @___asan_gen_.4 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global), align 64, !associated !2
-@__asan_global_.9 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.10 to i64), i64 10, i64 32, i64 ptrtoint (ptr @___asan_gen_.5 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.10), align 64, !associated !3
-@__asan_global_.11 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.12 to i64), i64 30, i64 64, i64 ptrtoint (ptr @___asan_gen_.6 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.12), align 64, !associated !4
-@__asan_global_.13 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.14 to i64), i64 34, i64 96, i64 ptrtoint (ptr @___asan_gen_.7 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.14), align 64, !associated !5
-@__asan_global_.15 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.16 to i64), i64 17, i64 64, i64 ptrtoint (ptr @___asan_gen_.8 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.16), align 64, !associated !6
-@llvm.compiler.used = appending global [9 x ptr] [ptr @__main_WIDTH, ptr @__main_HEIGHT, ptr @__asan_global___main_WIDTH, ptr @__asan_global___main_HEIGHT, ptr @__asan_global_, ptr @__asan_global_.9, ptr @__asan_global_.11, ptr @__asan_global_.13, ptr @__asan_global_.15], section "llvm.metadata"
+@__asan_global___main_vert_shader = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__main_vert_shader to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.4 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___main_vert_shader to i64) }, section ".ASAN$GL", comdat($__main_vert_shader), align 64, !associated !2
+@__asan_global___main_frag_shader = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @__main_frag_shader to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.5 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 ptrtoint (ptr @__odr_asan_gen___main_frag_shader to i64) }, section ".ASAN$GL", comdat($__main_frag_shader), align 64, !associated !3
+@__asan_global_ = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global to i64), i64 127, i64 160, i64 ptrtoint (ptr @___asan_gen_.6 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global), align 64, !associated !4
+@__asan_global_.21 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.22 to i64), i64 672, i64 832, i64 ptrtoint (ptr @___asan_gen_.7 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.22), align 64, !associated !5
+@__asan_global_.23 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.24 to i64), i64 22, i64 64, i64 ptrtoint (ptr @___asan_gen_.8 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.24), align 64, !associated !6
+@__asan_global_.25 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.26 to i64), i64 5, i64 32, i64 ptrtoint (ptr @___asan_gen_.9 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.26), align 64, !associated !7
+@__asan_global_.27 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.28 to i64), i64 5, i64 32, i64 ptrtoint (ptr @___asan_gen_.10 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.28), align 64, !associated !8
+@__asan_global_.29 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.30 to i64), i64 10, i64 32, i64 ptrtoint (ptr @___asan_gen_.11 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.30), align 64, !associated !9
+@__asan_global_.31 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.32 to i64), i64 30, i64 64, i64 ptrtoint (ptr @___asan_gen_.12 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.32), align 64, !associated !10
+@__asan_global_.33 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.34 to i64), i64 34, i64 96, i64 ptrtoint (ptr @___asan_gen_.13 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.34), align 64, !associated !11
+@__asan_global_.35 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.36 to i64), i64 17, i64 64, i64 ptrtoint (ptr @___asan_gen_.14 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.36), align 64, !associated !12
+@__asan_global_.37 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.38 to i64), i64 2, i64 32, i64 ptrtoint (ptr @___asan_gen_.15 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.38), align 64, !associated !13
+@__asan_global_.39 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.40 to i64), i64 13, i64 32, i64 ptrtoint (ptr @___asan_gen_.16 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.40), align 64, !associated !14
+@__asan_global_.41 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.42 to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.17 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.42), align 64, !associated !15
+@__asan_global_.43 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.44 to i64), i64 8, i64 32, i64 ptrtoint (ptr @___asan_gen_.18 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.44), align 64, !associated !16
+@__asan_global_.45 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.46 to i64), i64 9, i64 32, i64 ptrtoint (ptr @___asan_gen_.19 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.46), align 64, !associated !17
+@__asan_global_.47 = private global { i64, i64, i64, i64, i64, i64, i64, i64 } { i64 ptrtoint (ptr @___asan_gen__anon_global.48 to i64), i64 9, i64 32, i64 ptrtoint (ptr @___asan_gen_.20 to i64), i64 ptrtoint (ptr @___asan_gen_ to i64), i64 0, i64 0, i64 -1 }, section ".ASAN$GL", comdat($___asan_gen__anon_global.48), align 64, !associated !18
+@llvm.compiler.used = appending global [23 x ptr] [ptr @__main_WIDTH, ptr @__main_HEIGHT, ptr @__main_vert_shader, ptr @__main_frag_shader, ptr @__asan_global___main_WIDTH, ptr @__asan_global___main_HEIGHT, ptr @__asan_global___main_vert_shader, ptr @__asan_global___main_frag_shader, ptr @__asan_global_, ptr @__asan_global_.21, ptr @__asan_global_.23, ptr @__asan_global_.25, ptr @__asan_global_.27, ptr @__asan_global_.29, ptr @__asan_global_.31, ptr @__asan_global_.33, ptr @__asan_global_.35, ptr @__asan_global_.37, ptr @__asan_global_.39, ptr @__asan_global_.41, ptr @__asan_global_.43, ptr @__asan_global_.45, ptr @__asan_global_.47], section "llvm.metadata"
 @llvm.global_ctors = appending global [1 x { i32, ptr, ptr }] [{ i32, ptr, ptr } { i32 1, ptr @asan.module_ctor, ptr null }]
 
 define void @__main___GlobalInitializerFunction.0() {
 block_0:
-  store i32 640, ptr @__main_WIDTH, align 4
-  store i32 480, ptr @__main_HEIGHT, align 4
+  store i32 1280, ptr @__main_WIDTH, align 4
+  store i32 720, ptr @__main_HEIGHT, align 4
+  store ptr @___asan_gen__anon_global, ptr @__main_vert_shader, align 8
+  store ptr @___asan_gen__anon_global.22, ptr @__main_frag_shader, align 8
   ret void
 }
 
-define i32 @__main_main() !dbg !105 {
+define i32 @__main_main() !dbg !120 {
 block_0:
-  %0 = alloca %slice.25, align 8
+  %0 = alloca %slice.26, align 8
   %1 = alloca [1 x %__init_Arg], align 8
   %2 = alloca %string, align 8
   %3 = alloca ptr, align 8
@@ -850,266 +1174,642 @@ block_0:
   call void @llvm.memset.p0.i32(ptr align 8 %1, i8 0, i32 16, i1 false)
   call void @llvm.memset.p0.i32(ptr align 8 %2, i8 0, i32 16, i1 false)
   call void @llvm.memset.p0.i32(ptr align 8 %3, i8 0, i32 8, i1 false)
-  %4 = alloca ptr, align 8
+  %4 = alloca i64, align 8
   call void @llvm.memset.p0.i32(ptr align 8 %4, i8 0, i32 8, i1 false)
-  %5 = alloca %slice.25, align 8
-  %6 = alloca [1 x %__init_Arg], align 8
+  %5 = alloca %slice.26, align 8
+  %6 = alloca [0 x %__init_Arg], align 8
   %7 = alloca %string, align 8
-  %8 = alloca ptr, align 8
+  %8 = alloca %slice.26, align 8
+  %9 = alloca [0 x %__init_Arg], align 8
+  %10 = alloca %string, align 8
   call void @llvm.memset.p0.i32(ptr align 8 %5, i8 0, i32 16, i1 false)
-  call void @llvm.memset.p0.i32(ptr align 8 %6, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %6, i8 0, i32 0, i1 false)
   call void @llvm.memset.p0.i32(ptr align 8 %7, i8 0, i32 16, i1 false)
-  call void @llvm.memset.p0.i32(ptr align 8 %8, i8 0, i32 8, i1 false)
-  %9 = alloca ptr, align 8
-  %10 = alloca ptr, align 8
-  call void @llvm.memset.p0.i32(ptr align 8 %9, i8 0, i32 8, i1 false)
-  call void @llvm.memset.p0.i32(ptr align 8 %10, i8 0, i32 8, i1 false)
-  %11 = alloca %slice.25, align 8
-  %12 = alloca [1 x %__init_Arg], align 8
-  %13 = alloca %string, align 8
-  %14 = alloca ptr, align 8
-  call void @llvm.memset.p0.i32(ptr align 8 %11, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %8, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %9, i8 0, i32 0, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %10, i8 0, i32 16, i1 false)
+  %11 = alloca ptr, align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %11, i8 0, i32 8, i1 false)
+  %12 = alloca %slice.26, align 8
+  %13 = alloca [1 x %__init_Arg], align 8
+  %14 = alloca %string, align 8
+  %15 = alloca ptr, align 8
   call void @llvm.memset.p0.i32(ptr align 8 %12, i8 0, i32 16, i1 false)
   call void @llvm.memset.p0.i32(ptr align 8 %13, i8 0, i32 16, i1 false)
-  call void @llvm.memset.p0.i32(ptr align 8 %14, i8 0, i32 8, i1 false)
-  %15 = alloca ptr, align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %14, i8 0, i32 16, i1 false)
   call void @llvm.memset.p0.i32(ptr align 8 %15, i8 0, i32 8, i1 false)
-  %16 = alloca %slice.25, align 8
-  %17 = alloca [0 x %__init_Arg], align 8
-  %18 = alloca %string, align 8
-  call void @llvm.memset.p0.i32(ptr align 8 %16, i8 0, i32 16, i1 false)
-  call void @llvm.memset.p0.i32(ptr align 8 %17, i8 0, i32 0, i1 false)
+  %16 = alloca ptr, align 8
+  %17 = alloca ptr, align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %16, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %17, i8 0, i32 8, i1 false)
+  %18 = alloca %slice.26, align 8
+  %19 = alloca [1 x %__init_Arg], align 8
+  %20 = alloca %string, align 8
+  %21 = alloca ptr, align 8
   call void @llvm.memset.p0.i32(ptr align 8 %18, i8 0, i32 16, i1 false)
-  %19 = alloca %__renderer_ctx, align 8
-  %20 = alloca %__renderer_ctx, align 8
-  %21 = alloca i1, align 1
-  call void @llvm.memset.p0.i32(ptr align 8 %19, i8 0, i32 12, i1 false)
-  call void @llvm.memset.p0.i32(ptr align 8 %20, i8 0, i32 12, i1 false)
-  call void @llvm.memset.p0.i32(ptr align 1 %21, i8 0, i32 1, i1 false)
-  %22 = alloca %__sdl_Event, align 8
-  call void @llvm.memset.p0.i32(ptr align 8 %22, i8 0, i32 128, i1 false)
-  %23 = alloca %slice.20, align 8
-  %24 = alloca %__renderer_vec3, align 8
-  %25 = alloca %__renderer_vec3, align 8
-  %26 = alloca %__renderer_vec3, align 8
-  %27 = alloca [3 x %__renderer_vec3], align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %19, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %20, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %21, i8 0, i32 8, i1 false)
+  %22 = alloca ptr, align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %22, i8 0, i32 8, i1 false)
+  %23 = alloca %slice.26, align 8
+  %24 = alloca [0 x %__init_Arg], align 8
+  %25 = alloca %string, align 8
   call void @llvm.memset.p0.i32(ptr align 8 %23, i8 0, i32 16, i1 false)
-  call void @llvm.memset.p0.i32(ptr align 8 %24, i8 0, i32 12, i1 false)
-  call void @llvm.memset.p0.i32(ptr align 8 %25, i8 0, i32 12, i1 false)
-  call void @llvm.memset.p0.i32(ptr align 8 %26, i8 0, i32 12, i1 false)
-  call void @llvm.memset.p0.i32(ptr align 8 %27, i8 0, i32 36, i1 false)
-  %28 = load i32, ptr @__sdl_INIT_VIDEO, align 4, !dbg !110
-  %29 = call i1 @SDL_Init(i32 %28), !dbg !110
-  %30 = icmp eq i1 %29, false, !dbg !110
-  br i1 %30, label %block_1, label %block_2, !dbg !110
+  call void @llvm.memset.p0.i32(ptr align 8 %24, i8 0, i32 0, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %25, i8 0, i32 16, i1 false)
+  %26 = alloca %__renderer_ctx, align 8
+  %27 = alloca %__renderer_ctx, align 8
+  %28 = alloca i1, align 1
+  %29 = alloca %slice.22, align 8
+  %30 = alloca %__math_v2, align 8
+  %31 = alloca %__math_v2, align 8
+  %32 = alloca %__math_v2, align 8
+  %33 = alloca %__math_v2, align 8
+  %34 = alloca %__math_v2, align 8
+  %35 = alloca %__math_v2, align 8
+  %36 = alloca %__math_v2, align 8
+  %37 = alloca %__math_v2, align 8
+  %38 = alloca %__math_v2, align 8
+  %39 = alloca %__math_v2, align 8
+  %40 = alloca %__math_v2, align 8
+  %41 = alloca %__math_v2, align 8
+  %42 = alloca %__math_v2, align 8
+  %43 = alloca %__math_v2, align 8
+  %44 = alloca %__math_v2, align 8
+  %45 = alloca %__math_v2, align 8
+  %46 = alloca %__math_v2, align 8
+  %47 = alloca %__math_v2, align 8
+  %48 = alloca %__math_v2, align 8
+  %49 = alloca %__math_v2, align 8
+  %50 = alloca %__math_v2, align 8
+  %51 = alloca [21 x %__math_v2], align 8
+  %52 = alloca %slice.22, align 8
+  %53 = alloca %__math_v2, align 8
+  %54 = alloca %__math_v2, align 8
+  %55 = alloca i32, align 4
+  %56 = alloca float, align 4
+  %57 = alloca i1, align 1
+  call void @llvm.memset.p0.i32(ptr align 8 %26, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %27, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 1 %28, i8 0, i32 1, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %29, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %30, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %31, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %32, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %33, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %34, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %35, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %36, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %37, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %38, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %39, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %40, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %41, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %42, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %43, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %44, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %45, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %46, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %47, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %48, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %49, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %50, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %51, i8 0, i32 168, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %52, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %53, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %54, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 4 %55, i8 0, i32 4, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 4 %56, i8 0, i32 4, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 1 %57, i8 0, i32 1, i1 false)
+  %58 = alloca %__sdl_Event, align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %58, i8 0, i32 128, i1 false)
+  %59 = alloca %string, align 8
+  %60 = alloca %string, align 8
+  %61 = alloca %__math_v2, align 8
+  %62 = alloca %string, align 8
+  %63 = alloca %string, align 8
+  %64 = alloca %__math_v3, align 8
+  %65 = alloca %__math_v3, align 8
+  %66 = alloca float, align 4
+  call void @llvm.memset.p0.i32(ptr align 8 %59, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %60, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %61, i8 0, i32 8, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %62, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %63, i8 0, i32 16, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %64, i8 0, i32 12, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 8 %65, i8 0, i32 12, i1 false)
+  call void @llvm.memset.p0.i32(ptr align 4 %66, i8 0, i32 4, i1 false)
+  %67 = alloca %string, align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %67, i8 0, i32 16, i1 false)
+  %68 = alloca %string, align 8
+  call void @llvm.memset.p0.i32(ptr align 8 %68, i8 0, i32 16, i1 false)
+  %69 = load i32, ptr @__sdl_INIT_VIDEO, align 4, !dbg !125
+  %70 = call i1 @SDL_Init(i32 %69), !dbg !125
+  %71 = icmp eq i1 %70, false, !dbg !125
+  br i1 %71, label %block_1, label %block_2, !dbg !125
 
 block_1:                                          ; preds = %block_0
-  %31 = getelementptr inbounds %slice.25, ptr %0, i32 0, i32 0, !dbg !111
-  %32 = getelementptr inbounds %slice.25, ptr %0, i32 0, i32 1, !dbg !111
-  store i64 1, ptr %31, align 8, !dbg !111
-  store ptr %1, ptr %32, align 8, !dbg !111
-  %33 = alloca %string, align 8, !dbg !111
-  %String = getelementptr inbounds %string, ptr %33, i32 0, i32 0, !dbg !111
-  %Size = getelementptr inbounds %string, ptr %33, i32 0, i32 1, !dbg !111
-  store ptr @___asan_gen__anon_global, ptr %String, align 8, !dbg !111
-  store i64 21, ptr %Size, align 8, !dbg !111
-  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %2, ptr align 8 %33, i64 16, i1 false), !dbg !111
-  %34 = call ptr @SDL_GetError(), !dbg !111
-  store ptr %34, ptr %3, align 8, !dbg !111
-  %35 = getelementptr [1 x %__init_Arg], ptr %1, i64 0, i64 0, !dbg !111
-  %36 = getelementptr inbounds %__init_Arg, ptr %35, i32 0, i32 0, !dbg !111
-  %37 = getelementptr inbounds %__init_Arg, ptr %35, i32 0, i32 1, !dbg !111
-  store i64 59, ptr %36, align 8, !dbg !111
-  store ptr %3, ptr %37, align 8, !dbg !111
-  call void @__io_println(ptr %2, ptr %0), !dbg !111
-  ret i32 1, !dbg !112
+  %72 = getelementptr inbounds %slice.26, ptr %0, i32 0, i32 0, !dbg !126
+  %73 = getelementptr inbounds %slice.26, ptr %0, i32 0, i32 1, !dbg !126
+  store i64 1, ptr %72, align 8, !dbg !126
+  store ptr %1, ptr %73, align 8, !dbg !126
+  %74 = alloca %string, align 8, !dbg !126
+  %String = getelementptr inbounds %string, ptr %74, i32 0, i32 0, !dbg !126
+  %Size = getelementptr inbounds %string, ptr %74, i32 0, i32 1, !dbg !126
+  store ptr @___asan_gen__anon_global.24, ptr %String, align 8, !dbg !126
+  store i64 21, ptr %Size, align 8, !dbg !126
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %2, ptr align 8 %74, i64 16, i1 false), !dbg !126
+  %75 = call ptr @SDL_GetError(), !dbg !126
+  store ptr %75, ptr %3, align 8, !dbg !126
+  %76 = getelementptr [1 x %__init_Arg], ptr %1, i64 0, i64 0, !dbg !126
+  %77 = getelementptr inbounds %__init_Arg, ptr %76, i32 0, i32 0, !dbg !126
+  %78 = getelementptr inbounds %__init_Arg, ptr %76, i32 0, i32 1, !dbg !126
+  store i64 60, ptr %77, align 8, !dbg !126
+  store ptr %3, ptr %78, align 8, !dbg !126
+  call void @__io_println(ptr %2, ptr %0), !dbg !126
+  ret i32 1, !dbg !127
 
 block_2:                                          ; preds = %block_0
-  br label %block_3, !dbg !112
+  br label %block_3, !dbg !127
 
 block_3:                                          ; preds = %block_2
-  %38 = call i1 @SDL_GL_SetAttribute(i32 17, i32 4), !dbg !113
-  %39 = call i1 @SDL_GL_SetAttribute(i32 18, i32 3), !dbg !114
-  %40 = load i32, ptr @__sdl_GL_CONTEXT_PROFILE_CORE, align 4, !dbg !115
-  %41 = call i1 @SDL_GL_SetAttribute(i32 20, i32 %40), !dbg !115
-  %42 = load i32, ptr @__sdl_GL_CONTEXT_DEBUG_FLAG, align 4, !dbg !116
-  %43 = call i1 @SDL_GL_SetAttribute(i32 19, i32 %42), !dbg !116
-  %44 = load i32, ptr @__main_WIDTH, align 4, !dbg !117
-  %45 = load i32, ptr @__main_HEIGHT, align 4, !dbg !117
-  %46 = load i64, ptr @__sdl_WINDOW_OPENGL, align 8, !dbg !117
-  %47 = load i64, ptr @__sdl_WINDOW_RESIZABLE, align 8, !dbg !117
-  %48 = or i64 %46, %47, !dbg !117
-  %49 = call ptr @SDL_CreateWindow(ptr @___asan_gen__anon_global.10, i32 %44, i32 %45, i64 %48), !dbg !117
-  store ptr %49, ptr %4, align 8, !dbg !117
-  call void @llvm.dbg.declare(metadata ptr %4, metadata !118, metadata !DIExpression()), !dbg !117
-  %50 = load ptr, ptr %4, align 8, !dbg !121
-  %51 = icmp eq ptr %50, null, !dbg !121
-  br i1 %51, label %block_4, label %block_5, !dbg !121
+  store i64 0, ptr %4, align 8, !dbg !128
+  br label %block_4, !dbg !128
 
-block_4:                                          ; preds = %block_3
-  %52 = getelementptr inbounds %slice.25, ptr %5, i32 0, i32 0, !dbg !122
-  %53 = getelementptr inbounds %slice.25, ptr %5, i32 0, i32 1, !dbg !122
-  store i64 1, ptr %52, align 8, !dbg !122
-  store ptr %6, ptr %53, align 8, !dbg !122
-  %54 = alloca %string, align 8, !dbg !122
-  %String1 = getelementptr inbounds %string, ptr %54, i32 0, i32 0, !dbg !122
-  %Size2 = getelementptr inbounds %string, ptr %54, i32 0, i32 1, !dbg !122
-  store ptr @___asan_gen__anon_global.12, ptr %String1, align 8, !dbg !122
-  store i64 29, ptr %Size2, align 8, !dbg !122
-  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %7, ptr align 8 %54, i64 16, i1 false), !dbg !122
-  %55 = call ptr @SDL_GetError(), !dbg !122
-  store ptr %55, ptr %8, align 8, !dbg !122
-  %56 = getelementptr [1 x %__init_Arg], ptr %6, i64 0, i64 0, !dbg !122
-  %57 = getelementptr inbounds %__init_Arg, ptr %56, i32 0, i32 0, !dbg !122
-  %58 = getelementptr inbounds %__init_Arg, ptr %56, i32 0, i32 1, !dbg !122
-  store i64 59, ptr %57, align 8, !dbg !122
-  store ptr %8, ptr %58, align 8, !dbg !122
-  call void @__io_println(ptr %7, ptr %5), !dbg !122
-  ret i32 1, !dbg !123
+block_4:                                          ; preds = %block_6, %block_3
+  %79 = load i64, ptr %4, align 8, !dbg !128
+  %80 = icmp ult i64 %79, i32 10, !dbg !128
+  br i1 %80, label %block_5, label %block_7, !dbg !128
 
-block_5:                                          ; preds = %block_3
-  br label %block_6, !dbg !123
+block_5:                                          ; preds = %block_4
+  call void @llvm.dbg.declare(metadata ptr %4, metadata !129, metadata !DIExpression()), !dbg !128
+  %81 = getelementptr inbounds %slice.26, ptr %5, i32 0, i32 0, !dbg !131
+  %82 = getelementptr inbounds %slice.26, ptr %5, i32 0, i32 1, !dbg !131
+  store i64 0, ptr %81, align 8, !dbg !131
+  store ptr %6, ptr %82, align 8, !dbg !131
+  %83 = alloca %string, align 8, !dbg !131
+  %String1 = getelementptr inbounds %string, ptr %83, i32 0, i32 0, !dbg !131
+  %Size2 = getelementptr inbounds %string, ptr %83, i32 0, i32 1, !dbg !131
+  store ptr @___asan_gen__anon_global.26, ptr %String1, align 8, !dbg !131
+  store i64 4, ptr %Size2, align 8, !dbg !131
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %7, ptr align 8 %83, i64 16, i1 false), !dbg !131
+  call void @__io_println(ptr %7, ptr %5), !dbg !131
+  %84 = getelementptr inbounds %slice.26, ptr %8, i32 0, i32 0, !dbg !132
+  %85 = getelementptr inbounds %slice.26, ptr %8, i32 0, i32 1, !dbg !132
+  store i64 0, ptr %84, align 8, !dbg !132
+  store ptr %9, ptr %85, align 8, !dbg !132
+  %86 = alloca %string, align 8, !dbg !132
+  %String3 = getelementptr inbounds %string, ptr %86, i32 0, i32 0, !dbg !132
+  %Size4 = getelementptr inbounds %string, ptr %86, i32 0, i32 1, !dbg !132
+  store ptr @___asan_gen__anon_global.28, ptr %String3, align 8, !dbg !132
+  store i64 4, ptr %Size4, align 8, !dbg !132
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %10, ptr align 8 %86, i64 16, i1 false), !dbg !132
+  call void @__io_println(ptr %10, ptr %8), !dbg !132
+  br label %block_6, !dbg !132
 
 block_6:                                          ; preds = %block_5
-  %59 = load ptr, ptr %4, align 8, !dbg !124
-  store ptr %59, ptr %9, align 8, !dbg !124
-  call void @llvm.dbg.declare(metadata ptr %9, metadata !125, metadata !DIExpression()), !dbg !124
-  %60 = load ptr, ptr %9, align 8, !dbg !127
-  %61 = call ptr @SDL_GL_CreateContext(ptr %60), !dbg !127
-  store ptr %61, ptr %10, align 8, !dbg !127
-  call void @llvm.dbg.declare(metadata ptr %10, metadata !128, metadata !DIExpression()), !dbg !127
-  %62 = load ptr, ptr %10, align 8, !dbg !131
-  %63 = icmp eq ptr %62, null, !dbg !131
-  br i1 %63, label %block_7, label %block_8, !dbg !131
+  %87 = load i64, ptr %4, align 8, !dbg !132
+  %88 = add i64 %87, 1, !dbg !132
+  store i64 %88, ptr %4, align 8, !dbg !132
+  br label %block_4, !dbg !132
 
-block_7:                                          ; preds = %block_6
-  %64 = getelementptr inbounds %slice.25, ptr %11, i32 0, i32 0, !dbg !132
-  %65 = getelementptr inbounds %slice.25, ptr %11, i32 0, i32 1, !dbg !132
-  store i64 1, ptr %64, align 8, !dbg !132
-  store ptr %12, ptr %65, align 8, !dbg !132
-  %66 = alloca %string, align 8, !dbg !132
-  %String3 = getelementptr inbounds %string, ptr %66, i32 0, i32 0, !dbg !132
-  %Size4 = getelementptr inbounds %string, ptr %66, i32 0, i32 1, !dbg !132
-  store ptr @___asan_gen__anon_global.14, ptr %String3, align 8, !dbg !132
-  store i64 33, ptr %Size4, align 8, !dbg !132
-  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %13, ptr align 8 %66, i64 16, i1 false), !dbg !132
-  %67 = call ptr @SDL_GetError(), !dbg !132
-  store ptr %67, ptr %14, align 8, !dbg !132
-  %68 = getelementptr [1 x %__init_Arg], ptr %12, i64 0, i64 0, !dbg !132
-  %69 = getelementptr inbounds %__init_Arg, ptr %68, i32 0, i32 0, !dbg !132
-  %70 = getelementptr inbounds %__init_Arg, ptr %68, i32 0, i32 1, !dbg !132
-  store i64 59, ptr %69, align 8, !dbg !132
-  store ptr %14, ptr %70, align 8, !dbg !132
-  call void @__io_println(ptr %13, ptr %11), !dbg !132
-  ret i32 1, !dbg !133
+block_7:                                          ; preds = %block_4
+  %89 = call i1 @SDL_GL_SetAttribute(i32 17, i32 4), !dbg !133
+  %90 = call i1 @SDL_GL_SetAttribute(i32 18, i32 3), !dbg !134
+  %91 = load i32, ptr @__sdl_GL_CONTEXT_PROFILE_CORE, align 4, !dbg !135
+  %92 = call i1 @SDL_GL_SetAttribute(i32 20, i32 %91), !dbg !135
+  %93 = load i32, ptr @__sdl_GL_CONTEXT_DEBUG_FLAG, align 4, !dbg !136
+  %94 = call i1 @SDL_GL_SetAttribute(i32 19, i32 %93), !dbg !136
+  %95 = load i32, ptr @__main_WIDTH, align 4, !dbg !137
+  %96 = load i32, ptr @__main_HEIGHT, align 4, !dbg !137
+  %97 = load i64, ptr @__sdl_WINDOW_OPENGL, align 8, !dbg !137
+  %98 = load i64, ptr @__sdl_WINDOW_RESIZABLE, align 8, !dbg !137
+  %99 = or i64 %97, %98, !dbg !137
+  %100 = call ptr @SDL_CreateWindow(ptr @___asan_gen__anon_global.30, i32 %95, i32 %96, i64 %99), !dbg !137
+  store ptr %100, ptr %11, align 8, !dbg !137
+  call void @llvm.dbg.declare(metadata ptr %11, metadata !138, metadata !DIExpression()), !dbg !137
+  %101 = load ptr, ptr %11, align 8, !dbg !141
+  %102 = icmp eq ptr %101, null, !dbg !141
+  br i1 %102, label %block_8, label %block_9, !dbg !141
 
-block_8:                                          ; preds = %block_6
-  br label %block_9, !dbg !133
+block_8:                                          ; preds = %block_7
+  %103 = getelementptr inbounds %slice.26, ptr %12, i32 0, i32 0, !dbg !142
+  %104 = getelementptr inbounds %slice.26, ptr %12, i32 0, i32 1, !dbg !142
+  store i64 1, ptr %103, align 8, !dbg !142
+  store ptr %13, ptr %104, align 8, !dbg !142
+  %105 = alloca %string, align 8, !dbg !142
+  %String5 = getelementptr inbounds %string, ptr %105, i32 0, i32 0, !dbg !142
+  %Size6 = getelementptr inbounds %string, ptr %105, i32 0, i32 1, !dbg !142
+  store ptr @___asan_gen__anon_global.32, ptr %String5, align 8, !dbg !142
+  store i64 29, ptr %Size6, align 8, !dbg !142
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %14, ptr align 8 %105, i64 16, i1 false), !dbg !142
+  %106 = call ptr @SDL_GetError(), !dbg !142
+  store ptr %106, ptr %15, align 8, !dbg !142
+  %107 = getelementptr [1 x %__init_Arg], ptr %13, i64 0, i64 0, !dbg !142
+  %108 = getelementptr inbounds %__init_Arg, ptr %107, i32 0, i32 0, !dbg !142
+  %109 = getelementptr inbounds %__init_Arg, ptr %107, i32 0, i32 1, !dbg !142
+  store i64 60, ptr %108, align 8, !dbg !142
+  store ptr %15, ptr %109, align 8, !dbg !142
+  call void @__io_println(ptr %14, ptr %12), !dbg !142
+  ret i32 1, !dbg !143
 
-block_9:                                          ; preds = %block_8
-  %71 = load ptr, ptr %10, align 8, !dbg !134
-  store ptr %71, ptr %15, align 8, !dbg !134
-  call void @llvm.dbg.declare(metadata ptr %15, metadata !135, metadata !DIExpression()), !dbg !134
-  %72 = call i1 @__gl_load(), !dbg !137
-  %73 = icmp eq i1 %72, false, !dbg !137
-  br i1 %73, label %block_10, label %block_11, !dbg !137
+block_9:                                          ; preds = %block_7
+  br label %block_10, !dbg !143
 
 block_10:                                         ; preds = %block_9
-  %74 = getelementptr inbounds %slice.25, ptr %16, i32 0, i32 0, !dbg !138
-  %75 = getelementptr inbounds %slice.25, ptr %16, i32 0, i32 1, !dbg !138
-  store i64 0, ptr %74, align 8, !dbg !138
-  store ptr %17, ptr %75, align 8, !dbg !138
-  %76 = alloca %string, align 8, !dbg !138
-  %String5 = getelementptr inbounds %string, ptr %76, i32 0, i32 0, !dbg !138
-  %Size6 = getelementptr inbounds %string, ptr %76, i32 0, i32 1, !dbg !138
-  store ptr @___asan_gen__anon_global.16, ptr %String5, align 8, !dbg !138
-  store i64 16, ptr %Size6, align 8, !dbg !138
-  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %18, ptr align 8 %76, i64 16, i1 false), !dbg !138
-  call void @__io_println(ptr %18, ptr %16), !dbg !138
-  ret i32 1, !dbg !139
+  %110 = load ptr, ptr %11, align 8, !dbg !144
+  store ptr %110, ptr %16, align 8, !dbg !144
+  call void @llvm.dbg.declare(metadata ptr %16, metadata !145, metadata !DIExpression()), !dbg !144
+  %111 = load ptr, ptr %16, align 8, !dbg !147
+  %112 = call ptr @SDL_GL_CreateContext(ptr %111), !dbg !147
+  store ptr %112, ptr %17, align 8, !dbg !147
+  call void @llvm.dbg.declare(metadata ptr %17, metadata !148, metadata !DIExpression()), !dbg !147
+  %113 = load ptr, ptr %17, align 8, !dbg !151
+  %114 = icmp eq ptr %113, null, !dbg !151
+  br i1 %114, label %block_11, label %block_12, !dbg !151
 
-block_11:                                         ; preds = %block_9
-  br label %block_12, !dbg !139
+block_11:                                         ; preds = %block_10
+  %115 = getelementptr inbounds %slice.26, ptr %18, i32 0, i32 0, !dbg !152
+  %116 = getelementptr inbounds %slice.26, ptr %18, i32 0, i32 1, !dbg !152
+  store i64 1, ptr %115, align 8, !dbg !152
+  store ptr %19, ptr %116, align 8, !dbg !152
+  %117 = alloca %string, align 8, !dbg !152
+  %String7 = getelementptr inbounds %string, ptr %117, i32 0, i32 0, !dbg !152
+  %Size8 = getelementptr inbounds %string, ptr %117, i32 0, i32 1, !dbg !152
+  store ptr @___asan_gen__anon_global.34, ptr %String7, align 8, !dbg !152
+  store i64 33, ptr %Size8, align 8, !dbg !152
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %20, ptr align 8 %117, i64 16, i1 false), !dbg !152
+  %118 = call ptr @SDL_GetError(), !dbg !152
+  store ptr %118, ptr %21, align 8, !dbg !152
+  %119 = getelementptr [1 x %__init_Arg], ptr %19, i64 0, i64 0, !dbg !152
+  %120 = getelementptr inbounds %__init_Arg, ptr %119, i32 0, i32 0, !dbg !152
+  %121 = getelementptr inbounds %__init_Arg, ptr %119, i32 0, i32 1, !dbg !152
+  store i64 60, ptr %120, align 8, !dbg !152
+  store ptr %21, ptr %121, align 8, !dbg !152
+  call void @__io_println(ptr %20, ptr %18), !dbg !152
+  ret i32 1, !dbg !153
 
-block_12:                                         ; preds = %block_11
-  call void @__renderer_create_ctx(ptr %19), !dbg !140
-  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %20, ptr align 4 %19, i64 12, i1 false), !dbg !140
-  call void @llvm.dbg.declare(metadata ptr %20, metadata !141, metadata !DIExpression()), !dbg !140
-  store i1 true, ptr %21, align 1, !dbg !148
-  call void @llvm.dbg.declare(metadata ptr %21, metadata !149, metadata !DIExpression()), !dbg !148
-  %77 = call i1 @SDL_GL_SetSwapInterval(i32 1), !dbg !151
-  %78 = load ptr, ptr @__gl_Viewport, align 8, !dbg !152
-  %79 = load i32, ptr @__main_WIDTH, align 4, !dbg !152
-  %80 = load i32, ptr @__main_HEIGHT, align 4, !dbg !152
-  call void %78(i32 0, i32 0, i32 %79, i32 %80), !dbg !152
+block_12:                                         ; preds = %block_10
   br label %block_13, !dbg !153
 
-block_13:                                         ; preds = %block_18, %block_12
-  %81 = load i1, ptr %21, align 1, !dbg !153
-  br i1 %81, label %block_14, label %block_15, !dbg !153
+block_13:                                         ; preds = %block_12
+  %122 = load ptr, ptr %17, align 8, !dbg !154
+  store ptr %122, ptr %22, align 8, !dbg !154
+  call void @llvm.dbg.declare(metadata ptr %22, metadata !155, metadata !DIExpression()), !dbg !154
+  %123 = call i1 @__gl_load(), !dbg !157
+  %124 = icmp eq i1 %123, false, !dbg !157
+  br i1 %124, label %block_14, label %block_15, !dbg !157
 
 block_14:                                         ; preds = %block_13
-  %82 = load ptr, ptr @__gl_Clear, align 8, !dbg !154
-  %83 = load i32, ptr @__gl_COLOR_BUFFER_BIT, align 4, !dbg !154
-  call void %82(i32 %83), !dbg !154
-  %84 = load ptr, ptr @__gl_ClearColor, align 8, !dbg !155
-  call void %84(float 0x3FE99999A0000000, float 0x3FD3333340000000, float 0x3FD3333340000000, float 1.000000e+00), !dbg !155
-  call void @llvm.dbg.declare(metadata ptr %22, metadata !156, metadata !DIExpression()), !dbg !171
-  br label %block_16, !dbg !172
-
-block_16:                                         ; preds = %block_19, %block_14
-  %85 = call i1 @SDL_PollEvent(ptr %22), !dbg !172
-  br i1 %85, label %block_17, label %block_18, !dbg !172
-
-block_17:                                         ; preds = %block_16
-  %86 = load i32, ptr %22, align 4, !dbg !173
-  switch i32 %86, label %block_19 [
-    i32 256, label %block_20
-  ], !dbg !173
-
-block_20:                                         ; preds = %block_17
-  store i1 false, ptr %21, align 1, !dbg !174
-  br label %block_19, !dbg !174
-
-block_19:                                         ; preds = %block_20, %block_17
-  br label %block_16, !dbg !174
-
-block_18:                                         ; preds = %block_16
-  %87 = getelementptr inbounds %__renderer_vec3, ptr %24, i32 0, i32 0, !dbg !175
-  store float -5.000000e-01, ptr %87, align 4, !dbg !175
-  %88 = getelementptr inbounds %__renderer_vec3, ptr %24, i32 0, i32 1, !dbg !175
-  store float -5.000000e-01, ptr %88, align 4, !dbg !175
-  %89 = getelementptr inbounds %__renderer_vec3, ptr %24, i32 0, i32 2, !dbg !175
-  store float 0.000000e+00, ptr %89, align 4, !dbg !175
-  %90 = getelementptr inbounds %__renderer_vec3, ptr %25, i32 0, i32 0, !dbg !175
-  store float 5.000000e-01, ptr %90, align 4, !dbg !175
-  %91 = getelementptr inbounds %__renderer_vec3, ptr %25, i32 0, i32 1, !dbg !175
-  store float -5.000000e-01, ptr %91, align 4, !dbg !175
-  %92 = getelementptr inbounds %__renderer_vec3, ptr %25, i32 0, i32 2, !dbg !175
-  store float 0.000000e+00, ptr %92, align 4, !dbg !175
-  %93 = getelementptr inbounds %__renderer_vec3, ptr %26, i32 0, i32 0, !dbg !175
-  store float 0.000000e+00, ptr %93, align 4, !dbg !175
-  %94 = getelementptr inbounds %__renderer_vec3, ptr %26, i32 0, i32 1, !dbg !175
-  store float 5.000000e-01, ptr %94, align 4, !dbg !175
-  %95 = getelementptr inbounds %__renderer_vec3, ptr %26, i32 0, i32 2, !dbg !175
-  store float 0.000000e+00, ptr %95, align 4, !dbg !175
-  %96 = getelementptr [3 x %__renderer_vec3], ptr %27, i64 0, i64 0, !dbg !175
-  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %96, ptr align 4 %24, i64 12, i1 false), !dbg !175
-  %97 = getelementptr [3 x %__renderer_vec3], ptr %27, i64 0, i64 1, !dbg !175
-  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %97, ptr align 4 %25, i64 12, i1 false), !dbg !175
-  %98 = getelementptr [3 x %__renderer_vec3], ptr %27, i64 0, i64 2, !dbg !175
-  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %98, ptr align 4 %26, i64 12, i1 false), !dbg !175
-  %99 = getelementptr inbounds %slice.20, ptr %23, i32 0, i32 0, !dbg !175
-  %100 = getelementptr inbounds %slice.20, ptr %23, i32 0, i32 1, !dbg !175
-  store i64 3, ptr %99, align 8, !dbg !175
-  store ptr %27, ptr %100, align 8, !dbg !175
-  call void @__renderer_draw_verts(ptr %20, ptr %23), !dbg !175
-  %101 = load ptr, ptr %9, align 8, !dbg !176
-  %102 = call i1 @SDL_GL_SwapWindow(ptr %101), !dbg !176
-  br label %block_13, !dbg !176
+  %125 = getelementptr inbounds %slice.26, ptr %23, i32 0, i32 0, !dbg !158
+  %126 = getelementptr inbounds %slice.26, ptr %23, i32 0, i32 1, !dbg !158
+  store i64 0, ptr %125, align 8, !dbg !158
+  store ptr %24, ptr %126, align 8, !dbg !158
+  %127 = alloca %string, align 8, !dbg !158
+  %String9 = getelementptr inbounds %string, ptr %127, i32 0, i32 0, !dbg !158
+  %Size10 = getelementptr inbounds %string, ptr %127, i32 0, i32 1, !dbg !158
+  store ptr @___asan_gen__anon_global.36, ptr %String9, align 8, !dbg !158
+  store i64 16, ptr %Size10, align 8, !dbg !158
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %25, ptr align 8 %127, i64 16, i1 false), !dbg !158
+  call void @__io_println(ptr %25, ptr %23), !dbg !158
+  ret i32 1, !dbg !159
 
 block_15:                                         ; preds = %block_13
-  ret i32 0, !dbg !177
+  br label %block_16, !dbg !159
+
+block_16:                                         ; preds = %block_15
+  %128 = call i64 @__renderer_create_ctx(), !dbg !160
+  store i64 %128, ptr %26, align 8, !dbg !160
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %27, ptr align 4 %26, i64 8, i1 false), !dbg !160
+  call void @llvm.dbg.declare(metadata ptr %27, metadata !161, metadata !DIExpression()), !dbg !160
+  store i1 true, ptr %28, align 1, !dbg !167
+  call void @llvm.dbg.declare(metadata ptr %28, metadata !168, metadata !DIExpression()), !dbg !167
+  %129 = getelementptr inbounds %__math_v2, ptr %30, i32 0, i32 0, !dbg !170
+  store float 0.000000e+00, ptr %129, align 4, !dbg !170
+  %130 = getelementptr inbounds %__math_v2, ptr %30, i32 0, i32 1, !dbg !170
+  store float 1.000000e+00, ptr %130, align 4, !dbg !170
+  %131 = getelementptr inbounds %__math_v2, ptr %31, i32 0, i32 0, !dbg !170
+  store float 5.000000e-01, ptr %131, align 4, !dbg !170
+  %132 = getelementptr inbounds %__math_v2, ptr %31, i32 0, i32 1, !dbg !170
+  store float 0x3FF3AE1480000000, ptr %132, align 4, !dbg !170
+  %133 = getelementptr inbounds %__math_v2, ptr %32, i32 0, i32 0, !dbg !170
+  store float 1.000000e+00, ptr %133, align 4, !dbg !170
+  %134 = getelementptr inbounds %__math_v2, ptr %32, i32 0, i32 1, !dbg !170
+  store float 0x3FF1EB8520000000, ptr %134, align 4, !dbg !170
+  %135 = getelementptr inbounds %__math_v2, ptr %33, i32 0, i32 0, !dbg !170
+  store float 1.500000e+00, ptr %135, align 4, !dbg !170
+  %136 = getelementptr inbounds %__math_v2, ptr %33, i32 0, i32 1, !dbg !170
+  store float 0x3FF19999A0000000, ptr %136, align 4, !dbg !170
+  %137 = getelementptr inbounds %__math_v2, ptr %34, i32 0, i32 0, !dbg !170
+  store float 2.000000e+00, ptr %137, align 4, !dbg !170
+  %138 = getelementptr inbounds %__math_v2, ptr %34, i32 0, i32 1, !dbg !170
+  store float 0x3FF0CCCCC0000000, ptr %138, align 4, !dbg !170
+  %139 = getelementptr inbounds %__math_v2, ptr %35, i32 0, i32 0, !dbg !170
+  store float 2.500000e+00, ptr %139, align 4, !dbg !170
+  %140 = getelementptr inbounds %__math_v2, ptr %35, i32 0, i32 1, !dbg !170
+  store float 0x3FF99999A0000000, ptr %140, align 4, !dbg !170
+  %141 = getelementptr inbounds %__math_v2, ptr %36, i32 0, i32 0, !dbg !170
+  store float 3.000000e+00, ptr %141, align 4, !dbg !170
+  %142 = getelementptr inbounds %__math_v2, ptr %36, i32 0, i32 1, !dbg !170
+  store float 0x4002666660000000, ptr %142, align 4, !dbg !170
+  %143 = getelementptr inbounds %__math_v2, ptr %37, i32 0, i32 0, !dbg !170
+  store float 3.500000e+00, ptr %143, align 4, !dbg !170
+  %144 = getelementptr inbounds %__math_v2, ptr %37, i32 0, i32 1, !dbg !170
+  store float 0x4010666660000000, ptr %144, align 4, !dbg !170
+  %145 = getelementptr inbounds %__math_v2, ptr %38, i32 0, i32 0, !dbg !170
+  store float 4.000000e+00, ptr %145, align 4, !dbg !170
+  %146 = getelementptr inbounds %__math_v2, ptr %38, i32 0, i32 1, !dbg !170
+  store float 0x4015333340000000, ptr %146, align 4, !dbg !170
+  %147 = getelementptr inbounds %__math_v2, ptr %39, i32 0, i32 0, !dbg !170
+  store float 4.500000e+00, ptr %147, align 4, !dbg !170
+  %148 = getelementptr inbounds %__math_v2, ptr %39, i32 0, i32 1, !dbg !170
+  store float 0x40119999A0000000, ptr %148, align 4, !dbg !170
+  %149 = getelementptr inbounds %__math_v2, ptr %40, i32 0, i32 0, !dbg !170
+  store float 5.000000e+00, ptr %149, align 4, !dbg !170
+  %150 = getelementptr inbounds %__math_v2, ptr %40, i32 0, i32 1, !dbg !170
+  store float 0x4000CCCCC0000000, ptr %150, align 4, !dbg !170
+  %151 = getelementptr inbounds %__math_v2, ptr %41, i32 0, i32 0, !dbg !170
+  store float 5.500000e+00, ptr %151, align 4, !dbg !170
+  %152 = getelementptr inbounds %__math_v2, ptr %41, i32 0, i32 1, !dbg !170
+  store float 1.500000e+00, ptr %152, align 4, !dbg !170
+  %153 = getelementptr inbounds %__math_v2, ptr %42, i32 0, i32 0, !dbg !170
+  store float 6.000000e+00, ptr %153, align 4, !dbg !170
+  %154 = getelementptr inbounds %__math_v2, ptr %42, i32 0, i32 1, !dbg !170
+  store float 1.000000e+00, ptr %154, align 4, !dbg !170
+  %155 = getelementptr inbounds %__math_v2, ptr %43, i32 0, i32 0, !dbg !170
+  store float 6.500000e+00, ptr %155, align 4, !dbg !170
+  %156 = getelementptr inbounds %__math_v2, ptr %43, i32 0, i32 1, !dbg !170
+  store float 1.000000e+00, ptr %156, align 4, !dbg !170
+  %157 = getelementptr inbounds %__math_v2, ptr %44, i32 0, i32 0, !dbg !170
+  store float 7.000000e+00, ptr %157, align 4, !dbg !170
+  %158 = getelementptr inbounds %__math_v2, ptr %44, i32 0, i32 1, !dbg !170
+  store float 5.000000e-01, ptr %158, align 4, !dbg !170
+  %159 = getelementptr inbounds %__math_v2, ptr %45, i32 0, i32 0, !dbg !170
+  store float 7.500000e+00, ptr %159, align 4, !dbg !170
+  %160 = getelementptr inbounds %__math_v2, ptr %45, i32 0, i32 1, !dbg !170
+  store float 0x3FF8A3D700000000, ptr %160, align 4, !dbg !170
+  %161 = getelementptr inbounds %__math_v2, ptr %46, i32 0, i32 0, !dbg !170
+  store float 8.000000e+00, ptr %161, align 4, !dbg !170
+  %162 = getelementptr inbounds %__math_v2, ptr %46, i32 0, i32 1, !dbg !170
+  store float 0x4000CCCCC0000000, ptr %162, align 4, !dbg !170
+  %163 = getelementptr inbounds %__math_v2, ptr %47, i32 0, i32 0, !dbg !170
+  store float 8.500000e+00, ptr %163, align 4, !dbg !170
+  %164 = getelementptr inbounds %__math_v2, ptr %47, i32 0, i32 1, !dbg !170
+  store float 0x400B70A3E0000000, ptr %164, align 4, !dbg !170
+  %165 = getelementptr inbounds %__math_v2, ptr %48, i32 0, i32 0, !dbg !170
+  store float 9.000000e+00, ptr %165, align 4, !dbg !170
+  %166 = getelementptr inbounds %__math_v2, ptr %48, i32 0, i32 1, !dbg !170
+  store float 0x401228F5C0000000, ptr %166, align 4, !dbg !170
+  %167 = getelementptr inbounds %__math_v2, ptr %49, i32 0, i32 0, !dbg !170
+  store float 9.500000e+00, ptr %167, align 4, !dbg !170
+  %168 = getelementptr inbounds %__math_v2, ptr %49, i32 0, i32 1, !dbg !170
+  store float 0x40149999A0000000, ptr %168, align 4, !dbg !170
+  %169 = getelementptr inbounds %__math_v2, ptr %50, i32 0, i32 0, !dbg !170
+  store float 1.000000e+01, ptr %169, align 4, !dbg !170
+  %170 = getelementptr inbounds %__math_v2, ptr %50, i32 0, i32 1, !dbg !170
+  store float 0x40159999A0000000, ptr %170, align 4, !dbg !170
+  %171 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 0, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %171, ptr align 4 %30, i64 8, i1 false), !dbg !170
+  %172 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 1, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %172, ptr align 4 %31, i64 8, i1 false), !dbg !170
+  %173 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 2, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %173, ptr align 4 %32, i64 8, i1 false), !dbg !170
+  %174 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 3, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %174, ptr align 4 %33, i64 8, i1 false), !dbg !170
+  %175 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 4, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %175, ptr align 4 %34, i64 8, i1 false), !dbg !170
+  %176 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 5, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %176, ptr align 4 %35, i64 8, i1 false), !dbg !170
+  %177 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 6, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %177, ptr align 4 %36, i64 8, i1 false), !dbg !170
+  %178 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 7, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %178, ptr align 4 %37, i64 8, i1 false), !dbg !170
+  %179 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 8, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %179, ptr align 4 %38, i64 8, i1 false), !dbg !170
+  %180 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 9, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %180, ptr align 4 %39, i64 8, i1 false), !dbg !170
+  %181 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 10, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %181, ptr align 4 %40, i64 8, i1 false), !dbg !170
+  %182 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 11, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %182, ptr align 4 %41, i64 8, i1 false), !dbg !170
+  %183 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 12, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %183, ptr align 4 %42, i64 8, i1 false), !dbg !170
+  %184 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 13, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %184, ptr align 4 %43, i64 8, i1 false), !dbg !170
+  %185 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 14, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %185, ptr align 4 %44, i64 8, i1 false), !dbg !170
+  %186 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 15, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %186, ptr align 4 %45, i64 8, i1 false), !dbg !170
+  %187 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 16, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %187, ptr align 4 %46, i64 8, i1 false), !dbg !170
+  %188 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 17, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %188, ptr align 4 %47, i64 8, i1 false), !dbg !170
+  %189 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 18, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %189, ptr align 4 %48, i64 8, i1 false), !dbg !170
+  %190 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 19, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %190, ptr align 4 %49, i64 8, i1 false), !dbg !170
+  %191 = getelementptr [21 x %__math_v2], ptr %51, i64 0, i64 20, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %191, ptr align 4 %50, i64 8, i1 false), !dbg !170
+  %192 = getelementptr inbounds %slice.22, ptr %29, i32 0, i32 0, !dbg !170
+  %193 = getelementptr inbounds %slice.22, ptr %29, i32 0, i32 1, !dbg !170
+  store i64 21, ptr %192, align 8, !dbg !170
+  store ptr %51, ptr %193, align 8, !dbg !170
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %52, ptr align 8 %29, i64 16, i1 false), !dbg !170
+  call void @llvm.dbg.declare(metadata ptr %52, metadata !171, metadata !DIExpression()), !dbg !170
+  %194 = call i1 @SDL_GL_SetSwapInterval(i32 1), !dbg !182
+  %195 = getelementptr inbounds %__math_v2, ptr %53, i32 0, i32 0, !dbg !183
+  store float 0.000000e+00, ptr %195, align 4, !dbg !183
+  %196 = getelementptr inbounds %__math_v2, ptr %53, i32 0, i32 1, !dbg !183
+  store float 0.000000e+00, ptr %196, align 4, !dbg !183
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %54, ptr align 4 %53, i64 8, i1 false), !dbg !183
+  call void @llvm.dbg.declare(metadata ptr %54, metadata !184, metadata !DIExpression()), !dbg !183
+  %197 = call i32 @__renderer_compile_shaders(ptr @__main_vert_shader, ptr @__main_frag_shader), !dbg !185
+  store i32 %197, ptr %55, align 4, !dbg !185
+  call void @llvm.dbg.declare(metadata ptr %55, metadata !186, metadata !DIExpression()), !dbg !185
+  %198 = load i32, ptr %55, align 4, !dbg !187
+  call void @__renderer_use_shader(i32 %198), !dbg !187
+  %199 = load ptr, ptr @__gl_Viewport, align 8, !dbg !188
+  %200 = load i32, ptr @__main_WIDTH, align 4, !dbg !188
+  %201 = load i32, ptr @__main_HEIGHT, align 4, !dbg !188
+  call void %199(i32 0, i32 0, i32 %200, i32 %201), !dbg !188
+  store float 0.000000e+00, ptr %56, align 4, !dbg !189
+  call void @llvm.dbg.declare(metadata ptr %56, metadata !190, metadata !DIExpression()), !dbg !189
+  store i1 false, ptr %57, align 1, !dbg !191
+  call void @llvm.dbg.declare(metadata ptr %57, metadata !192, metadata !DIExpression()), !dbg !191
+  br label %block_17, !dbg !193
+
+block_17:                                         ; preds = %block_36, %block_16
+  %202 = load i1, ptr %28, align 1, !dbg !193
+  br i1 %202, label %block_18, label %block_19, !dbg !193
+
+block_18:                                         ; preds = %block_17
+  %203 = load ptr, ptr @__gl_Clear, align 8, !dbg !194
+  %204 = load i32, ptr @__gl_COLOR_BUFFER_BIT, align 4, !dbg !194
+  call void %203(i32 %204), !dbg !194
+  %205 = load ptr, ptr @__gl_ClearColor, align 8, !dbg !195
+  call void %205(float 0x3FAA1CAC00000000, float 0x3FC28F5C20000000, float 0x3FCD0E5600000000, float 1.000000e+00), !dbg !195
+  call void @llvm.dbg.declare(metadata ptr %58, metadata !196, metadata !DIExpression()), !dbg !228
+  br label %block_20, !dbg !229
+
+block_20:                                         ; preds = %block_23, %block_18
+  %206 = call i1 @SDL_PollEvent(ptr %58), !dbg !229
+  br i1 %206, label %block_21, label %block_22, !dbg !229
+
+block_21:                                         ; preds = %block_20
+  %207 = load i32, ptr %58, align 4, !dbg !230
+  switch i32 %207, label %block_23 [
+    i32 256, label %block_24
+    i32 1024, label %block_25
+    i32 1025, label %block_26
+    i32 1026, label %block_30
+  ], !dbg !230
+
+block_24:                                         ; preds = %block_21
+  store i1 false, ptr %28, align 1, !dbg !231
+  br label %block_23, !dbg !231
+
+block_25:                                         ; preds = %block_21
+  %208 = getelementptr inbounds %__math_v2, ptr %54, i32 0, i32 0, !dbg !232
+  %209 = getelementptr inbounds %__sdl_MouseMotionEvent, ptr %58, i32 0, i32 6, !dbg !232
+  %210 = load float, ptr %209, align 4, !dbg !232
+  store float %210, ptr %208, align 4, !dbg !232
+  %211 = getelementptr inbounds %__math_v2, ptr %54, i32 0, i32 1, !dbg !233
+  %212 = getelementptr inbounds %__sdl_MouseMotionEvent, ptr %58, i32 0, i32 7, !dbg !233
+  %213 = load float, ptr %212, align 4, !dbg !233
+  store float %213, ptr %211, align 4, !dbg !233
+  br label %block_23, !dbg !233
+
+block_26:                                         ; preds = %block_21
+  %214 = getelementptr inbounds %__sdl_MouseButtonEvent, ptr %58, i32 0, i32 5, !dbg !234
+  %215 = load i8, ptr %214, align 1, !dbg !234
+  %216 = zext i8 %215 to i32, !dbg !234
+  %217 = load i32, ptr @__sdl_BUTTON_LEFT, align 4, !dbg !234
+  %218 = call i32 @__sdl_BUTTON_MASK(i32 %217), !dbg !234
+  %219 = icmp eq i32 %216, %218, !dbg !234
+  br i1 %219, label %block_27, label %block_28, !dbg !234
+
+block_27:                                         ; preds = %block_26
+  store i1 true, ptr %57, align 1, !dbg !235
+  br label %block_29, !dbg !235
+
+block_28:                                         ; preds = %block_26
+  br label %block_29, !dbg !235
+
+block_29:                                         ; preds = %block_28, %block_27
+  br label %block_23, !dbg !235
+
+block_30:                                         ; preds = %block_21
+  %220 = getelementptr inbounds %__sdl_MouseButtonEvent, ptr %58, i32 0, i32 5, !dbg !236
+  %221 = load i8, ptr %220, align 1, !dbg !236
+  %222 = zext i8 %221 to i32, !dbg !236
+  %223 = load i32, ptr @__sdl_BUTTON_LEFT, align 4, !dbg !236
+  %224 = call i32 @__sdl_BUTTON_MASK(i32 %223), !dbg !236
+  %225 = icmp eq i32 %222, %224, !dbg !236
+  br i1 %225, label %block_31, label %block_32, !dbg !236
+
+block_31:                                         ; preds = %block_30
+  store i1 false, ptr %57, align 1, !dbg !237
+  br label %block_33, !dbg !237
+
+block_32:                                         ; preds = %block_30
+  br label %block_33, !dbg !237
+
+block_33:                                         ; preds = %block_32, %block_31
+  br label %block_23, !dbg !237
+
+block_23:                                         ; preds = %block_33, %block_29, %block_25, %block_24, %block_21
+  br label %block_20, !dbg !237
+
+block_22:                                         ; preds = %block_20
+  %226 = load float, ptr %56, align 4, !dbg !238
+  %227 = fadd float %226, 0x3FA99999A0000000, !dbg !238
+  store float %227, ptr %56, align 4, !dbg !238
+  %228 = load i32, ptr %55, align 4, !dbg !239
+  %229 = alloca %string, align 8, !dbg !239
+  %String11 = getelementptr inbounds %string, ptr %229, i32 0, i32 0, !dbg !239
+  %Size12 = getelementptr inbounds %string, ptr %229, i32 0, i32 1, !dbg !239
+  store ptr @___asan_gen__anon_global.38, ptr %String11, align 8, !dbg !239
+  store i64 1, ptr %Size12, align 8, !dbg !239
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %59, ptr align 8 %229, i64 16, i1 false), !dbg !239
+  %230 = load float, ptr %56, align 4, !dbg !239
+  call void @"__renderer_set_uniform@u32_string_f32_@void"(i32 %228, ptr %59, float %230), !dbg !239
+  %231 = load i32, ptr %55, align 4, !dbg !240
+  %232 = alloca %string, align 8, !dbg !240
+  %String13 = getelementptr inbounds %string, ptr %232, i32 0, i32 0, !dbg !240
+  %Size14 = getelementptr inbounds %string, ptr %232, i32 0, i32 1, !dbg !240
+  store ptr @___asan_gen__anon_global.40, ptr %String13, align 8, !dbg !240
+  store i64 12, ptr %Size14, align 8, !dbg !240
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %60, ptr align 8 %232, i64 16, i1 false), !dbg !240
+  %233 = load i32, ptr @__main_WIDTH, align 4, !dbg !240
+  %234 = sitofp i32 %233 to float, !dbg !240
+  %235 = getelementptr inbounds %__math_v2, ptr %61, i32 0, i32 0, !dbg !240
+  store float %234, ptr %235, align 4, !dbg !240
+  %236 = load i32, ptr @__main_HEIGHT, align 4, !dbg !240
+  %237 = sitofp i32 %236 to float, !dbg !240
+  %238 = getelementptr inbounds %__math_v2, ptr %61, i32 0, i32 1, !dbg !240
+  store float %237, ptr %238, align 4, !dbg !240
+  %239 = load i64, ptr %61, align 8, !dbg !240
+  call void @"__renderer_set_uniform@u32_string_@@f32_f32_@@__math_v2_@void"(i32 %231, ptr %60, i64 %239), !dbg !240
+  %240 = load i32, ptr %55, align 4, !dbg !241
+  %241 = alloca %string, align 8, !dbg !241
+  %String15 = getelementptr inbounds %string, ptr %241, i32 0, i32 0, !dbg !241
+  %Size16 = getelementptr inbounds %string, ptr %241, i32 0, i32 1, !dbg !241
+  store ptr @___asan_gen__anon_global.42, ptr %String15, align 8, !dbg !241
+  store i64 7, ptr %Size16, align 8, !dbg !241
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %62, ptr align 8 %241, i64 16, i1 false), !dbg !241
+  %242 = load i64, ptr %54, align 8, !dbg !241
+  call void @"__renderer_set_uniform@u32_string_@@f32_f32_@@__math_v2_@void"(i32 %240, ptr %62, i64 %242), !dbg !241
+  %243 = load i32, ptr %55, align 4, !dbg !242
+  %244 = alloca %string, align 8, !dbg !242
+  %String17 = getelementptr inbounds %string, ptr %244, i32 0, i32 0, !dbg !242
+  %Size18 = getelementptr inbounds %string, ptr %244, i32 0, i32 1, !dbg !242
+  store ptr @___asan_gen__anon_global.44, ptr %String17, align 8, !dbg !242
+  store i64 7, ptr %Size18, align 8, !dbg !242
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %63, ptr align 8 %244, i64 16, i1 false), !dbg !242
+  %245 = getelementptr inbounds %__math_v3, ptr %64, i32 0, i32 0, !dbg !242
+  store float 0x3FC99999A0000000, ptr %245, align 4, !dbg !242
+  %246 = getelementptr inbounds %__math_v3, ptr %64, i32 0, i32 1, !dbg !242
+  store float 5.000000e-01, ptr %246, align 4, !dbg !242
+  %247 = getelementptr inbounds %__math_v3, ptr %64, i32 0, i32 2, !dbg !242
+  store float 1.000000e+00, ptr %247, align 4, !dbg !242
+  call void @llvm.memcpy.p0.p0.i64(ptr align 4 %65, ptr align 4 %64, i64 12, i1 false), !dbg !242
+  call void @"__renderer_set_uniform@u32_string_@@f32_f32_f32_@@__math_v3_@void"(i32 %243, ptr %63, ptr %65), !dbg !242
+  store float 5.000000e-01, ptr %66, align 4, !dbg !243
+  call void @llvm.dbg.declare(metadata ptr %66, metadata !244, metadata !DIExpression()), !dbg !243
+  %248 = load i1, ptr %57, align 1, !dbg !245
+  br i1 %248, label %block_34, label %block_35, !dbg !245
+
+block_34:                                         ; preds = %block_22
+  %249 = load i32, ptr %55, align 4, !dbg !246
+  %250 = alloca %string, align 8, !dbg !246
+  %String19 = getelementptr inbounds %string, ptr %250, i32 0, i32 0, !dbg !246
+  %Size20 = getelementptr inbounds %string, ptr %250, i32 0, i32 1, !dbg !246
+  store ptr @___asan_gen__anon_global.46, ptr %String19, align 8, !dbg !246
+  store i64 8, ptr %Size20, align 8, !dbg !246
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %67, ptr align 8 %250, i64 16, i1 false), !dbg !246
+  call void @"__renderer_set_uniform@u32_string_int_@void"(i32 %249, ptr %67, i64 1), !dbg !246
+  br label %block_36, !dbg !246
+
+block_35:                                         ; preds = %block_22
+  %251 = load i32, ptr %55, align 4, !dbg !247
+  %252 = alloca %string, align 8, !dbg !247
+  %String21 = getelementptr inbounds %string, ptr %252, i32 0, i32 0, !dbg !247
+  %Size22 = getelementptr inbounds %string, ptr %252, i32 0, i32 1, !dbg !247
+  store ptr @___asan_gen__anon_global.48, ptr %String21, align 8, !dbg !247
+  store i64 8, ptr %Size22, align 8, !dbg !247
+  call void @llvm.memcpy.p0.p0.i64(ptr align 8 %68, ptr align 8 %252, i64 16, i1 false), !dbg !247
+  call void @"__renderer_set_uniform@u32_string_int_@void"(i32 %251, ptr %68, i64 0), !dbg !247
+  br label %block_36, !dbg !247
+
+block_36:                                         ; preds = %block_35, %block_34
+  call void @__graph_draw(ptr %27, ptr %52, float 1.000000e+01, float 6.000000e+00), !dbg !248
+  %253 = load ptr, ptr %16, align 8, !dbg !249
+  %254 = call i1 @SDL_GL_SwapWindow(ptr %253), !dbg !249
+  br label %block_17, !dbg !249
+
+block_19:                                         ; preds = %block_17
+  ret i32 0, !dbg !250
 }
 
 declare i1 @SDL_Init(i32)
@@ -1126,7 +1826,11 @@ declare i1 @SDL_PollEvent(ptr)
 
 declare ptr @SDL_GetError()
 
+declare i64 @SDL_GetTicks()
+
 declare i1 @SDL_GL_SetSwapInterval(i32)
+
+declare i32 @__sdl_BUTTON_MASK(i32)
 
 declare ptr @wglGetProcAddress(ptr)
 
@@ -1138,17 +1842,45 @@ declare ptr @__gl_load_gl_fn(ptr)
 
 declare i1 @__gl_load()
 
+declare i32 @__renderer_compile_shaders(ptr, ptr)
+
+declare void @__renderer_use_shader(i32)
+
+declare i64 @__renderer_create_ctx()
+
+declare ptr @__renderer_create_framebuffer(i32, i32, ptr)
+
+declare void @__renderer_delete_framebuffer(ptr)
+
+declare void @__renderer_bind_framebuffer(ptr, ptr)
+
+declare void @__renderer_draw_verts(ptr, ptr)
+
+declare void @__renderer_draw_lines(ptr, ptr, float)
+
 declare void @__renderer_compile_shader(i32, ptr, ptr)
 
 declare void @__renderer_gl_callback(i32, i32, i32, i32, i32, ptr, ptr)
 
-declare void @__renderer_create_ctx(ptr)
+declare void @"__renderer_set_uniform@u32_string_f32_@void"(i32, ptr, float)
 
-declare void @__renderer_draw_verts(ptr, ptr)
+declare void @"__renderer_set_uniform@u32_string_@@f32_f32_@@__math_v2_@void"(i32, ptr, i64)
 
-declare void @__graph_draw_line(i64, i64, ptr)
+declare void @"__renderer_set_uniform@u32_string_@@f32_f32_f32_@@__math_v3_@void"(i32, ptr, ptr)
 
-declare void @__graph_draw_graph(ptr, float, float, float, float)
+declare void @"__renderer_set_uniform@u32_string_int_@void"(i32, ptr, i64)
+
+declare i64 @__graph_map_point(i64, float, float)
+
+declare i64 @__graph_calculate_spline(i64, i64, i64, i64, float)
+
+declare void @__graph_draw(ptr, ptr, float, float)
+
+declare i64 @__math_v2_scale(i64, float)
+
+declare i64 @__math_v2_add(i64, i64)
+
+declare float @__math_map(float, float, float, float, float)
 
 declare void @__init_global_initializers()
 
@@ -1180,6 +1912,8 @@ declare ptr @VirtualAlloc(ptr, i64, i32, i32)
 
 declare i1 @VirtualFree(ptr, i64, i32)
 
+declare i1 @ReadConsoleA(ptr, ptr, i32, ptr, ptr)
+
 declare void @__os_abort()
 
 declare void @__os_assert(i1, ptr)
@@ -1189,6 +1923,8 @@ declare void @__os_print(ptr, i32)
 declare ptr @__os_alloc(i64)
 
 declare void @__os_free(ptr)
+
+declare i32 @__os_read_stdin_line(ptr, i32)
 
 declare void @__io_push_string(ptr, ptr)
 
@@ -1209,6 +1945,8 @@ declare void @__io___internal_print(ptr, ptr, ptr)
 declare void @__io_print(ptr, ptr)
 
 declare void @__io_println(ptr, ptr)
+
+declare void @__io_readln(ptr, ptr, i32)
 
 declare i32 @__io_get_next(ptr)
 
@@ -1243,6 +1981,10 @@ declare ptr @__str__it_advance(ptr, i64, i64)
 declare i32 @__str_deref(ptr)
 
 declare i32 @__str_index(ptr, i64)
+
+declare void @"__array_create@type_*__mem_Allocator_@[]__math_v3"(ptr, i64, ptr)
+
+declare void @"__array_add@@@f32_f32_f32_@@*[]__math_v3_@@f32_f32_f32_@@__math_v3_@void"(ptr, ptr)
 
 declare void @"__array_add@*[]u32_u32_@void"(ptr, i32)
 
@@ -1297,184 +2039,257 @@ attributes #1 = { nocallback nofree nounwind willreturn memory(argmem: readwrite
 attributes #2 = { nocallback nofree nosync nounwind speculatable willreturn memory(none) }
 attributes #3 = { nounwind }
 
-!llvm.dbg.cu = !{!7}
-!llvm.module.flags = !{!103, !104}
+!llvm.dbg.cu = !{!19}
+!llvm.module.flags = !{!118, !119}
 
 !0 = !{ptr @__main_WIDTH}
 !1 = !{ptr @__main_HEIGHT}
-!2 = !{ptr @___asan_gen__anon_global}
-!3 = !{ptr @___asan_gen__anon_global.10}
-!4 = !{ptr @___asan_gen__anon_global.12}
-!5 = !{ptr @___asan_gen__anon_global.14}
-!6 = !{ptr @___asan_gen__anon_global.16}
-!7 = distinct !DICompileUnit(language: DW_LANG_C99, file: !8, producer: "RCP Compiler", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, enums: !9, splitDebugInlining: false)
-!8 = !DIFile(filename: "main.rcp", directory: "E:\\Non_C_Projects\\RCPProjects\\graph\\src")
-!9 = !{!10, !22, !43, !52, !57, !61, !69, !73, !10, !22, !43, !52, !57, !61}
-!10 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_TypeKind", scope: !8, file: !8, size: 64, align: 64, elements: !11)
-!11 = !{!12, !13, !14, !15, !16, !17, !18, !19, !20, !21}
-!12 = !DIEnumerator(name: "Invalid", value: 0, isUnsigned: true)
-!13 = !DIEnumerator(name: "Basic", value: 1, isUnsigned: true)
-!14 = !DIEnumerator(name: "Function", value: 2, isUnsigned: true)
-!15 = !DIEnumerator(name: "Struct", value: 3, isUnsigned: true)
-!16 = !DIEnumerator(name: "Pointer", value: 4, isUnsigned: true)
-!17 = !DIEnumerator(name: "Array", value: 5, isUnsigned: true)
-!18 = !DIEnumerator(name: "Slice", value: 6, isUnsigned: true)
-!19 = !DIEnumerator(name: "Vector", value: 7, isUnsigned: true)
-!20 = !DIEnumerator(name: "Enum", value: 8, isUnsigned: true)
-!21 = !DIEnumerator(name: "Generic", value: 9, isUnsigned: true)
-!22 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_BasicKind", scope: !8, file: !8, size: 64, align: 64, elements: !23)
-!23 = !{!24, !25, !26, !27, !28, !29, !30, !31, !32, !33, !34, !35, !36, !37, !38, !39, !40, !41, !42}
-!24 = !DIEnumerator(name: "Bool", value: 0, isUnsigned: true)
-!25 = !DIEnumerator(name: "String", value: 1, isUnsigned: true)
-!26 = !DIEnumerator(name: "U8", value: 2, isUnsigned: true)
-!27 = !DIEnumerator(name: "U16", value: 3, isUnsigned: true)
-!28 = !DIEnumerator(name: "U32", value: 4, isUnsigned: true)
-!29 = !DIEnumerator(name: "U64", value: 5, isUnsigned: true)
-!30 = !DIEnumerator(name: "I8", value: 6, isUnsigned: true)
-!31 = !DIEnumerator(name: "I16", value: 7, isUnsigned: true)
-!32 = !DIEnumerator(name: "I32", value: 8, isUnsigned: true)
-!33 = !DIEnumerator(name: "I64", value: 9, isUnsigned: true)
-!34 = !DIEnumerator(name: "F32", value: 10, isUnsigned: true)
-!35 = !DIEnumerator(name: "F64", value: 11, isUnsigned: true)
-!36 = !DIEnumerator(name: "untypedInteger", value: 12, isUnsigned: true)
-!37 = !DIEnumerator(name: "untypedFloat", value: 13, isUnsigned: true)
-!38 = !DIEnumerator(name: "Int", value: 14, isUnsigned: true)
-!39 = !DIEnumerator(name: "Uint", value: 15, isUnsigned: true)
-!40 = !DIEnumerator(name: "Type", value: 16, isUnsigned: true)
-!41 = !DIEnumerator(name: "Auto", value: 17, isUnsigned: true)
-!42 = !DIEnumerator(name: "Module", value: 18, isUnsigned: true)
-!43 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_BasicFlag", scope: !8, file: !8, size: 32, align: 32, elements: !44)
-!44 = !{!45, !46, !47, !48, !49, !50, !51}
-!45 = !DIEnumerator(name: "Boolean", value: 1, isUnsigned: true)
-!46 = !DIEnumerator(name: "Integer", value: 2, isUnsigned: true)
-!47 = !DIEnumerator(name: "Float", value: 4, isUnsigned: true)
-!48 = !DIEnumerator(name: "String", value: 8, isUnsigned: true)
-!49 = !DIEnumerator(name: "Untyped", value: 32, isUnsigned: true)
-!50 = !DIEnumerator(name: "Unsigned", value: 64, isUnsigned: true)
-!51 = !DIEnumerator(name: "TypeID", value: 128, isUnsigned: true)
-!52 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_StructFlag", scope: !8, file: !8, size: 32, align: 32, elements: !53)
-!53 = !{!54, !55, !56}
-!54 = !DIEnumerator(name: "Packed", value: 1, isUnsigned: true)
-!55 = !DIEnumerator(name: "Generic", value: 2, isUnsigned: true)
-!56 = !DIEnumerator(name: "Union", value: 4, isUnsigned: true)
-!57 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_VectorKind", scope: !8, file: !8, size: 64, align: 64, elements: !58)
-!58 = !{!59, !60}
-!59 = !DIEnumerator(name: "Float", value: 0, isUnsigned: true)
-!60 = !DIEnumerator(name: "Int", value: 1, isUnsigned: true)
-!61 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__compile_CompileFlag", scope: !8, file: !8, size: 32, align: 32, elements: !62)
-!62 = !{!63, !64, !65, !66, !67, !68}
-!63 = !DIEnumerator(name: "Debug", value: 1, isUnsigned: true)
-!64 = !DIEnumerator(name: "SanAddress", value: 2, isUnsigned: true)
-!65 = !DIEnumerator(name: "SanMemory", value: 4, isUnsigned: true)
-!66 = !DIEnumerator(name: "SanThread", value: 8, isUnsigned: true)
-!67 = !DIEnumerator(name: "SanUndefined", value: 16, isUnsigned: true)
-!68 = !DIEnumerator(name: "NoStdLib", value: 32, isUnsigned: true)
-!69 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__sdl_EventType", scope: !8, file: !8, size: 32, align: 32, elements: !70)
+!2 = !{ptr @__main_vert_shader}
+!3 = !{ptr @__main_frag_shader}
+!4 = !{ptr @___asan_gen__anon_global}
+!5 = !{ptr @___asan_gen__anon_global.22}
+!6 = !{ptr @___asan_gen__anon_global.24}
+!7 = !{ptr @___asan_gen__anon_global.26}
+!8 = !{ptr @___asan_gen__anon_global.28}
+!9 = !{ptr @___asan_gen__anon_global.30}
+!10 = !{ptr @___asan_gen__anon_global.32}
+!11 = !{ptr @___asan_gen__anon_global.34}
+!12 = !{ptr @___asan_gen__anon_global.36}
+!13 = !{ptr @___asan_gen__anon_global.38}
+!14 = !{ptr @___asan_gen__anon_global.40}
+!15 = !{ptr @___asan_gen__anon_global.42}
+!16 = !{ptr @___asan_gen__anon_global.44}
+!17 = !{ptr @___asan_gen__anon_global.46}
+!18 = !{ptr @___asan_gen__anon_global.48}
+!19 = distinct !DICompileUnit(language: DW_LANG_C99, file: !20, producer: "RCP Compiler", isOptimized: false, runtimeVersion: 0, emissionKind: FullDebug, enums: !21, splitDebugInlining: false)
+!20 = !DIFile(filename: "main.rcp", directory: "E:\\Non_C_Projects\\RCPProjects\\graph\\src")
+!21 = !{!22, !34, !55, !64, !69, !73, !81, !88, !22, !34, !55, !64, !69, !73}
+!22 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_TypeKind", scope: !20, file: !20, size: 64, align: 64, elements: !23)
+!23 = !{!24, !25, !26, !27, !28, !29, !30, !31, !32, !33}
+!24 = !DIEnumerator(name: "Invalid", value: 0, isUnsigned: true)
+!25 = !DIEnumerator(name: "Basic", value: 1, isUnsigned: true)
+!26 = !DIEnumerator(name: "Function", value: 2, isUnsigned: true)
+!27 = !DIEnumerator(name: "Struct", value: 3, isUnsigned: true)
+!28 = !DIEnumerator(name: "Pointer", value: 4, isUnsigned: true)
+!29 = !DIEnumerator(name: "Array", value: 5, isUnsigned: true)
+!30 = !DIEnumerator(name: "Slice", value: 6, isUnsigned: true)
+!31 = !DIEnumerator(name: "Vector", value: 7, isUnsigned: true)
+!32 = !DIEnumerator(name: "Enum", value: 8, isUnsigned: true)
+!33 = !DIEnumerator(name: "Generic", value: 9, isUnsigned: true)
+!34 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_BasicKind", scope: !20, file: !20, size: 64, align: 64, elements: !35)
+!35 = !{!36, !37, !38, !39, !40, !41, !42, !43, !44, !45, !46, !47, !48, !49, !50, !51, !52, !53, !54}
+!36 = !DIEnumerator(name: "Bool", value: 0, isUnsigned: true)
+!37 = !DIEnumerator(name: "String", value: 1, isUnsigned: true)
+!38 = !DIEnumerator(name: "U8", value: 2, isUnsigned: true)
+!39 = !DIEnumerator(name: "U16", value: 3, isUnsigned: true)
+!40 = !DIEnumerator(name: "U32", value: 4, isUnsigned: true)
+!41 = !DIEnumerator(name: "U64", value: 5, isUnsigned: true)
+!42 = !DIEnumerator(name: "I8", value: 6, isUnsigned: true)
+!43 = !DIEnumerator(name: "I16", value: 7, isUnsigned: true)
+!44 = !DIEnumerator(name: "I32", value: 8, isUnsigned: true)
+!45 = !DIEnumerator(name: "I64", value: 9, isUnsigned: true)
+!46 = !DIEnumerator(name: "F32", value: 10, isUnsigned: true)
+!47 = !DIEnumerator(name: "F64", value: 11, isUnsigned: true)
+!48 = !DIEnumerator(name: "untypedInteger", value: 12, isUnsigned: true)
+!49 = !DIEnumerator(name: "untypedFloat", value: 13, isUnsigned: true)
+!50 = !DIEnumerator(name: "Int", value: 14, isUnsigned: true)
+!51 = !DIEnumerator(name: "Uint", value: 15, isUnsigned: true)
+!52 = !DIEnumerator(name: "Type", value: 16, isUnsigned: true)
+!53 = !DIEnumerator(name: "Auto", value: 17, isUnsigned: true)
+!54 = !DIEnumerator(name: "Module", value: 18, isUnsigned: true)
+!55 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_BasicFlag", scope: !20, file: !20, size: 32, align: 32, elements: !56)
+!56 = !{!57, !58, !59, !60, !61, !62, !63}
+!57 = !DIEnumerator(name: "Boolean", value: 1, isUnsigned: true)
+!58 = !DIEnumerator(name: "Integer", value: 2, isUnsigned: true)
+!59 = !DIEnumerator(name: "Float", value: 4, isUnsigned: true)
+!60 = !DIEnumerator(name: "String", value: 8, isUnsigned: true)
+!61 = !DIEnumerator(name: "Untyped", value: 32, isUnsigned: true)
+!62 = !DIEnumerator(name: "Unsigned", value: 64, isUnsigned: true)
+!63 = !DIEnumerator(name: "TypeID", value: 128, isUnsigned: true)
+!64 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_StructFlag", scope: !20, file: !20, size: 32, align: 32, elements: !65)
+!65 = !{!66, !67, !68}
+!66 = !DIEnumerator(name: "Packed", value: 1, isUnsigned: true)
+!67 = !DIEnumerator(name: "Generic", value: 2, isUnsigned: true)
+!68 = !DIEnumerator(name: "Union", value: 4, isUnsigned: true)
+!69 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__init_VectorKind", scope: !20, file: !20, size: 64, align: 64, elements: !70)
 !70 = !{!71, !72}
-!71 = !DIEnumerator(name: "FIRST", value: 0)
-!72 = !DIEnumerator(name: "QUIT", value: 256, isUnsigned: true)
-!73 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__sdl_GLattr", scope: !8, file: !8, size: 32, align: 32, elements: !74)
-!74 = !{!75, !76, !77, !78, !79, !80, !81, !82, !83, !84, !85, !86, !87, !88, !89, !90, !91, !92, !93, !94, !95, !96, !97, !98, !99, !100, !101, !102}
-!75 = !DIEnumerator(name: "RED_SIZE", value: 0, isUnsigned: true)
-!76 = !DIEnumerator(name: "GREEN_SIZE", value: 1, isUnsigned: true)
-!77 = !DIEnumerator(name: "BLUE_SIZE", value: 2, isUnsigned: true)
-!78 = !DIEnumerator(name: "ALPHA_SIZE", value: 3, isUnsigned: true)
-!79 = !DIEnumerator(name: "BUFFER_SIZE", value: 4, isUnsigned: true)
-!80 = !DIEnumerator(name: "DOUBLEBUFFER", value: 5, isUnsigned: true)
-!81 = !DIEnumerator(name: "DEPTH_SIZE", value: 6, isUnsigned: true)
-!82 = !DIEnumerator(name: "STENCIL_SIZE", value: 7, isUnsigned: true)
-!83 = !DIEnumerator(name: "ACCUM_RED_SIZE", value: 8, isUnsigned: true)
-!84 = !DIEnumerator(name: "ACCUM_GREEN_SIZE", value: 9, isUnsigned: true)
-!85 = !DIEnumerator(name: "ACCUM_BLUE_SIZE", value: 10, isUnsigned: true)
-!86 = !DIEnumerator(name: "ACCUM_ALPHA_SIZE", value: 11, isUnsigned: true)
-!87 = !DIEnumerator(name: "STEREO", value: 12, isUnsigned: true)
-!88 = !DIEnumerator(name: "MULTISAMPLEBUFFERS", value: 13, isUnsigned: true)
-!89 = !DIEnumerator(name: "MULTISAMPLESAMPLES", value: 14, isUnsigned: true)
-!90 = !DIEnumerator(name: "ACCELERATED_VISUAL", value: 15, isUnsigned: true)
-!91 = !DIEnumerator(name: "RETAINED_BACKING", value: 16, isUnsigned: true)
-!92 = !DIEnumerator(name: "CONTEXT_MAJOR_VERSION", value: 17, isUnsigned: true)
-!93 = !DIEnumerator(name: "CONTEXT_MINOR_VERSION", value: 18, isUnsigned: true)
-!94 = !DIEnumerator(name: "CONTEXT_FLAGS", value: 19, isUnsigned: true)
-!95 = !DIEnumerator(name: "CONTEXT_PROFILE_MASK", value: 20, isUnsigned: true)
-!96 = !DIEnumerator(name: "SHARE_WITH_CURRENT_CONTEXT", value: 21, isUnsigned: true)
-!97 = !DIEnumerator(name: "FRAMEBUFFER_SRGB_CAPABLE", value: 22, isUnsigned: true)
-!98 = !DIEnumerator(name: "CONTEXT_RELEASE_BEHAVIOR", value: 23, isUnsigned: true)
-!99 = !DIEnumerator(name: "CONTEXT_RESET_NOTIFICATION", value: 24, isUnsigned: true)
-!100 = !DIEnumerator(name: "CONTEXT_NO_ERROR", value: 25, isUnsigned: true)
-!101 = !DIEnumerator(name: "FLOATBUFFERS", value: 26, isUnsigned: true)
-!102 = !DIEnumerator(name: "EGL_PLATFORM", value: 27, isUnsigned: true)
-!103 = !{i32 2, !"CodeView", i32 1}
-!104 = !{i32 2, !"Debug Info Version", i32 3}
-!105 = distinct !DISubprogram(name: "main", linkageName: "__main_main", scope: !8, file: !8, line: 11, type: !106, spFlags: DISPFlagDefinition, unit: !7, retainedNodes: !109)
-!106 = !DISubroutineType(types: !107)
-!107 = !{!108}
-!108 = !DIBasicType(name: "i32", size: 32, encoding: DW_ATE_signed)
-!109 = !{}
-!110 = !DILocation(line: 12, scope: !105)
-!111 = !DILocation(line: 13, scope: !105)
-!112 = !DILocation(line: 14, scope: !105)
-!113 = !DILocation(line: 17, scope: !105)
-!114 = !DILocation(line: 18, scope: !105)
-!115 = !DILocation(line: 19, scope: !105)
-!116 = !DILocation(line: 20, scope: !105)
-!117 = !DILocation(line: 22, scope: !105)
-!118 = !DILocalVariable(name: "maybe_window", scope: !105, file: !8, line: 22, type: !119)
-!119 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "?*__sdl_Window", baseType: !120, size: 64, align: 64, dwarfAddressSpace: 0)
-!120 = !DICompositeType(tag: DW_TAG_structure_type, name: "__sdl_Window", scope: !8, file: !8, elements: !109)
-!121 = !DILocation(line: 23, scope: !105)
-!122 = !DILocation(line: 24, scope: !105)
-!123 = !DILocation(line: 25, scope: !105)
-!124 = !DILocation(line: 28, scope: !105)
-!125 = !DILocalVariable(name: "window", scope: !105, file: !8, line: 28, type: !126)
-!126 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "*__sdl_Window", baseType: !120, size: 64, align: 64, dwarfAddressSpace: 0)
-!127 = !DILocation(line: 30, scope: !105)
-!128 = !DILocalVariable(name: "maybe_ctx", scope: !105, file: !8, line: 30, type: !129)
-!129 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "?*__sdl_GLContext", baseType: !130, size: 64, align: 64, dwarfAddressSpace: 0)
-!130 = !DICompositeType(tag: DW_TAG_structure_type, name: "__sdl_GLContext", scope: !8, file: !8, elements: !109)
-!131 = !DILocation(line: 31, scope: !105)
-!132 = !DILocation(line: 32, scope: !105)
-!133 = !DILocation(line: 33, scope: !105)
-!134 = !DILocation(line: 36, scope: !105)
-!135 = !DILocalVariable(name: "gl_ctx", scope: !105, file: !8, line: 36, type: !136)
-!136 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "*__sdl_GLContext", baseType: !130, size: 64, align: 64, dwarfAddressSpace: 0)
-!137 = !DILocation(line: 38, scope: !105)
-!138 = !DILocation(line: 39, scope: !105)
-!139 = !DILocation(line: 40, scope: !105)
-!140 = !DILocation(line: 43, scope: !105)
-!141 = !DILocalVariable(name: "renderer", scope: !105, file: !8, line: 43, type: !142)
-!142 = !DICompositeType(tag: DW_TAG_structure_type, name: "__renderer_ctx", scope: !8, file: !8, size: 96, elements: !143)
-!143 = !{!144, !146, !147}
-!144 = !DIDerivedType(tag: DW_TAG_member, name: "vao", scope: !8, file: !8, baseType: !145, size: 32, align: 32)
-!145 = !DIBasicType(name: "u32", size: 32, encoding: DW_ATE_unsigned)
-!146 = !DIDerivedType(tag: DW_TAG_member, name: "vbo", scope: !8, file: !8, baseType: !145, size: 32, align: 32, offset: 32)
-!147 = !DIDerivedType(tag: DW_TAG_member, name: "program", scope: !8, file: !8, baseType: !145, size: 32, align: 32, offset: 64)
-!148 = !DILocation(line: 44, scope: !105)
-!149 = !DILocalVariable(name: "running", scope: !105, file: !8, line: 44, type: !150)
-!150 = !DIBasicType(name: "bool", size: 8, encoding: DW_ATE_boolean)
-!151 = !DILocation(line: 46, scope: !105)
-!152 = !DILocation(line: 48, scope: !105)
-!153 = !DILocation(line: 49, scope: !105)
-!154 = !DILocation(line: 50, scope: !105)
-!155 = !DILocation(line: 51, scope: !105)
-!156 = !DILocalVariable(name: "event", scope: !105, file: !8, line: 53, type: !157)
-!157 = !DICompositeType(tag: DW_TAG_structure_type, name: "__sdl_Event", scope: !8, file: !8, size: 1024, elements: !158)
-!158 = !{!159, !160, !166}
-!159 = !DIDerivedType(tag: DW_TAG_member, name: "type", scope: !8, file: !8, baseType: !69, size: 32, align: 32)
-!160 = !DIDerivedType(tag: DW_TAG_member, name: "quit", scope: !8, file: !8, baseType: !161, size: 128, align: 64)
-!161 = !DICompositeType(tag: DW_TAG_structure_type, name: "__sdl_QuitEvent", scope: !8, file: !8, size: 128, elements: !162)
-!162 = !{!159, !163, !164}
-!163 = !DIDerivedType(tag: DW_TAG_member, name: "reserved", scope: !8, file: !8, baseType: !145, size: 32, align: 32, offset: 32)
-!164 = !DIDerivedType(tag: DW_TAG_member, name: "timestamp", scope: !8, file: !8, baseType: !165, size: 64, align: 64, offset: 64)
-!165 = !DIBasicType(name: "u64", size: 64, encoding: DW_ATE_unsigned)
-!166 = !DIDerivedType(tag: DW_TAG_member, name: "padding", scope: !8, file: !8, baseType: !167, size: 1024, align: 8)
-!167 = !DICompositeType(tag: DW_TAG_array_type, baseType: !168, size: 1024, align: 8, elements: !169)
-!168 = !DIBasicType(name: "u8", size: 8, encoding: DW_ATE_unsigned)
-!169 = !{!170}
-!170 = !DISubrange(count: 128, lowerBound: 0)
-!171 = !DILocation(line: 53, scope: !105)
-!172 = !DILocation(line: 54, scope: !105)
-!173 = !DILocation(line: 55, scope: !105)
-!174 = !DILocation(line: 57, scope: !105)
-!175 = !DILocation(line: 62, scope: !105)
-!176 = !DILocation(line: 69, scope: !105)
-!177 = !DILocation(line: 73, scope: !105)
+!71 = !DIEnumerator(name: "Float", value: 0, isUnsigned: true)
+!72 = !DIEnumerator(name: "Int", value: 1, isUnsigned: true)
+!73 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__compile_CompileFlag", scope: !20, file: !20, size: 32, align: 32, elements: !74)
+!74 = !{!75, !76, !77, !78, !79, !80}
+!75 = !DIEnumerator(name: "Debug", value: 1, isUnsigned: true)
+!76 = !DIEnumerator(name: "SanAddress", value: 2, isUnsigned: true)
+!77 = !DIEnumerator(name: "SanMemory", value: 4, isUnsigned: true)
+!78 = !DIEnumerator(name: "SanThread", value: 8, isUnsigned: true)
+!79 = !DIEnumerator(name: "SanUndefined", value: 16, isUnsigned: true)
+!80 = !DIEnumerator(name: "NoStdLib", value: 32, isUnsigned: true)
+!81 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__sdl_EventType", scope: !20, file: !20, size: 32, align: 32, elements: !82)
+!82 = !{!83, !84, !85, !86, !87}
+!83 = !DIEnumerator(name: "FIRST", value: 0)
+!84 = !DIEnumerator(name: "QUIT", value: 256, isUnsigned: true)
+!85 = !DIEnumerator(name: "MOUSE_MOTION", value: 1024, isUnsigned: true)
+!86 = !DIEnumerator(name: "MOUSE_BUTTON_DOWN", value: 1025, isUnsigned: true)
+!87 = !DIEnumerator(name: "MOUSE_BUTTON_UP", value: 1026, isUnsigned: true)
+!88 = !DICompositeType(tag: DW_TAG_enumeration_type, name: "__sdl_GLattr", scope: !20, file: !20, size: 32, align: 32, elements: !89)
+!89 = !{!90, !91, !92, !93, !94, !95, !96, !97, !98, !99, !100, !101, !102, !103, !104, !105, !106, !107, !108, !109, !110, !111, !112, !113, !114, !115, !116, !117}
+!90 = !DIEnumerator(name: "RED_SIZE", value: 0, isUnsigned: true)
+!91 = !DIEnumerator(name: "GREEN_SIZE", value: 1, isUnsigned: true)
+!92 = !DIEnumerator(name: "BLUE_SIZE", value: 2, isUnsigned: true)
+!93 = !DIEnumerator(name: "ALPHA_SIZE", value: 3, isUnsigned: true)
+!94 = !DIEnumerator(name: "BUFFER_SIZE", value: 4, isUnsigned: true)
+!95 = !DIEnumerator(name: "DOUBLEBUFFER", value: 5, isUnsigned: true)
+!96 = !DIEnumerator(name: "DEPTH_SIZE", value: 6, isUnsigned: true)
+!97 = !DIEnumerator(name: "STENCIL_SIZE", value: 7, isUnsigned: true)
+!98 = !DIEnumerator(name: "ACCUM_RED_SIZE", value: 8, isUnsigned: true)
+!99 = !DIEnumerator(name: "ACCUM_GREEN_SIZE", value: 9, isUnsigned: true)
+!100 = !DIEnumerator(name: "ACCUM_BLUE_SIZE", value: 10, isUnsigned: true)
+!101 = !DIEnumerator(name: "ACCUM_ALPHA_SIZE", value: 11, isUnsigned: true)
+!102 = !DIEnumerator(name: "STEREO", value: 12, isUnsigned: true)
+!103 = !DIEnumerator(name: "MULTISAMPLEBUFFERS", value: 13, isUnsigned: true)
+!104 = !DIEnumerator(name: "MULTISAMPLESAMPLES", value: 14, isUnsigned: true)
+!105 = !DIEnumerator(name: "ACCELERATED_VISUAL", value: 15, isUnsigned: true)
+!106 = !DIEnumerator(name: "RETAINED_BACKING", value: 16, isUnsigned: true)
+!107 = !DIEnumerator(name: "CONTEXT_MAJOR_VERSION", value: 17, isUnsigned: true)
+!108 = !DIEnumerator(name: "CONTEXT_MINOR_VERSION", value: 18, isUnsigned: true)
+!109 = !DIEnumerator(name: "CONTEXT_FLAGS", value: 19, isUnsigned: true)
+!110 = !DIEnumerator(name: "CONTEXT_PROFILE_MASK", value: 20, isUnsigned: true)
+!111 = !DIEnumerator(name: "SHARE_WITH_CURRENT_CONTEXT", value: 21, isUnsigned: true)
+!112 = !DIEnumerator(name: "FRAMEBUFFER_SRGB_CAPABLE", value: 22, isUnsigned: true)
+!113 = !DIEnumerator(name: "CONTEXT_RELEASE_BEHAVIOR", value: 23, isUnsigned: true)
+!114 = !DIEnumerator(name: "CONTEXT_RESET_NOTIFICATION", value: 24, isUnsigned: true)
+!115 = !DIEnumerator(name: "CONTEXT_NO_ERROR", value: 25, isUnsigned: true)
+!116 = !DIEnumerator(name: "FLOATBUFFERS", value: 26, isUnsigned: true)
+!117 = !DIEnumerator(name: "EGL_PLATFORM", value: 27, isUnsigned: true)
+!118 = !{i32 2, !"CodeView", i32 1}
+!119 = !{i32 2, !"Debug Info Version", i32 3}
+!120 = distinct !DISubprogram(name: "main", linkageName: "__main_main", scope: !20, file: !20, line: 16, type: !121, spFlags: DISPFlagDefinition, unit: !19, retainedNodes: !124)
+!121 = !DISubroutineType(types: !122)
+!122 = !{!123}
+!123 = !DIBasicType(name: "i32", size: 32, encoding: DW_ATE_signed)
+!124 = !{}
+!125 = !DILocation(line: 17, scope: !120)
+!126 = !DILocation(line: 18, scope: !120)
+!127 = !DILocation(line: 19, scope: !120)
+!128 = !DILocation(line: 22, scope: !120)
+!129 = !DILocalVariable(name: "n", scope: !120, file: !20, line: 22, type: !130)
+!130 = !DIBasicType(name: "int", size: 64, encoding: DW_ATE_signed)
+!131 = !DILocation(line: 24, scope: !120)
+!132 = !DILocation(line: 23, scope: !120)
+!133 = !DILocation(line: 27, scope: !120)
+!134 = !DILocation(line: 28, scope: !120)
+!135 = !DILocation(line: 29, scope: !120)
+!136 = !DILocation(line: 30, scope: !120)
+!137 = !DILocation(line: 32, scope: !120)
+!138 = !DILocalVariable(name: "maybe_window", scope: !120, file: !20, line: 32, type: !139)
+!139 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "?*__sdl_Window", baseType: !140, size: 64, align: 64, dwarfAddressSpace: 0)
+!140 = !DICompositeType(tag: DW_TAG_structure_type, name: "__sdl_Window", scope: !20, file: !20, elements: !124)
+!141 = !DILocation(line: 33, scope: !120)
+!142 = !DILocation(line: 34, scope: !120)
+!143 = !DILocation(line: 35, scope: !120)
+!144 = !DILocation(line: 38, scope: !120)
+!145 = !DILocalVariable(name: "window", scope: !120, file: !20, line: 38, type: !146)
+!146 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "*__sdl_Window", baseType: !140, size: 64, align: 64, dwarfAddressSpace: 0)
+!147 = !DILocation(line: 40, scope: !120)
+!148 = !DILocalVariable(name: "maybe_ctx", scope: !120, file: !20, line: 40, type: !149)
+!149 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "?*__sdl_GLContext", baseType: !150, size: 64, align: 64, dwarfAddressSpace: 0)
+!150 = !DICompositeType(tag: DW_TAG_structure_type, name: "__sdl_GLContext", scope: !20, file: !20, elements: !124)
+!151 = !DILocation(line: 41, scope: !120)
+!152 = !DILocation(line: 42, scope: !120)
+!153 = !DILocation(line: 43, scope: !120)
+!154 = !DILocation(line: 46, scope: !120)
+!155 = !DILocalVariable(name: "gl_ctx", scope: !120, file: !20, line: 46, type: !156)
+!156 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "*__sdl_GLContext", baseType: !150, size: 64, align: 64, dwarfAddressSpace: 0)
+!157 = !DILocation(line: 48, scope: !120)
+!158 = !DILocation(line: 49, scope: !120)
+!159 = !DILocation(line: 50, scope: !120)
+!160 = !DILocation(line: 53, scope: !120)
+!161 = !DILocalVariable(name: "renderer", scope: !120, file: !20, line: 53, type: !162)
+!162 = !DICompositeType(tag: DW_TAG_structure_type, name: "__renderer_ctx", scope: !20, file: !20, size: 64, elements: !163)
+!163 = !{!164, !166}
+!164 = !DIDerivedType(tag: DW_TAG_member, name: "vao", scope: !20, file: !20, baseType: !165, size: 32, align: 32)
+!165 = !DIBasicType(name: "u32", size: 32, encoding: DW_ATE_unsigned)
+!166 = !DIDerivedType(tag: DW_TAG_member, name: "vbo", scope: !20, file: !20, baseType: !165, size: 32, align: 32, offset: 32)
+!167 = !DILocation(line: 54, scope: !120)
+!168 = !DILocalVariable(name: "running", scope: !120, file: !20, line: 54, type: !169)
+!169 = !DIBasicType(name: "bool", size: 8, encoding: DW_ATE_boolean)
+!170 = !DILocation(line: 56, scope: !120)
+!171 = !DILocalVariable(name: "graph", scope: !120, file: !20, line: 56, type: !172)
+!172 = !DICompositeType(tag: DW_TAG_structure_type, scope: !20, file: !20, size: 128, align: 64, elements: !173)
+!173 = !{!174, !175}
+!174 = !DIDerivedType(tag: DW_TAG_member, name: "count", scope: !20, file: !20, baseType: !130, size: 64, align: 64)
+!175 = !DIDerivedType(tag: DW_TAG_member, name: "data", scope: !20, file: !20, baseType: !176, size: 64, align: 64, offset: 64)
+!176 = !DIDerivedType(tag: DW_TAG_pointer_type, name: "*__math_v2", baseType: !177, size: 64, align: 64, dwarfAddressSpace: 0)
+!177 = !DICompositeType(tag: DW_TAG_structure_type, name: "__math_v2", scope: !20, file: !20, size: 64, elements: !178)
+!178 = !{!179, !181}
+!179 = !DIDerivedType(tag: DW_TAG_member, name: "x", scope: !20, file: !20, baseType: !180, size: 32, align: 32)
+!180 = !DIBasicType(name: "f32", size: 32, encoding: DW_ATE_float)
+!181 = !DIDerivedType(tag: DW_TAG_member, name: "y", scope: !20, file: !20, baseType: !180, size: 32, align: 32, offset: 32)
+!182 = !DILocation(line: 80, scope: !120)
+!183 = !DILocation(line: 82, scope: !120)
+!184 = !DILocalVariable(name: "mouse", scope: !120, file: !20, line: 82, type: !177)
+!185 = !DILocation(line: 84, scope: !120)
+!186 = !DILocalVariable(name: "program", scope: !120, file: !20, line: 84, type: !165)
+!187 = !DILocation(line: 85, scope: !120)
+!188 = !DILocation(line: 89, scope: !120)
+!189 = !DILocation(line: 90, scope: !120)
+!190 = !DILocalVariable(name: "t", scope: !120, file: !20, line: 90, type: !180)
+!191 = !DILocation(line: 91, scope: !120)
+!192 = !DILocalVariable(name: "lb_down", scope: !120, file: !20, line: 91, type: !169)
+!193 = !DILocation(line: 92, scope: !120)
+!194 = !DILocation(line: 93, scope: !120)
+!195 = !DILocation(line: 94, scope: !120)
+!196 = !DILocalVariable(name: "event", scope: !120, file: !20, line: 95, type: !197)
+!197 = !DICompositeType(tag: DW_TAG_structure_type, name: "__sdl_Event", scope: !20, file: !20, size: 1024, elements: !198)
+!198 = !{!199, !200, !206, !216, !224}
+!199 = !DIDerivedType(tag: DW_TAG_member, name: "type", scope: !20, file: !20, baseType: !81, size: 32, align: 32)
+!200 = !DIDerivedType(tag: DW_TAG_member, name: "quit", scope: !20, file: !20, baseType: !201, size: 128, align: 64)
+!201 = !DICompositeType(tag: DW_TAG_structure_type, name: "__sdl_QuitEvent", scope: !20, file: !20, size: 128, elements: !202)
+!202 = !{!199, !203, !204}
+!203 = !DIDerivedType(tag: DW_TAG_member, name: "reserved", scope: !20, file: !20, baseType: !165, size: 32, align: 32, offset: 32)
+!204 = !DIDerivedType(tag: DW_TAG_member, name: "timestamp", scope: !20, file: !20, baseType: !205, size: 64, align: 64, offset: 64)
+!205 = !DIBasicType(name: "u64", size: 64, encoding: DW_ATE_unsigned)
+!206 = !DIDerivedType(tag: DW_TAG_member, name: "motion", scope: !20, file: !20, baseType: !207, size: 384, align: 64)
+!207 = !DICompositeType(tag: DW_TAG_structure_type, name: "__sdl_MouseMotionEvent", scope: !20, file: !20, size: 384, elements: !208)
+!208 = !{!199, !203, !204, !209, !210, !211, !212, !213, !214, !215}
+!209 = !DIDerivedType(tag: DW_TAG_member, name: "windowID", scope: !20, file: !20, baseType: !165, size: 32, align: 32, offset: 128)
+!210 = !DIDerivedType(tag: DW_TAG_member, name: "which", scope: !20, file: !20, baseType: !165, size: 32, align: 32, offset: 160)
+!211 = !DIDerivedType(tag: DW_TAG_member, name: "state", scope: !20, file: !20, baseType: !165, size: 32, align: 32, offset: 192)
+!212 = !DIDerivedType(tag: DW_TAG_member, name: "x", scope: !20, file: !20, baseType: !180, size: 32, align: 32, offset: 224)
+!213 = !DIDerivedType(tag: DW_TAG_member, name: "y", scope: !20, file: !20, baseType: !180, size: 32, align: 32, offset: 256)
+!214 = !DIDerivedType(tag: DW_TAG_member, name: "xrel", scope: !20, file: !20, baseType: !180, size: 32, align: 32, offset: 288)
+!215 = !DIDerivedType(tag: DW_TAG_member, name: "yrel", scope: !20, file: !20, baseType: !180, size: 32, align: 32, offset: 320)
+!216 = !DIDerivedType(tag: DW_TAG_member, name: "button", scope: !20, file: !20, baseType: !217, size: 320, align: 64)
+!217 = !DICompositeType(tag: DW_TAG_structure_type, name: "__sdl_MouseButtonEvent", scope: !20, file: !20, size: 320, elements: !218)
+!218 = !{!199, !203, !204, !209, !210, !219, !221, !222, !223, !212, !213}
+!219 = !DIDerivedType(tag: DW_TAG_member, name: "button", scope: !20, file: !20, baseType: !220, size: 8, align: 8, offset: 192)
+!220 = !DIBasicType(name: "u8", size: 8, encoding: DW_ATE_unsigned)
+!221 = !DIDerivedType(tag: DW_TAG_member, name: "down", scope: !20, file: !20, baseType: !220, size: 8, align: 8, offset: 200)
+!222 = !DIDerivedType(tag: DW_TAG_member, name: "clicks", scope: !20, file: !20, baseType: !220, size: 8, align: 8, offset: 208)
+!223 = !DIDerivedType(tag: DW_TAG_member, name: "padding", scope: !20, file: !20, baseType: !220, size: 8, align: 8, offset: 216)
+!224 = !DIDerivedType(tag: DW_TAG_member, name: "padding", scope: !20, file: !20, baseType: !225, size: 1024, align: 8)
+!225 = !DICompositeType(tag: DW_TAG_array_type, baseType: !220, size: 1024, align: 8, elements: !226)
+!226 = !{!227}
+!227 = !DISubrange(count: 128, lowerBound: 0)
+!228 = !DILocation(line: 95, scope: !120)
+!229 = !DILocation(line: 96, scope: !120)
+!230 = !DILocation(line: 97, scope: !120)
+!231 = !DILocation(line: 99, scope: !120)
+!232 = !DILocation(line: 102, scope: !120)
+!233 = !DILocation(line: 103, scope: !120)
+!234 = !DILocation(line: 106, scope: !120)
+!235 = !DILocation(line: 107, scope: !120)
+!236 = !DILocation(line: 111, scope: !120)
+!237 = !DILocation(line: 112, scope: !120)
+!238 = !DILocation(line: 119, scope: !120)
+!239 = !DILocation(line: 120, scope: !120)
+!240 = !DILocation(line: 121, scope: !120)
+!241 = !DILocation(line: 122, scope: !120)
+!242 = !DILocation(line: 123, scope: !120)
+!243 = !DILocation(line: 125, scope: !120)
+!244 = !DILocalVariable(name: "DARK_F", scope: !120, file: !20, line: 125, type: !180)
+!245 = !DILocation(line: 127, scope: !120)
+!246 = !DILocation(line: 128, scope: !120)
+!247 = !DILocation(line: 130, scope: !120)
+!248 = !DILocation(line: 132, scope: !120)
+!249 = !DILocation(line: 134, scope: !120)
+!250 = !DILocation(line: 138, scope: !120)

@@ -1,7 +1,5 @@
 math
 
-
-
 struct v2 {
     x: f32,
     y: f32,
@@ -25,5 +23,9 @@ v2_scale :: fn(v: v2, t: f32) -> v2 {
 
 v2_add :: fn(vec0: v2, vec1: v2) -> v2 {
     return v2 { vec0.x + vec1.x, vec0.y + vec1.y };
+}
+
+map :: fn (t: f32, from1: f32, to1: f32, from2: f32, to2: f32) -> f32 {
+ return from2 + ((to2 - from2) / (to1 - from1)) * (t - from1);
 }
 

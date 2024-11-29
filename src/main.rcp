@@ -3,6 +3,8 @@ main
 #import sdl
 #import gl
 #import io
+#import os
+#import mem
 #import renderer as r
 #import graph as gr
 #import math as m
@@ -10,7 +12,14 @@ main
 WIDTH   :: @i32 1280;
 HEIGHT  :: @i32 720;
 
+vert_shader := #embed_bin "../src/shaders/main.vert";
+frag_shader := #embed_bin "../src/shaders/main.frag";
+
 main :: fn() -> i32 {
+
+    alloc := mem.create_scratch(1024 * 1024 * 1024);
+    defer mem.destroy_scratch(&alloc);
+
     if !sdl.Init(sdl.INIT_VIDEO) {
         io.println("sdl.Init() failed: %s", sdl.GetError());
         return 1;
@@ -71,20 +80,59 @@ main :: fn() -> i32 {
 
     sdl.GL_SetSwapInterval(1);
 
+    mouse := m.v2 { 0, 0 };
+
+    program := r.compile_shaders(&vert_shader, &frag_shader);
+    r.use_shader(program);
+
+    maybe_fb := r.create_framebuffer(@u32 WIDTH, @u32 HEIGHT, &alloc);
+    os.assert(maybe_fb != null, "Failed to create main framebuffer");
+    framebuffer := ?maybe_fb;
+    r.bind_framebuffer(framebuffer);
+
+
     gl.Viewport(0, 0, WIDTH, HEIGHT);
+    t := @f32 0.0;
+    lb_down := false;
     for running {
         gl.Clear(gl.COLOR_BUFFER_BIT);
-        gl.ClearColor(0.8, 0.3, 0.3, 1.0);
-
+        gl.ClearColor(0.051,0.145,0.227,1.0);
         event: sdl.Event;
         for sdl.PollEvent(&event) {
             match event.type {
                 sdl.EventType.QUIT: {
                     running = false;
-                }
+                },
+                sdl.EventType.MOUSE_MOTION: {
+                    mouse.x = event.motion.x;
+                    mouse.y = event.motion.y;
+                },
+                sdl.EventType.MOUSE_BUTTON_DOWN: {
+                    if event.button.button == sdl.BUTTON_MASK(sdl.BUTTON_LEFT) {
+                        lb_down = true;
+                    }
+                },
+                sdl.EventType.MOUSE_BUTTON_UP: {
+                    if event.button.button == sdl.BUTTON_MASK(sdl.BUTTON_LEFT) {
+                        lb_down = false;
+                    }
+                },
             };
         }
 
+        
+        t += 0.05;
+        r.set_uniform(program, "t", t);
+        r.set_uniform(program, "u_resolution", m.v2 { WIDTH, HEIGHT });
+        r.set_uniform(program, "u_mouse", mouse);
+        r.set_uniform(program, "u_color", m.v3 { 0.2, 0.5, 1.0 });
+
+        DARK_F := @f32 0.5;
+
+        if lb_down
+            r.set_uniform(program, "u_darken", 1);
+        else
+            r.set_uniform(program, "u_darken", 0);
         
         gr.draw(&renderer, graph, 10, 6);
 

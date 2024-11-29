@@ -43,6 +43,7 @@ GL_SwapWindow :: fn #link="SDL_GL_SwapWindow"(window: *Window) -> bool;
 GL_SetAttribute :: fn #link="SDL_GL_SetAttribute"(attr: GLattr, value: i32) -> bool;
 PollEvent :: fn #link="SDL_PollEvent"(event: *Event) -> bool;
 GetError :: fn #link="SDL_GetError"() -> *u8;
+GetTicks :: fn #link="SDL_GetTicks"() -> u64;
 GL_SetSwapInterval :: fn #link="SDL_GL_SetSwapInterval"(interval: i32) -> bool;
 
 
@@ -55,9 +56,49 @@ struct QuitEvent {
     timestamp: u64, //*< In nanoseconds, populated using SDL_GetTicksNS() */
 }
 
+struct MouseMotionEvent
+{
+    type: EventType, //**< SDL_EVENT_MOUSE_MOTION */
+    reserved: u32,
+    timestamp: u64,   //**< In nanoseconds, populated using SDL_GetTicksNS() */
+    windowID: u32,  //**< The window with mouse focus, if any */
+    which: u32,     //**< The mouse instance id or SDL_TOUCH_MOUSEID */
+    state: u32,     //**< The current button state */
+    x: f32,         //**< X coordinate, relative to window */
+    y: f32,         //**< Y coordinate, relative to window */
+    xrel: f32,      //**< The relative motion in the X direction */
+    yrel: f32,      //**< The relative motion in the Y direction */
+}
+
+struct MouseButtonEvent
+{
+    type: EventType, //**< SDL_EVENT_MOUSE_MOTION */
+    reserved: u32,
+    timestamp: u64,   //**< In nanoseconds, populated using SDL_GetTicksNS() */
+    windowID: u32,  //**< The window with mouse focus, if any */
+    which: u32,     //**< The mouse instance id or SDL_TOUCH_MOUSEID */
+    button: u8,     //**< The mouse button index */
+    down: u8,       //**< true if the button is pressed */
+    clicks: u8,       //**< 1 for single-click, 2 for double-click, etc. */
+    padding: u8,
+    x: f32,         //**< X coordinate, relative to window */
+    y: f32,         //**< Y coordinate, relative to window */
+}
+
+
+BUTTON_LEFT     :: @u32 1;
+BUTTON_MIDDLE   :: @u32 2;
+BUTTON_RIGHT    :: @u32 3;
+BUTTON_X1       :: @u32 4;
+BUTTON_X2       :: @u32 5;
+
+BUTTON_MASK :: fn(X: u32) -> u32 { return 1 << (X-1); }
+
 union Event {
     type: EventType,
     quit: QuitEvent,
+    motion: MouseMotionEvent,            //**< Mouse motion event data */
+    button: MouseButtonEvent,            //**< Mouse button event data */
     padding: [128]u8,
 }
 
@@ -65,6 +106,9 @@ enum EventType: u32
 {
     FIRST     = 0,
     QUIT      = 0x100, //**< User-requested quit */
+    MOUSE_MOTION        = 0x400, //**< Mouse moved */
+    MOUSE_BUTTON_DOWN   = 0x401, //**< Mouse button pressed */
+    MOUSE_BUTTON_UP     = 0x402, //**< Mouse button released */
 }
 
 enum GLattr: u32 {
